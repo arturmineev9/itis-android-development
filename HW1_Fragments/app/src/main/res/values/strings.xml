@@ -2,4 +2,7 @@
     <string name="app_name">HW1_Fragments</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="second_screen">Второй экран</string>
+    <string name="third_screen">Третий экран</string>
+    <string name="enter_text">Введите текст...</string>
 </resources>
