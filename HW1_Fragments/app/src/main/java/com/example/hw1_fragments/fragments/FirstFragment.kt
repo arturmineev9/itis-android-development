@@ -19,10 +19,9 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
         savedInstanceState: Bundle?
     ): View? {
         viewBinding = FragmentFirstBinding.inflate(inflater, container, false)
-
+        val bottomSheetText = arguments?.getString("arg_bottom_sheet_text") ?: ""
         viewBinding?.run {
-            
-
+            firstScreenEditText.setText(bottomSheetText)
             enterToSecondScreenButton.setOnClickListener {
                 val userText = firstScreenEditText.text.toString()
                 val secondFragment = SecondFragment.newInstance(userText)
@@ -47,6 +46,14 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
                     .addToBackStack(null)
                     .commit()
             }
+
+            openBottomSheetButton?.setOnClickListener {
+                val dialog = BottomSheetFragment().apply {
+                    isCancelable = true
+                }
+
+                dialog.show(childFragmentManager, BottomSheetFragment.TAG)
+            }
         }
         return viewBinding?.root
     }
@@ -56,5 +63,14 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
         super.onDestroyView()
     }
 
+    companion object {
+        private const val ARG_ENTERED_TEXT = "arg_bottom_sheet_text"
+
+        fun newInstance(enteredText: String) = FirstFragment().apply {
+            arguments = Bundle().apply {
+                putString(ARG_ENTERED_TEXT, enteredText)
+            }
+        }
+    }
 
 }
