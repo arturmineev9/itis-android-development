@@ -21,7 +21,7 @@
 
     <Button
         android:id="@+id/enter_to_second_screen_button"
-        android:layout_width="180dp"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginTop="32dp"
         android:text="@string/second_screen"
@@ -31,7 +31,7 @@
 
     <Button
         android:id="@+id/enter_to_third_screen_button"
-        android:layout_width="180dp"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:text="@string/third_screen"
@@ -41,7 +41,7 @@
 
     <Button
         android:id="@+id/open_bottom_sheet_button"
-        android:layout_width="180dp"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:text="@string/bottom_sheet"
