@@ -8,12 +8,12 @@
 
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/second_screen_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/second_screen"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintBottom_toTopOf="@+id/enter_to_third_screen_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +21,7 @@
         app:layout_constraintVertical_bias="0.753" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/enter_to_third_screen_button"
         android:layout_width="180dp"
         android:layout_height="50dp"
         android:layout_marginBottom="320dp"

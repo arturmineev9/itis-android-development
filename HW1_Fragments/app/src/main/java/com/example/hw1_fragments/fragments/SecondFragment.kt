@@ -13,23 +13,41 @@ import com.example.hw1_fragments.databinding.FragmentSecondBinding
 class SecondFragment : Fragment(R.layout.fragment_second) {
 
     private var viewBinding: FragmentSecondBinding? = null
+    private val mainContainerId = R.id.main_fragment_container
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         viewBinding = FragmentSecondBinding.inflate(inflater, container, false)
-        val enteredText = arguments?.getString("arg_entered_text") ?: "Текст не передан"
-        viewBinding?.run {
-            textView.text = enteredText.toString()
+        val enteredText = arguments?.getString("arg_entered_text") ?: "null"
+
+        if (enteredText.isEmpty()) {
+            viewBinding?.secondScreenTextView?.text = "Второй экран"
         }
+        else {
+            viewBinding?.secondScreenTextView?.text = enteredText
+        }
+
+
+
+        viewBinding?.run {
+            enterToThirdScreenButton.setOnClickListener {
+                val thirdFragment = ThirdFragment.newInstance(enteredText)
+                parentFragmentManager.beginTransaction()
+                    .replace(mainContainerId, thirdFragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
+        }
+
+
         return viewBinding?.root
     }
 
     companion object {
         private const val ARG_ENTERED_TEXT = "arg_entered_text"
 
-        // Метод для создания нового экземпляра SecondFragment с текстом
         fun newInstance(enteredText: String) = SecondFragment().apply {
             arguments = Bundle().apply {
                 putString(ARG_ENTERED_TEXT, enteredText)

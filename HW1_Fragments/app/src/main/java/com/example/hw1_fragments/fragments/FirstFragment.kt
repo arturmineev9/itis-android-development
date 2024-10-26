@@ -12,20 +12,36 @@ import com.example.hw1_fragments.databinding.FragmentFirstBinding
 class FirstFragment : Fragment(R.layout.fragment_first) {
 
     private var viewBinding: FragmentFirstBinding? = null;
-
+    private val mainContainerId = R.id.main_fragment_container
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         viewBinding = FragmentFirstBinding.inflate(inflater, container, false)
+
         viewBinding?.run {
             enterToSecondScreenButton.setOnClickListener {
-
                 val userText = firstScreenEditText.text.toString()
                 val secondFragment = SecondFragment.newInstance(userText)
                 parentFragmentManager.beginTransaction()
-                    .replace(R.id.main_fragment_container, secondFragment)
+                    .replace(mainContainerId, secondFragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
+
+            enterToThirdScreenButton.setOnClickListener {
+                val userText = firstScreenEditText.text.toString()
+
+                val secondFragment = SecondFragment.newInstance(userText)
+                parentFragmentManager.beginTransaction()
+                    .replace(mainContainerId, secondFragment)
+                    .addToBackStack(null)
+                    .commit()
+
+                val thirdFragment = ThirdFragment.newInstance(userText)
+                parentFragmentManager.beginTransaction()
+                    .replace(mainContainerId, thirdFragment)
                     .addToBackStack(null)
                     .commit()
             }
