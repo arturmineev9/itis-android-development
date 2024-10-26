@@ -8,7 +8,7 @@
 
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/first_screen_editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="276dp"
@@ -21,17 +21,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/enter_to_second_screen_button"
         android:layout_width="180dp"
         android:layout_height="50dp"
         android:layout_marginTop="60dp"
         android:text="@string/second_screen"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+        app:layout_constraintTop_toBottomOf="@+id/first_screen_editText" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/enter_to_third_screen_button"
         android:layout_width="180dp"
         android:layout_height="50dp"
         android:layout_marginBottom="220dp"
@@ -39,5 +40,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/enter_to_second_screen_button" />
 </androidx.constraintlayout.widget.ConstraintLayout>
