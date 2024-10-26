@@ -21,6 +21,8 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
         viewBinding = FragmentFirstBinding.inflate(inflater, container, false)
 
         viewBinding?.run {
+            
+
             enterToSecondScreenButton.setOnClickListener {
                 val userText = firstScreenEditText.text.toString()
                 val secondFragment = SecondFragment.newInstance(userText)
@@ -50,7 +52,9 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
     }
 
     override fun onDestroyView() {
-        viewBinding = null;
+        viewBinding = null
         super.onDestroyView()
     }
+
+
 }

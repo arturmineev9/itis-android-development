@@ -20,9 +20,11 @@ class MainActivity : AppCompatActivity() {
             setContentView(it.root)
         }
 
-        supportFragmentManager.beginTransaction()
-            .add(mainContainerId, FirstFragment())
-            .commit()
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .add(mainContainerId, FirstFragment())
+                .commit()
+       }
 
 
     }
