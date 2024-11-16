@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">HW2_RecyclerView</string>
+    <string name="list_button">Список</string>
+    <string name="grid_button">Сетка</string>
 </resources>
