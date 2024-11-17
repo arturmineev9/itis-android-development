@@ -2,4 +2,7 @@
     <string name="app_name">HW2_RecyclerView</string>
     <string name="list_button">Список</string>
     <string name="grid_button">Сетка</string>
+    <string name="hello_world">Hello world!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
