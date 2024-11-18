@@ -31,7 +31,15 @@ class FirstScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+
         viewBinding = FragmentFirstScreenBinding.inflate(inflater, container, false)
+        viewBinding?.run {
+            fab.setOnClickListener {
+                val bottomSheet = BottomSheetFragment()
+                bottomSheet.show(parentFragmentManager, "MyBottomSheetDialog")
+            }
+        }
+
         return viewBinding?.root
     }
 
