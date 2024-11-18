@@ -8,7 +8,15 @@ import com.example.hw2_recyclerview.model.ViewHolderData
 class ListTypeViewHolder(
     private val viewBinding: ItemHolderListTypeBinding,
     private val requestManager: RequestManager,
+    private val onItemClick: (Int) -> Unit
 ) : RecyclerView.ViewHolder(viewBinding.root) {
+
+
+    init {
+        viewBinding.root.setOnClickListener {
+            onItemClick.invoke(adapterPosition)
+        }
+    }
 
     fun bindItem(itemData : ViewHolderData) {
         with(viewBinding) {
@@ -17,4 +25,6 @@ class ListTypeViewHolder(
                 .into(listIv)
         }
     }
+
+
 }

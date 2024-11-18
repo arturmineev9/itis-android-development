@@ -13,6 +13,7 @@ import com.example.hw2_recyclerview.R
 import com.example.hw2_recyclerview.adapter.AdapterWithMultipleHolders
 import com.example.hw2_recyclerview.adapter.AdapterWithMultipleHolders.Companion.VIEW_TYPE_BUTTON
 import com.example.hw2_recyclerview.databinding.FragmentFirstScreenBinding
+import com.example.hw2_recyclerview.model.MultipleHoldersData
 import com.example.hw2_recyclerview.repository.RecyclerViewRepository
 
 
@@ -20,26 +21,19 @@ class FirstScreenFragment : Fragment() {
 
     private var viewBinding: FragmentFirstScreenBinding? = null
     private var rvAdapter: AdapterWithMultipleHolders? = null
+    private val mainContainerId = R.id.main_fragment_container
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
+        showBottomSheet()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
         viewBinding = FragmentFirstScreenBinding.inflate(inflater, container, false)
-        viewBinding?.run {
-            fab.setOnClickListener {
-                val bottomSheet = BottomSheetFragment()
-                bottomSheet.show(parentFragmentManager, "MyBottomSheetDialog")
-            }
-        }
-
         return viewBinding?.root
     }
 
@@ -49,20 +43,22 @@ class FirstScreenFragment : Fragment() {
             requestManager = Glide.with(requireContext()),
             onGridButtonCLick = ::onGridButtonClick,
             onListButtonCLick = ::onListButtonClick,
-            items = RecyclerViewRepository.getListForMultipleTypes()
+            onItemClick = ::onItemClick,
+            items = RecyclerViewRepository.getListForMultipleTypes().take(25)
         )
 
-        // Проверка на null для viewBinding и rvAdapter
         viewBinding?.let { binding ->
             binding.mainRecycler.adapter = rvAdapter
-            binding.mainRecycler.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+            binding.mainRecycler.layoutManager =
+                LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         }
     }
 
 
     private fun onListButtonClick() {
         rvAdapter?.setListMode()
-        viewBinding?.mainRecycler?.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+        viewBinding?.mainRecycler?.layoutManager =
+            LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         rvAdapter?.notifyDataSetChanged()
     }
 
@@ -81,6 +77,24 @@ class FirstScreenFragment : Fragment() {
 
         viewBinding?.mainRecycler?.layoutManager = gridLayoutManager
         rvAdapter?.notifyDataSetChanged()
+    }
+
+    private fun onItemClick(position: Int) {
+        val itemId = rvAdapter?.dataList?.get(position)?.id
+        val secondScreenFragment = SecondScreenFragment.newInstance(itemId.toString())
+        parentFragmentManager.beginTransaction()
+            .replace(mainContainerId, secondScreenFragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun showBottomSheet() {
+        viewBinding?.run {
+            fab.setOnClickListener {
+                val bottomSheet = BottomSheetFragment(rvAdapter)
+                bottomSheet.show(parentFragmentManager, "MyBottomSheetDialog")
+            }
+        }
     }
 
 

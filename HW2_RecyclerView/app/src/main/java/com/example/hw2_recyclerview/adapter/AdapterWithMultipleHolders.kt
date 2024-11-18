@@ -18,11 +18,12 @@ class AdapterWithMultipleHolders(
     private val requestManager: RequestManager,
     private val onListButtonCLick: () -> Unit,
     private val onGridButtonCLick: () -> Unit,
+    private val onItemClick: (Int) -> Unit,
     items: List<MultipleHoldersData>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
-    private val dataList = mutableListOf<MultipleHoldersData>()
+    val dataList = mutableListOf<MultipleHoldersData>()
 
     init {
         dataList.addAll(items)
@@ -39,12 +40,10 @@ class AdapterWithMultipleHolders(
 
     fun setGridMode() {
         isGridMode = true
-        notifyDataSetChanged()
     }
 
     fun setListMode() {
         isGridMode = false
-        notifyDataSetChanged()
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -67,6 +66,7 @@ class AdapterWithMultipleHolders(
                         false
                     ),
                     requestManager = requestManager,
+                    onItemClick = onItemClick
                 )
             }
 
@@ -78,6 +78,7 @@ class AdapterWithMultipleHolders(
                         false
                     ),
                     requestManager = requestManager,
+                    onItemClick = onItemClick
                 )
             }
 

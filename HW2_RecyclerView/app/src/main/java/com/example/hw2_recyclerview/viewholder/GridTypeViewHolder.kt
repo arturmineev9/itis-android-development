@@ -8,7 +8,14 @@ import com.example.hw2_recyclerview.model.ViewHolderData
 class GridTypeViewHolder(
     private val viewBinding: ItemHolderGridTypeBinding,
     private val requestManager: RequestManager,
+    private val onItemClick: (Int) -> Unit
     ) : RecyclerView.ViewHolder(viewBinding.root) {
+
+    init {
+        viewBinding.root.setOnClickListener {
+            onItemClick.invoke(adapterPosition)
+        }
+    }
 
         fun bindItem(itemData : ViewHolderData) {
             with(viewBinding) {

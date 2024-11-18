@@ -5,11 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.hw2_recyclerview.R
+import com.example.hw2_recyclerview.adapter.AdapterWithMultipleHolders
 import com.example.hw2_recyclerview.databinding.DialogBottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class BottomSheetFragment : BottomSheetDialogFragment() {
+class BottomSheetFragment(
+    private var adapter: AdapterWithMultipleHolders?
+) : BottomSheetDialogFragment() {
 
     private var viewBinding : DialogBottomSheetBinding? = null
 
@@ -21,5 +25,13 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         return viewBinding?.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewBinding?.run {
+            addRandom.setOnClickListener {
+                Toast.makeText(requireContext(), adapter?.dataList?.size.toString(), Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
 }
