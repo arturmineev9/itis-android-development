@@ -30,7 +30,7 @@ class AdapterWithMultipleHolders(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
-    val dataList = mutableListOf<MultipleHoldersData>()
+    var dataList = mutableListOf<MultipleHoldersData>()
 
     init {
         dataList.addAll(items)
@@ -130,8 +130,7 @@ class AdapterWithMultipleHolders(
         }
     }
 
-    fun addRandomElement() {
-        //val RVdataList = RecyclerViewData.recyclerViewList
+    fun addRandomElement(context: Context) {
         val availableItems = RecyclerViewRepository.items.filter { it !in dataList }
         if (availableItems.isNotEmpty()) {
             val randomItem = availableItems.random()
@@ -141,16 +140,19 @@ class AdapterWithMultipleHolders(
 
             notifyItemInserted(randomIndex)
         } else {
-            //Toast.makeText(requireContext(), "Все элементы уже добавлены", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Все элементы уже добавлены", Toast.LENGTH_SHORT).show()
         }
     }
 
-    fun deleteRandomElement() {
+    fun deleteRandomElement(context: Context) {
         if (dataList.size > 1) {
             val randomIndex = (1..dataList.size - 1).random()
             dataList.removeAt(randomIndex)
             RecyclerViewData.recyclerViewList = dataList
             notifyItemRemoved(randomIndex)
+        } else {
+            Toast.makeText(context, "Больше нечего удалять...", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
@@ -161,11 +163,10 @@ class AdapterWithMultipleHolders(
 
             val newItems = availableItems.shuffled().take(amount)
             for (i in 0..<amount) {
-                if (dataList.size > 1){
+                if (dataList.size > 1) {
                     val randomIndex = (1..<dataList.size).random()
                     newList.add(randomIndex, newItems[i])
-                }
-                else newList.add(1, newItems[i])
+                } else newList.add(1, newItems[i])
 
             }
             RecyclerViewData.recyclerViewList = newList
@@ -179,7 +180,25 @@ class AdapterWithMultipleHolders(
         }
     }
 
-    fun updateData(newList: List<MultipleHoldersData>) {
+    fun deleteElements(context: Context, amount: Int) {
+        var newList = dataList.toMutableList()
+        var amountToDelete = minOf(amount, newList.size)
+
+        for (i in 0..<amountToDelete) {
+            if (newList.size > 1) {
+                val randomIndex = (1..<newList.size).random()
+                newList.removeAt(randomIndex)
+            } else {
+                Toast.makeText(context, "Больше нечего удалять...", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+        RecyclerViewData.recyclerViewList = newList
+        updateData(newList)
+        dataList = newList
+    }
+
+    private fun updateData(newList: List<MultipleHoldersData>) {
         val diffCallback = RecyclerViewDiffUtil(
             oldList = dataList,
             newList = newList

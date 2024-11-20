@@ -32,35 +32,38 @@ class BottomSheetFragment(
         super.onViewCreated(view, savedInstanceState)
         viewBinding?.run {
             addRandom.setOnClickListener {
-                adapter?.addRandomElement()
-                // Отображение размера списка
-                Toast.makeText(
-                    requireContext(),
-                    adapter?.dataList?.size.toString(),
-                    Toast.LENGTH_SHORT
-                ).show()
+                adapter?.addRandomElement(requireContext())
             }
 
             deleteRandom.setOnClickListener {
-                adapter?.deleteRandomElement()
-                Toast.makeText(
-                    requireContext(),
-                    adapter?.dataList?.size.toString(),
-                    Toast.LENGTH_SHORT
-                ).show()
+                adapter?.deleteRandomElement(requireContext())
             }
 
             addElements.setOnClickListener {
                 val enteredNumber = editText.text.toString().toIntOrNull()
                 if (enteredNumber != null && enteredNumber > 0) {
                     adapter?.addElements(requireContext(), enteredNumber)
-                }
-                else {
-                    Toast.makeText(requireContext(), "Ошибка! Некорректное значение в строке ввода.", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Ошибка! Некорректное значение в строке ввода.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
             }
-            deleteElements.setOnClickListener {  }
+            deleteElements.setOnClickListener {
+                val enteredNumber = editText.text.toString().toIntOrNull()
+                if (enteredNumber != null && enteredNumber > 0) {
+                    adapter?.deleteElements(requireContext(), enteredNumber)
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Ошибка! Некорректное значение в строке ввода.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
     }
 
