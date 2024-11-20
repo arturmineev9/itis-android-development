@@ -61,11 +61,11 @@
         android:backgroundTint="@color/purple_500"
         app:layout_constraintTop_toBottomOf="@id/button1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/button4" />
+        app:layout_constraintEnd_toStartOf="@id/delete_random" />
 
     <!-- Кнопка 4 -->
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/delete_random"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"

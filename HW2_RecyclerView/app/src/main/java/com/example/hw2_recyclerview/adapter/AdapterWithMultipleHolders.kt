@@ -130,13 +130,22 @@ class AdapterWithMultipleHolders(
         val availableItems = RecyclerViewRepository.items.filter { it !in dataList }
         if (availableItems.isNotEmpty()) {
             val randomItem = availableItems.random()
-            val randomIndex = (0..dataList.size).random()
+            val randomIndex = (1..dataList.size).random()
             dataList.add(randomIndex, randomItem)
             RecyclerViewData.recyclerViewList = dataList
 
             notifyItemInserted(randomIndex)
         } else {
             //Toast.makeText(requireContext(), "Все элементы уже добавлены", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun deleteRandomElement() {
+        if (dataList.size > 1) {
+            val randomIndex = (1..dataList.size - 1).random()
+            dataList.removeAt(randomIndex)
+            RecyclerViewData.recyclerViewList = dataList
+            notifyItemRemoved(randomIndex)
         }
     }
 

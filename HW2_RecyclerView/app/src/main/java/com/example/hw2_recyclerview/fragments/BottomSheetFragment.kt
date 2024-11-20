@@ -18,7 +18,7 @@ class BottomSheetFragment(
     private var adapter: AdapterWithMultipleHolders?
 ) : BottomSheetDialogFragment() {
 
-    private var viewBinding : DialogBottomSheetBinding? = null
+    private var viewBinding: DialogBottomSheetBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,10 +34,22 @@ class BottomSheetFragment(
             addRandom.setOnClickListener {
                 adapter?.addRandomElement()
                 // Отображение размера списка
-                Toast.makeText(requireContext(), adapter?.dataList?.size.toString(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    adapter?.dataList?.size.toString(),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            deleteRandom.setOnClickListener {
+                adapter?.deleteRandomElement()
+                Toast.makeText(
+                    requireContext(),
+                    adapter?.dataList?.size.toString(),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
-
     }
 
 }
