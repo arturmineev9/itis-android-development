@@ -9,6 +9,9 @@ import android.widget.Toast
 import com.example.hw2_recyclerview.R
 import com.example.hw2_recyclerview.adapter.AdapterWithMultipleHolders
 import com.example.hw2_recyclerview.databinding.DialogBottomSheetBinding
+import com.example.hw2_recyclerview.repository.RecyclerViewData
+import com.example.hw2_recyclerview.repository.RecyclerViewRepository
+import com.example.hw2_recyclerview.repository.RecyclerViewRepository.items
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class BottomSheetFragment(
@@ -29,9 +32,12 @@ class BottomSheetFragment(
         super.onViewCreated(view, savedInstanceState)
         viewBinding?.run {
             addRandom.setOnClickListener {
+                adapter?.addRandomElement()
+                // Отображение размера списка
                 Toast.makeText(requireContext(), adapter?.dataList?.size.toString(), Toast.LENGTH_SHORT).show()
             }
         }
+
     }
 
 }

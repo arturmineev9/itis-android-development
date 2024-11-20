@@ -1,10 +1,12 @@
 package com.example.hw2_recyclerview.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +16,7 @@ import com.example.hw2_recyclerview.adapter.AdapterWithMultipleHolders
 import com.example.hw2_recyclerview.adapter.AdapterWithMultipleHolders.Companion.VIEW_TYPE_BUTTON
 import com.example.hw2_recyclerview.databinding.FragmentFirstScreenBinding
 import com.example.hw2_recyclerview.model.MultipleHoldersData
+import com.example.hw2_recyclerview.repository.RecyclerViewData
 import com.example.hw2_recyclerview.repository.RecyclerViewRepository
 
 
@@ -38,32 +41,32 @@ class FirstScreenFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-
         rvAdapter = AdapterWithMultipleHolders(
             requestManager = Glide.with(requireContext()),
             onGridButtonCLick = ::onGridButtonClick,
             onListButtonCLick = ::onListButtonClick,
             onItemClick = ::onItemClick,
-            items = RecyclerViewRepository.getListForMultipleTypes().take(25)
+            items = RecyclerViewData.recyclerViewList
         )
 
         viewBinding?.let { binding ->
             binding.mainRecycler.adapter = rvAdapter
-            binding.mainRecycler.layoutManager =
+            binding.mainRecycler.layoutManager = if (RecyclerViewData.isGridMode) {
+                getGridLayout()
+            } else {
                 LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+            }
         }
-    }
 
+    }
 
     private fun onListButtonClick() {
-        rvAdapter?.setListMode()
         viewBinding?.mainRecycler?.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-        rvAdapter?.notifyDataSetChanged()
+        rvAdapter?.setListMode()
     }
 
-    private fun onGridButtonClick() {
-        rvAdapter?.setGridMode()
+    private fun getGridLayout() : GridLayoutManager {
         val gridLayoutManager = GridLayoutManager(context, 3)
 
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
@@ -74,18 +77,31 @@ class FirstScreenFragment : Fragment() {
                 }
             }
         }
+    return gridLayoutManager
 
+    }
+    private fun onGridButtonClick() {
+        val gridLayoutManager = getGridLayout()
         viewBinding?.mainRecycler?.layoutManager = gridLayoutManager
-        rvAdapter?.notifyDataSetChanged()
+        rvAdapter?.setGridMode()
+        Log.d("Adapter", rvAdapter?.isGridMode.toString())
+        Log.d("RVData", RecyclerViewData.isGridMode.toString())
     }
 
     private fun onItemClick(position: Int) {
         val itemId = rvAdapter?.dataList?.get(position)?.id
-        val secondScreenFragment = SecondScreenFragment.newInstance(itemId.toString())
-        parentFragmentManager.beginTransaction()
-            .replace(mainContainerId, secondScreenFragment)
-            .addToBackStack(null)
-            .commit()
+        val existingFragment =
+            parentFragmentManager.findFragmentByTag(SecondScreenFragment.TAG)
+
+        if (existingFragment is SecondScreenFragment) {
+            existingFragment.updateData(itemId.toString())
+        } else {
+            val secondScreenFragment = SecondScreenFragment.newInstance(itemId.toString())
+            parentFragmentManager.beginTransaction()
+                .replace(mainContainerId, secondScreenFragment, SecondScreenFragment.TAG)
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     private fun showBottomSheet() {

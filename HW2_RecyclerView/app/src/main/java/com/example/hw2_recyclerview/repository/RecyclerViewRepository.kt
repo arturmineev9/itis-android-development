@@ -6,8 +6,8 @@ import com.example.hw2_recyclerview.model.ViewHolderData
 
 object RecyclerViewRepository {
 
-    val items = getListForMultipleTypes()
-    fun getListForMultipleTypes(): List<MultipleHoldersData> = listOf(
+
+    val items = listOf(
         ButtonsHolderData(
             id = "button1_id",
             headerText = "Button"
@@ -217,6 +217,11 @@ object RecyclerViewRepository {
             imageUrl = "https://ih1.redbubble.net/image.5494804801.8633/bg,f8f8f8-flat,750x,075,f-pad,750x1000,f8f8f8.jpg",
         ),
     )
+
+
+
+
+
     fun getItemById(id: String): MultipleHoldersData? {
         return items.find { it.id == id }
     }

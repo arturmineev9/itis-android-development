@@ -2,6 +2,8 @@ package com.example.hw2_recyclerview.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.example.hw2_recyclerview.databinding.ItemHolderGridTypeBinding
@@ -10,6 +12,8 @@ import com.example.hw2_recyclerview.databinding.ViewHolderButtonsBinding
 import com.example.hw2_recyclerview.model.ButtonsHolderData
 import com.example.hw2_recyclerview.model.MultipleHoldersData
 import com.example.hw2_recyclerview.model.ViewHolderData
+import com.example.hw2_recyclerview.repository.RecyclerViewData
+import com.example.hw2_recyclerview.repository.RecyclerViewRepository
 import com.example.hw2_recyclerview.viewholder.ButtonsTypeViewHolder
 import com.example.hw2_recyclerview.viewholder.GridTypeViewHolder
 import com.example.hw2_recyclerview.viewholder.ListTypeViewHolder
@@ -35,15 +39,19 @@ class AdapterWithMultipleHolders(
         const val VIEW_TYPE_GRID = 1
         const val VIEW_TYPE_LIST = 0
     }
+    var isGridMode = RecyclerViewData.isGridMode
 
-    var isGridMode = false
 
     fun setGridMode() {
+        RecyclerViewData.setGridMode()
         isGridMode = true
+        notifyDataSetChanged()
     }
 
     fun setListMode() {
+        RecyclerViewData.setListMode()
         isGridMode = false
+        notifyDataSetChanged()
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -114,6 +122,21 @@ class AdapterWithMultipleHolders(
             is ButtonsHolderData -> {
                 (holder as? ButtonsTypeViewHolder)?.bindItem()
             }
+        }
+    }
+
+    fun addRandomElement() {
+        //val RVdataList = RecyclerViewData.recyclerViewList
+        val availableItems = RecyclerViewRepository.items.filter { it !in dataList }
+        if (availableItems.isNotEmpty()) {
+            val randomItem = availableItems.random()
+            val randomIndex = (0..dataList.size).random()
+            dataList.add(randomIndex, randomItem)
+            RecyclerViewData.recyclerViewList = dataList
+
+            notifyItemInserted(randomIndex)
+        } else {
+            //Toast.makeText(requireContext(), "Все элементы уже добавлены", Toast.LENGTH_SHORT).show()
         }
     }
 

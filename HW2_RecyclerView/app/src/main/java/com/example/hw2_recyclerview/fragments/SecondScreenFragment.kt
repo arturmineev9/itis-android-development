@@ -26,10 +26,12 @@ class SecondScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val itemId = requireArguments().getString(ARG_ITEM_ID)
-        val item = RecyclerViewRepository.getItemById(itemId.toString())
+        inflateView(itemId.toString())
+    }
 
+    private fun inflateView(itemId: String) {
+        val item = RecyclerViewRepository.getItemById(itemId.toString())
         item?.let {
             viewBinding?.run {
                 val viewHolderItem = (it as? ViewHolderData) // Каст от MultipleHoldersData к ViewHolderData
@@ -40,7 +42,12 @@ class SecondScreenFragment : Fragment() {
         }
     }
 
+    fun updateData(itemId: String) {
+        inflateView(itemId)
+    }
+
     companion object {
+        const val TAG = "SECOND_FRAGMENT"
         private const val ARG_ITEM_ID = "arg_item_id"
         fun newInstance(itemId: String) = SecondScreenFragment().apply {
             arguments = Bundle().apply {
