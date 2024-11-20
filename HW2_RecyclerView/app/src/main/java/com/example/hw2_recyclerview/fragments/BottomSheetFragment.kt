@@ -49,6 +49,18 @@ class BottomSheetFragment(
                     Toast.LENGTH_SHORT
                 ).show()
             }
+
+            addElements.setOnClickListener {
+                val enteredNumber = editText.text.toString().toIntOrNull()
+                if (enteredNumber != null && enteredNumber > 0) {
+                    adapter?.addElements(requireContext(), enteredNumber)
+                }
+                else {
+                    Toast.makeText(requireContext(), "Ошибка! Некорректное значение в строке ввода.", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+            deleteElements.setOnClickListener {  }
         }
     }
 

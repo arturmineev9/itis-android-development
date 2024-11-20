@@ -1,9 +1,11 @@
 package com.example.hw2_recyclerview.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.example.hw2_recyclerview.databinding.ItemHolderGridTypeBinding
@@ -14,6 +16,7 @@ import com.example.hw2_recyclerview.model.MultipleHoldersData
 import com.example.hw2_recyclerview.model.ViewHolderData
 import com.example.hw2_recyclerview.repository.RecyclerViewData
 import com.example.hw2_recyclerview.repository.RecyclerViewRepository
+import com.example.hw2_recyclerview.utils.RecyclerViewDiffUtil
 import com.example.hw2_recyclerview.viewholder.ButtonsTypeViewHolder
 import com.example.hw2_recyclerview.viewholder.GridTypeViewHolder
 import com.example.hw2_recyclerview.viewholder.ListTypeViewHolder
@@ -39,6 +42,7 @@ class AdapterWithMultipleHolders(
         const val VIEW_TYPE_GRID = 1
         const val VIEW_TYPE_LIST = 0
     }
+
     var isGridMode = RecyclerViewData.isGridMode
 
 
@@ -119,6 +123,7 @@ class AdapterWithMultipleHolders(
                     (holder as? ListTypeViewHolder)?.bindItem(dataList[position] as ViewHolderData)
                 }
             }
+
             is ButtonsHolderData -> {
                 (holder as? ButtonsTypeViewHolder)?.bindItem()
             }
@@ -149,6 +154,39 @@ class AdapterWithMultipleHolders(
         }
     }
 
+    fun addElements(context: Context, amount: Int) {
+        var newList = dataList
+        val availableItems = RecyclerViewRepository.items.filter { it !in dataList }
+        if (amount <= availableItems.size) {
+
+            val newItems = availableItems.shuffled().take(amount)
+            for (i in 0..<amount) {
+                if (dataList.size > 1){
+                    val randomIndex = (1..<dataList.size).random()
+                    newList.add(randomIndex, newItems[i])
+                }
+                else newList.add(1, newItems[i])
+
+            }
+            RecyclerViewData.recyclerViewList = newList
+            updateData(newList)
+        } else {
+            Toast.makeText(
+                context,
+                "Количество элементов, доступное для добавления: ${availableItems.size}",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    fun updateData(newList: List<MultipleHoldersData>) {
+        val diffCallback = RecyclerViewDiffUtil(
+            oldList = dataList,
+            newList = newList
+        )
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        diffResult.dispatchUpdatesTo(this)
+    }
 
 
 }

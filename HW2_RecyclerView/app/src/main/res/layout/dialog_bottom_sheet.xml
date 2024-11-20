@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/add_elements"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -32,11 +32,11 @@
         android:backgroundTint="@color/purple_500"
         app:layout_constraintTop_toBottomOf="@id/editText"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/button2" />
+        app:layout_constraintEnd_toStartOf="@id/delete_elements" />
 
     <!-- Кнопка 2 -->
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/delete_elements"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -46,7 +46,7 @@
         android:textColor="@color/white"
         android:backgroundTint="@color/purple_500"
         app:layout_constraintTop_toBottomOf="@id/editText"
-        app:layout_constraintStart_toEndOf="@id/button1"
+        app:layout_constraintStart_toEndOf="@id/add_elements"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Кнопка 3 -->
@@ -59,7 +59,7 @@
         android:textSize="12sp"
         android:textColor="@color/white"
         android:backgroundTint="@color/purple_500"
-        app:layout_constraintTop_toBottomOf="@id/button1"
+        app:layout_constraintTop_toBottomOf="@id/add_elements"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/delete_random" />
 
@@ -74,7 +74,7 @@
         android:singleLine="false"
         android:textColor="@color/white"
         android:backgroundTint="@color/purple_500"
-        app:layout_constraintTop_toBottomOf="@id/button2"
+        app:layout_constraintTop_toBottomOf="@id/delete_elements"
         app:layout_constraintStart_toEndOf="@id/add_random"
         app:layout_constraintEnd_toEndOf="parent" />
 
