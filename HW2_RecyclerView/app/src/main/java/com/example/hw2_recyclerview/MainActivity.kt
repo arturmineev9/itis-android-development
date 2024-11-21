@@ -2,12 +2,9 @@ package com.example.hw2_recyclerview
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.hw2_recyclerview.databinding.ActivityMainBinding
-import com.example.hw2_recyclerview.fragments.FirstScreenFragment
+import com.example.hw2_recyclerview.fragments.MainFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .add(mainContainerId, FirstScreenFragment())
+                .add(mainContainerId, MainFragment())
                 .commit()
         }
     }

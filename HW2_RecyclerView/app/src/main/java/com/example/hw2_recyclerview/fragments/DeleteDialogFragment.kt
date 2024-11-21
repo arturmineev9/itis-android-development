@@ -10,19 +10,19 @@ import com.example.hw2_recyclerview.repository.RecyclerViewData
 
 
 class DeleteDialogFragment(
-    var position: Int,
-    var rvAdapter: AdapterWithMultipleHolders?
+    var position: Int, // Позиция элемента, который нужно удалить
+    var rvAdapter: AdapterWithMultipleHolders? // Адаптер, который обновит RecyclerView
 ) : DialogFragment()
 {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
             builder.setTitle("Удалить элемент?")
-                .setPositiveButton("Удалить") { dialog, id ->
+                .setPositiveButton("Удалить") { dialog, id -> // Кнопка для удаления
                     RecyclerViewData.recyclerViewList.removeAt(position)
                     rvAdapter?.notifyItemRemoved(position)
                 }
-                .setNegativeButton("Отмена") { dialog, _ ->
+                .setNegativeButton("Отмена") { dialog, _ -> // Кнопка для отмены
                     dialog.dismiss()
                 }
 

@@ -6,13 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
-import com.example.hw2_recyclerview.R
 import com.example.hw2_recyclerview.databinding.FragmentSecondScreenBinding
 import com.example.hw2_recyclerview.model.ViewHolderData
-import com.example.hw2_recyclerview.repository.RecyclerViewRepository
+import com.example.hw2_recyclerview.repository.TanksRepository
 
 
-class SecondScreenFragment : Fragment() {
+class DetailedItemFragment : Fragment() {
 
     private var viewBinding: FragmentSecondScreenBinding? = null
 
@@ -26,12 +25,15 @@ class SecondScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Получаем ID элемента, переданный через начальный фрагмент
         val itemId = requireArguments().getString(ARG_ITEM_ID)
+        // Загружаем данные элемента с этим ID
         inflateView(itemId.toString())
     }
-
+    // Метод для отрисовки изображения
     private fun inflateView(itemId: String) {
-        val item = RecyclerViewRepository.getItemById(itemId.toString())
+        // Получаем элемент из репозитория по ID
+        val item = TanksRepository.getItemById(itemId)
         item?.let {
             viewBinding?.run {
                 val viewHolderItem = (it as? ViewHolderData) // Каст от MultipleHoldersData к ViewHolderData
@@ -41,7 +43,7 @@ class SecondScreenFragment : Fragment() {
             }
         }
     }
-
+    // Метод для обновления данных фрагмента, если экземпляр фрагмента уже существует
     fun updateData(itemId: String) {
         inflateView(itemId)
     }
@@ -49,7 +51,8 @@ class SecondScreenFragment : Fragment() {
     companion object {
         const val TAG = "SECOND_FRAGMENT"
         private const val ARG_ITEM_ID = "arg_item_id"
-        fun newInstance(itemId: String) = SecondScreenFragment().apply {
+        // Метод для создания нового экземпляра фрагмента с передачей ID элемента
+        fun newInstance(itemId: String) = DetailedItemFragment().apply {
             arguments = Bundle().apply {
                 putString(ARG_ITEM_ID, itemId)
             }

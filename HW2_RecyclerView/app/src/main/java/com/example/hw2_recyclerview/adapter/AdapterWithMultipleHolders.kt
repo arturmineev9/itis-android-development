@@ -1,10 +1,10 @@
 package com.example.hw2_recyclerview.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
@@ -16,7 +16,7 @@ import com.example.hw2_recyclerview.model.ButtonsHolderData
 import com.example.hw2_recyclerview.model.MultipleHoldersData
 import com.example.hw2_recyclerview.model.ViewHolderData
 import com.example.hw2_recyclerview.repository.RecyclerViewData
-import com.example.hw2_recyclerview.repository.RecyclerViewRepository
+import com.example.hw2_recyclerview.repository.TanksRepository
 import com.example.hw2_recyclerview.utils.RecyclerViewDiffUtil
 import com.example.hw2_recyclerview.utils.RvTypes
 import com.example.hw2_recyclerview.viewholder.ButtonsTypeViewHolder
@@ -42,6 +42,7 @@ class AdapterWithMultipleHolders(
         notifyDataSetChanged()
     }
 
+    // Константы для разных типов ViewHolder
     companion object {
         const val VIEW_TYPE_MODIFIED_GRID = 3
         const val VIEW_TYPE_BUTTON = 2
@@ -49,9 +50,10 @@ class AdapterWithMultipleHolders(
         const val VIEW_TYPE_LIST = 0
     }
 
+    // Переменная для хранения текущего типа отображения (Сетка или Список)
     var recyclerViewType = RecyclerViewData.recyclerViewType
 
-
+    // Функции для переключения типов отображения (Сетка, Список, Модифицированная сетка)
     fun setGridMode() {
         RecyclerViewData.setGridMode()
         recyclerViewType = RvTypes.GRID
@@ -70,6 +72,7 @@ class AdapterWithMultipleHolders(
         notifyDataSetChanged()
     }
 
+    // Функция для получения типа View для каждого элемента списка
     override fun getItemViewType(position: Int): Int {
         val item = dataList[position]
         return when {
@@ -157,8 +160,9 @@ class AdapterWithMultipleHolders(
         }
     }
 
+    // Метод для добавления случайного элемента в список
     fun addRandomElement(context: Context) {
-        val availableItems = RecyclerViewRepository.items.filter { it !in dataList }
+        val availableItems = TanksRepository.items.filter { it !in dataList }
         if (availableItems.isNotEmpty()) {
             val randomItem = availableItems.random()
             val randomIndex = (1..dataList.size).random()
@@ -171,6 +175,7 @@ class AdapterWithMultipleHolders(
         }
     }
 
+    // Метод для удаления случайного элемента из списка
     fun deleteRandomElement(context: Context) {
         if (dataList.size > 1) {
             val randomIndex = (1..dataList.size - 1).random()
@@ -183,21 +188,24 @@ class AdapterWithMultipleHolders(
         }
     }
 
+    // Метод для добавления нескольких элементов
     fun addElements(context: Context, amount: Int) {
-        var newList = dataList
-        val availableItems = RecyclerViewRepository.items.filter { it !in dataList }
+        var newList = dataList.toMutableList()
+        val availableItems = TanksRepository.items.filter { it !in dataList }
         if (amount <= availableItems.size) {
 
             val newItems = availableItems.shuffled().take(amount)
             for (i in 0..<amount) {
                 if (dataList.size > 1) {
                     val randomIndex = (1..<dataList.size).random()
+                    Log.d("index", randomIndex.toString())
                     newList.add(randomIndex, newItems[i])
                 } else newList.add(1, newItems[i])
 
             }
             RecyclerViewData.recyclerViewList = newList
             updateData(newList)
+            dataList = newList
         } else {
             Toast.makeText(
                 context,
@@ -207,6 +215,7 @@ class AdapterWithMultipleHolders(
         }
     }
 
+    // Метод для удаления нескольких элементов
     fun deleteElements(context: Context, amount: Int) {
         var newList = dataList.toMutableList()
         var amountToDelete = minOf(amount, newList.size)
@@ -223,8 +232,10 @@ class AdapterWithMultipleHolders(
         RecyclerViewData.recyclerViewList = newList
         updateData(newList)
         dataList = newList
+
     }
 
+    // Метод для обновления данных с помощью DiffUtil
     private fun updateData(newList: List<MultipleHoldersData>) {
         val diffCallback = RecyclerViewDiffUtil(
             oldList = dataList,

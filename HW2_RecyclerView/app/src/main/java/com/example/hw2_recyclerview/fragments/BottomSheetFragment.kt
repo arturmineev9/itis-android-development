@@ -1,22 +1,17 @@
 package com.example.hw2_recyclerview.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
-import com.example.hw2_recyclerview.R
 import com.example.hw2_recyclerview.adapter.AdapterWithMultipleHolders
 import com.example.hw2_recyclerview.databinding.DialogBottomSheetBinding
-import com.example.hw2_recyclerview.repository.RecyclerViewData
-import com.example.hw2_recyclerview.repository.RecyclerViewRepository
-import com.example.hw2_recyclerview.repository.RecyclerViewRepository.items
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class BottomSheetFragment(
-    private var adapter: AdapterWithMultipleHolders?
+    private var adapter: AdapterWithMultipleHolders? // Принимает адаптер, чтобы манипулировать данными в RecyclerView
 ) : BottomSheetDialogFragment() {
 
     private var viewBinding: DialogBottomSheetBinding? = null
@@ -33,23 +28,30 @@ class BottomSheetFragment(
         super.onViewCreated(view, savedInstanceState)
         viewBinding?.run {
 
-            editText.doOnTextChanged { text, _ , _ , _ ->
+            // Логика изменения кнопок в зависимости от ввода в текстовое поле
+            editText.doOnTextChanged { text, _, _, _ ->
                 addElements.isEnabled = text?.isNotEmpty() == true
                 deleteElements.isEnabled = text?.isNotEmpty() == true
             }
 
+            // Кнопка для добавления случайного элемента
             addRandom.setOnClickListener {
                 adapter?.addRandomElement(requireContext())
             }
 
+            // Кнопка для удаления случайного элемента
             deleteRandom.setOnClickListener {
                 adapter?.deleteRandomElement(requireContext())
             }
 
+            // Кнопка для добавления нескольких элементов, введенных в поле
             addElements.setOnClickListener {
                 val enteredNumber = editText.text.toString().toIntOrNull()
                 if (enteredNumber != null && enteredNumber > 0) {
-                    adapter?.addElements(requireContext(), enteredNumber)
+                    adapter?.addElements(
+                        requireContext(),
+                        enteredNumber
+                    ) // Если введено корректное число, добавляем элементы
                 } else {
                     Toast.makeText(
                         requireContext(),
@@ -57,12 +59,15 @@ class BottomSheetFragment(
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-
             }
+            // Кнопка для удаления нескольких элементов, введенных в поле
             deleteElements.setOnClickListener {
                 val enteredNumber = editText.text.toString().toIntOrNull()
                 if (enteredNumber != null && enteredNumber > 0) {
-                    adapter?.deleteElements(requireContext(), enteredNumber)
+                    adapter?.deleteElements(
+                        requireContext(),
+                        enteredNumber
+                    ) // Если введено корректное число, удаляем элементы
                 } else {
                     Toast.makeText(
                         requireContext(),
@@ -73,5 +78,4 @@ class BottomSheetFragment(
             }
         }
     }
-
 }

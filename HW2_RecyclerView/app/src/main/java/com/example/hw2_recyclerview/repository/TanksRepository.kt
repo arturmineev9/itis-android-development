@@ -4,8 +4,7 @@ import com.example.hw2_recyclerview.model.ButtonsHolderData
 import com.example.hw2_recyclerview.model.MultipleHoldersData
 import com.example.hw2_recyclerview.model.ViewHolderData
 
-object RecyclerViewRepository {
-
+object TanksRepository {
 
     val items = listOf(
         ButtonsHolderData(
@@ -182,7 +181,7 @@ object RecyclerViewRepository {
             headerText = "Chieftain",
             description = "Тяжелый британский танк с мощным орудием и хорошей броней.",
             imageUrl = "https://avatars.mds.yandex.net/i?id=0de12497100941fd532075b2a0914846081154be-3948822-images-thumbs&n=13",
-        ),ViewHolderData(
+        ), ViewHolderData(
             id = "29",
             headerText = "T-72",
             description = "Один из самых популярных и экспортируемых советских танков.",
@@ -193,7 +192,7 @@ object RecyclerViewRepository {
             headerText = "Comet",
             description = "Модернизированный крейсерский танк, использовавшийся в конце Второй мировой.",
             imageUrl = "https://avatars.mds.yandex.net/i?id=32d20fa5ac86415b966648170f674f7f4967b2f0-9867831-images-thumbs&n=13",
-        ),ViewHolderData(
+        ), ViewHolderData(
             id = "31",
             headerText = "ИС-2",
             description = "Тяжелый советский танк, созданный для борьбы с \"Тиграми\".",
@@ -204,7 +203,7 @@ object RecyclerViewRepository {
             headerText = "Type 99",
             description = "Современный китайский основной боевой танк с мощным вооружением.",
             imageUrl = "https://avatars.mds.yandex.net/i?id=83b0cf4bc93cb09ab6b255ca4078f6ae5961117c4555dd31-10208766-images-thumbs&n=13",
-        ),ViewHolderData(
+        ), ViewHolderData(
             id = "33",
             headerText = "Ariete",
             description = "Основной боевой танк Италии, разработанный в конце XX века.",
@@ -229,9 +228,6 @@ object RecyclerViewRepository {
             imageUrl = "https://avatars.mds.yandex.net/i?id=6af29eb6a0b3ca329162617ef4ff79f56b5aaaab-4358711-images-thumbs&n=13",
         )
     )
-
-
-
 
 
     fun getItemById(id: String): MultipleHoldersData? {
