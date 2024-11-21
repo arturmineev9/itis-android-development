@@ -19,6 +19,7 @@ import com.example.hw2_recyclerview.model.MultipleHoldersData
 import com.example.hw2_recyclerview.repository.RecyclerViewData
 import com.example.hw2_recyclerview.repository.RecyclerViewRepository
 import com.example.hw2_recyclerview.utils.RvTypes
+import com.example.hw2_recyclerview.utils.SwipeItemClass
 
 
 class FirstScreenFragment : Fragment() {
@@ -31,6 +32,7 @@ class FirstScreenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         showBottomSheet()
+        setupSwipeToDelete(viewBinding?.mainRecycler)
     }
 
     override fun onCreateView(
@@ -40,7 +42,17 @@ class FirstScreenFragment : Fragment() {
         viewBinding = FragmentFirstScreenBinding.inflate(inflater, container, false)
         return viewBinding?.root
     }
+    private fun setupSwipeToDelete(recyclerView : RecyclerView?) {
+        if (recyclerView?.layoutManager is LinearLayoutManager) {
+            val swipeItemClass = rvAdapter?.let { SwipeItemClass(it) }
+            swipeItemClass?.itemTouchHelper?.attachToRecyclerView(recyclerView)
+        }
+    }
 
+    private fun disableSwipe() {
+        val swipeItemClass = rvAdapter?.let { SwipeItemClass(it) }
+        swipeItemClass?.itemTouchHelper?.attachToRecyclerView(null)
+    }
     private fun initRecyclerView() {
         rvAdapter = AdapterWithMultipleHolders(
             requestManager = Glide.with(requireContext()),
@@ -66,6 +78,7 @@ class FirstScreenFragment : Fragment() {
         viewBinding?.mainRecycler?.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         rvAdapter?.setListMode()
+        setupSwipeToDelete(viewBinding?.mainRecycler)
     }
 
     private fun getGridLayout() : GridLayoutManager {
@@ -105,12 +118,14 @@ class FirstScreenFragment : Fragment() {
         val gridLayoutManager = getGridLayout()
         viewBinding?.mainRecycler?.layoutManager = gridLayoutManager
         rvAdapter?.setGridMode()
+        disableSwipe()
     }
 
     private fun onModifiedGridButtonClick() {
         val modifiedGridLayoutManager = getModifiedGridLayoutManager()
         viewBinding?.mainRecycler?.layoutManager = modifiedGridLayoutManager
         rvAdapter?.setModifiedGridMode()
+        disableSwipe()
     }
 
     private fun onItemClick(position: Int) {
@@ -137,6 +152,7 @@ class FirstScreenFragment : Fragment() {
             }
         }
     }
+
 
 
     override fun onDestroyView() {
