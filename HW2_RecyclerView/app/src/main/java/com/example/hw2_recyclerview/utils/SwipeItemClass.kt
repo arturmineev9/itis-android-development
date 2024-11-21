@@ -1,5 +1,8 @@
 package com.example.hw2_recyclerview.utils
 
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -40,6 +43,21 @@ class SwipeItemClass(
 
             override fun isItemViewSwipeEnabled(): Boolean {
                 return RecyclerViewData.recyclerViewType == RvTypes.LIST
+            }
+
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+                val itemView = viewHolder.itemView
+                // Прозрачный слой/анимация
+                itemView.alpha = 1.0f - Math.abs(dX) / recyclerView.width
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
             }
         })
 }
