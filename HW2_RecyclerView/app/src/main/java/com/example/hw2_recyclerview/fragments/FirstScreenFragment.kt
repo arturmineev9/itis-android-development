@@ -18,6 +18,7 @@ import com.example.hw2_recyclerview.databinding.FragmentFirstScreenBinding
 import com.example.hw2_recyclerview.model.MultipleHoldersData
 import com.example.hw2_recyclerview.repository.RecyclerViewData
 import com.example.hw2_recyclerview.repository.RecyclerViewRepository
+import com.example.hw2_recyclerview.utils.RvTypes
 
 
 class FirstScreenFragment : Fragment() {
@@ -45,16 +46,17 @@ class FirstScreenFragment : Fragment() {
             requestManager = Glide.with(requireContext()),
             onGridButtonCLick = ::onGridButtonClick,
             onListButtonCLick = ::onListButtonClick,
+            onModifiedGridButtonCLick = ::onModifiedGridButtonClick,
             onItemClick = ::onItemClick,
             items = RecyclerViewData.recyclerViewList
         )
 
         viewBinding?.let { binding ->
             binding.mainRecycler.adapter = rvAdapter
-            binding.mainRecycler.layoutManager = if (RecyclerViewData.isGridMode) {
-                getGridLayout()
-            } else {
-                LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+            binding.mainRecycler.layoutManager = when (RecyclerViewData.recyclerViewType){
+                RvTypes.LIST -> LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+                RvTypes.GRID -> getGridLayout()
+                RvTypes.MODIFIED_GRID -> getModifiedGridLayoutManager()
             }
         }
 
@@ -78,14 +80,37 @@ class FirstScreenFragment : Fragment() {
             }
         }
     return gridLayoutManager
+    }
 
+    private fun getModifiedGridLayoutManager() : GridLayoutManager {
+        val gridLayoutManager = GridLayoutManager(requireContext(), 2)
+
+
+        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                if (position == 0) {
+                    return 2
+                }
+
+                return when ((position - 1) % 4) {
+                    0, 3 -> 2
+                    else -> 1
+                }
+            }
+        }
+
+        return gridLayoutManager
     }
     private fun onGridButtonClick() {
         val gridLayoutManager = getGridLayout()
         viewBinding?.mainRecycler?.layoutManager = gridLayoutManager
         rvAdapter?.setGridMode()
-        Log.d("Adapter", rvAdapter?.isGridMode.toString())
-        Log.d("RVData", RecyclerViewData.isGridMode.toString())
+    }
+
+    private fun onModifiedGridButtonClick() {
+        val modifiedGridLayoutManager = getModifiedGridLayoutManager()
+        viewBinding?.mainRecycler?.layoutManager = modifiedGridLayoutManager
+        rvAdapter?.setModifiedGridMode()
     }
 
     private fun onItemClick(position: Int) {

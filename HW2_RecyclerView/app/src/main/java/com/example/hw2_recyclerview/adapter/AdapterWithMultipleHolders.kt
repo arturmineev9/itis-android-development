@@ -8,6 +8,7 @@ import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
+import com.example.hw2_recyclerview.databinding.ItemHolderGridModifiedBinding
 import com.example.hw2_recyclerview.databinding.ItemHolderGridTypeBinding
 import com.example.hw2_recyclerview.databinding.ItemHolderListTypeBinding
 import com.example.hw2_recyclerview.databinding.ViewHolderButtonsBinding
@@ -17,14 +18,17 @@ import com.example.hw2_recyclerview.model.ViewHolderData
 import com.example.hw2_recyclerview.repository.RecyclerViewData
 import com.example.hw2_recyclerview.repository.RecyclerViewRepository
 import com.example.hw2_recyclerview.utils.RecyclerViewDiffUtil
+import com.example.hw2_recyclerview.utils.RvTypes
 import com.example.hw2_recyclerview.viewholder.ButtonsTypeViewHolder
 import com.example.hw2_recyclerview.viewholder.GridTypeViewHolder
 import com.example.hw2_recyclerview.viewholder.ListTypeViewHolder
+import com.example.hw2_recyclerview.viewholder.ModifiedGridViewHolder
 
 class AdapterWithMultipleHolders(
     private val requestManager: RequestManager,
     private val onListButtonCLick: () -> Unit,
     private val onGridButtonCLick: () -> Unit,
+    private val onModifiedGridButtonCLick: () -> Unit,
     private val onItemClick: (Int) -> Unit,
     items: List<MultipleHoldersData>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -38,23 +42,30 @@ class AdapterWithMultipleHolders(
     }
 
     companion object {
+        const val VIEW_TYPE_MODIFIED_GRID = 3
         const val VIEW_TYPE_BUTTON = 2
         const val VIEW_TYPE_GRID = 1
         const val VIEW_TYPE_LIST = 0
     }
 
-    var isGridMode = RecyclerViewData.isGridMode
+    var recyclerViewType = RecyclerViewData.recyclerViewType
 
 
     fun setGridMode() {
         RecyclerViewData.setGridMode()
-        isGridMode = true
+        recyclerViewType = RvTypes.GRID
         notifyDataSetChanged()
     }
 
     fun setListMode() {
         RecyclerViewData.setListMode()
-        isGridMode = false
+        recyclerViewType = RvTypes.LIST
+        notifyDataSetChanged()
+    }
+
+    fun setModifiedGridMode() {
+        RecyclerViewData.setModifiedGridMode()
+        recyclerViewType = RvTypes.MODIFIED_GRID
         notifyDataSetChanged()
     }
 
@@ -62,8 +73,9 @@ class AdapterWithMultipleHolders(
         val item = dataList[position]
         return when {
             item is ButtonsHolderData -> VIEW_TYPE_BUTTON
-            item is ViewHolderData && isGridMode -> VIEW_TYPE_GRID
-            item is ViewHolderData && !isGridMode -> VIEW_TYPE_LIST
+            item is ViewHolderData && recyclerViewType == RvTypes.GRID -> VIEW_TYPE_GRID
+            item is ViewHolderData && recyclerViewType == RvTypes.LIST -> VIEW_TYPE_LIST
+            item is ViewHolderData && recyclerViewType == RvTypes.MODIFIED_GRID -> VIEW_TYPE_MODIFIED_GRID
             else -> throw IllegalStateException("Incorrect holder type")
         }
     }
@@ -94,10 +106,23 @@ class AdapterWithMultipleHolders(
                 )
             }
 
+            VIEW_TYPE_MODIFIED_GRID -> {
+                ModifiedGridViewHolder(
+                    viewBinding = ItemHolderGridModifiedBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    ),
+                    requestManager = requestManager,
+                    onItemClick = onItemClick
+                )
+            }
+
             VIEW_TYPE_BUTTON -> {
                 ButtonsTypeViewHolder(
                     onListButtonCLick = onListButtonCLick,
                     onGridButtonCLick = onGridButtonCLick,
+                    onModifiedGridButtonClick = onModifiedGridButtonCLick,
                     viewBinding = ViewHolderButtonsBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
@@ -117,10 +142,10 @@ class AdapterWithMultipleHolders(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (dataList[position]) {
             is ViewHolderData -> {
-                if (isGridMode) {
-                    (holder as? GridTypeViewHolder)?.bindItem(dataList[position] as ViewHolderData)
-                } else {
-                    (holder as? ListTypeViewHolder)?.bindItem(dataList[position] as ViewHolderData)
+                when (recyclerViewType) {
+                    RvTypes.LIST -> (holder as? ListTypeViewHolder)?.bindItem(dataList[position] as ViewHolderData)
+                    RvTypes.GRID -> (holder as? GridTypeViewHolder)?.bindItem(dataList[position] as ViewHolderData)
+                    RvTypes.MODIFIED_GRID -> (holder as? ModifiedGridViewHolder)?.bindItem(dataList[position] as ViewHolderData)
                 }
             }
 

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import com.example.hw2_recyclerview.R
 import com.example.hw2_recyclerview.adapter.AdapterWithMultipleHolders
 import com.example.hw2_recyclerview.databinding.DialogBottomSheetBinding
@@ -31,6 +32,12 @@ class BottomSheetFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewBinding?.run {
+
+            editText.doOnTextChanged { text, _ , _ , _ ->
+                addElements.isEnabled = text?.isNotEmpty() == true
+                deleteElements.isEnabled = text?.isNotEmpty() == true
+            }
+
             addRandom.setOnClickListener {
                 adapter?.addRandomElement(requireContext())
             }

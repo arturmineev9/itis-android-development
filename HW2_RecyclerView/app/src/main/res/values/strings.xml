@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">HW2_RecyclerView</string>
     <string name="list_button">Список</string>
-    <string name="grid_button">Сетка</string>
+    <string name="grid_button">Сетка №1</string>
     <string name="hello_world">Hello world!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -12,4 +12,5 @@
     <string name="delete_random">Удалить случайный</string>
     <string name="delete_elements">Удалить элементы</string>
     <string name="add_elements">Добавить элементы</string>
+    <string name="modified_grid_button">Сетка №2</string>
 </resources>
