@@ -30,6 +30,7 @@ class AdapterWithMultipleHolders(
     private val onGridButtonCLick: () -> Unit,
     private val onModifiedGridButtonCLick: () -> Unit,
     private val onItemClick: (Int) -> Unit,
+    private val onLongItemClick: (Int) -> Unit,
     items: List<MultipleHoldersData>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -102,7 +103,8 @@ class AdapterWithMultipleHolders(
                         false
                     ),
                     requestManager = requestManager,
-                    onItemClick = onItemClick
+                    onItemClick = onItemClick,
+                    onLongItemClick = onLongItemClick
                 )
             }
 

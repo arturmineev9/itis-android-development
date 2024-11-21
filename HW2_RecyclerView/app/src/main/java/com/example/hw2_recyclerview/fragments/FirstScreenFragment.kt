@@ -60,6 +60,7 @@ class FirstScreenFragment : Fragment() {
             onListButtonCLick = ::onListButtonClick,
             onModifiedGridButtonCLick = ::onModifiedGridButtonClick,
             onItemClick = ::onItemClick,
+            onLongItemClick = ::onLongItemClick,
             items = RecyclerViewData.recyclerViewList
         )
 
@@ -142,6 +143,11 @@ class FirstScreenFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
+    }
+
+    private fun onLongItemClick(position: Int) {
+        val dialog = DeleteDialogFragment(position, rvAdapter)
+        dialog.show(parentFragmentManager, "DeleteDialog")
     }
 
     private fun showBottomSheet() {
