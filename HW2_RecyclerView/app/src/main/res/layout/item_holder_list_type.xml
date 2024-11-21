@@ -21,7 +21,6 @@
             android:gravity="center"
             android:text="@string/hello_world"
             android:textSize="16sp"
-            android:textColor="@color/black"
             app:layout_constraintEnd_toStartOf="@id/listIv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/listIv"
@@ -29,8 +28,9 @@
 
         <ImageView
             android:id="@+id/listIv"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_marginEnd="16dp"
             android:src="@mipmap/ic_launcher"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
