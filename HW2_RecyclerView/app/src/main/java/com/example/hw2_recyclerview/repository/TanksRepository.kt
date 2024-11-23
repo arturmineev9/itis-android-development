@@ -222,9 +222,9 @@ object TanksRepository {
             imageUrl = "https://avatars.mds.yandex.net/i?id=b2564cd7af4748f0415f2322821ec00545ca4d8f-10234572-images-thumbs&n=13",
         ),
         ViewHolderData(
-            id = "35",
+            id = "36",
             headerText = "K9 Thunder",
-            description = "современная южнокорейская 155-мм самоходно-артиллерийская установка (САУ) класса самоходных гаубиц, была разработана в середине 1990-х годов корпорацией Samsung Techwin",
+            description = "Современная южнокорейская 155-мм самоходно-артиллерийская установка (САУ) класса самоходных гаубиц, была разработана в середине 1990-х годов корпорацией Samsung Techwin",
             imageUrl = "https://avatars.mds.yandex.net/i?id=6af29eb6a0b3ca329162617ef4ff79f56b5aaaab-4358711-images-thumbs&n=13",
         )
     )
