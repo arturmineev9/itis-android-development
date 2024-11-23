@@ -78,4 +78,8 @@ class BottomSheetFragment(
             }
         }
     }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewBinding = null
+    }
 }
