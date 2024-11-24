@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">HW3_ViewPager</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="question_text">Текст вопроса</string>
     <string name="hello_world">Hello world!</string>
+    <string name="answer_1">Ответ 1</string>
+    <string name="answer_2">Ответ 2</string>
+    <string name="answer_3">Ответ 3</string>
+    <string name="answer_4">Ответ 4</string>
+    <string name="next">Следующий</string>
+    <string name="back">Предыдущий</string>
+    <string name="complete">Завершить</string>
 </resources>
