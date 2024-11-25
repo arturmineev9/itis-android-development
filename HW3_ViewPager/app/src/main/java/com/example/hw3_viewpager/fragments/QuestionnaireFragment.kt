@@ -5,9 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.core.os.bundleOf
 import com.example.hw3_viewpager.R
 import com.example.hw3_viewpager.databinding.FragmentQuestionnaireBinding
+import com.example.hw3_viewpager.fragments.ViewPagerFragment.Companion.selectedAnswers
 import com.example.hw3_viewpager.repository.QuestionsRepository
 
 
@@ -28,14 +31,34 @@ class QuestionnaireFragment : Fragment() {
         val questionId = arguments?.getInt(POSITION_KEY) ?: -1
         val question = QuestionsRepository.getQuestionById(questionId)
         viewBinding?.run {
-
             questionTv.text = question?.question
-            radioOne.text = question?.answers?.get(0)
-            radioTwo.text = question?.answers?.get(1)
-            radioThree.text = question?.answers?.get(2)
-            radioFour.text = question?.answers?.get(3)
+            getRadioButtons(questionId)
         }
+
+        viewBinding?.radioGroup?.setOnCheckedChangeListener { _, _ ->
+            selectedAnswers[questionId] = true
+        }
+
         super.onViewCreated(view, savedInstanceState)
+    }
+
+
+    private fun getRadioButtons(questionId : Int) {
+        val radioGroup = viewBinding?.radioGroup
+        val answers = QuestionsRepository.getQuestionById(questionId)?.answers
+        answers?.forEach { answer ->
+            val radioButton = RadioButton(requireContext()).apply {
+                text = answer
+                layoutParams = RadioGroup.LayoutParams(
+                    RadioGroup.LayoutParams.MATCH_PARENT,
+                    RadioGroup.LayoutParams.WRAP_CONTENT
+                )
+                setBackgroundResource(R.drawable.radio_button_selector)
+
+            }
+            radioGroup?.addView(radioButton)
+        }
+
     }
 
     companion object {

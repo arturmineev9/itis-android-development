@@ -13,7 +13,7 @@ class ViewPagerAdapter(
 ) : FragmentStateAdapter(fragmentManager, lifecycle) {
 
 
-    override fun getItemCount() = QuestionsRepository.items.size
+    override fun getItemCount() = QuestionsRepository.questions.size
 
     override fun createFragment(position: Int): Fragment {
         return QuestionnaireFragment.getInstance(position)

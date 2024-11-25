@@ -7,13 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
-import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Lifecycle
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.example.hw3_viewpager.R
 import com.example.hw3_viewpager.adapter.ViewPagerAdapter
-import com.example.hw3_viewpager.databinding.FragmentQuestionnaireBinding
 import com.example.hw3_viewpager.databinding.FragmentViewPagerBinding
 import com.example.hw3_viewpager.repository.QuestionsRepository
 import com.google.android.material.snackbar.Snackbar
@@ -41,11 +37,11 @@ class ViewPagerFragment : Fragment() {
                     val currentPosition = position + 1
                     buttonBack.isEnabled = currentPosition != 1
 
-                    val isLastQuestion = currentPosition == QuestionsRepository.items.size - 1
+                    val isLastQuestion = currentPosition == QuestionsRepository.questions.size
                     buttonNext.isInvisible = isLastQuestion
                     buttonComplete.isVisible = isLastQuestion
 
-                    questionNumberTv.text = "$currentPosition/${QuestionsRepository.items.size}"
+                    questionNumberTv.text = "$currentPosition/${QuestionsRepository.questions.size}"
                 }
             })
 
@@ -57,12 +53,35 @@ class ViewPagerFragment : Fragment() {
                 viewPager.setCurrentItem( viewPager.currentItem + 1, true)
             }
 
+            initSelectedAnswers()
+
             buttonComplete.setOnClickListener {
-                Snackbar.make(viewPager, "Результаты сохранены", Snackbar.LENGTH_SHORT).show()
+                if (selectedAnswers.values.all { it == true })
+                {
+                    Snackbar.make(viewPager, R.string.results_are_saved, Snackbar.LENGTH_SHORT).show()
+                } else {
+                    Snackbar.make(viewPager, R.string.not_all_questions_answered, Snackbar.LENGTH_SHORT).show()
+                }
+
             }
-
-
         }
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    companion object {
+        val selectedAnswers = mutableMapOf<Int, Boolean>()
+    }
+
+    private fun initSelectedAnswers() {
+        for(i in 0..<QuestionsRepository.questions.size) {
+            selectedAnswers[i] = false
+        }
+    }
+
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewBinding = null
     }
 }

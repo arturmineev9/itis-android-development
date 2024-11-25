@@ -4,11 +4,11 @@ import com.example.hw3_viewpager.QuestionModel
 
 object QuestionsRepository {
 
-    val items = listOf(
+    val questions = listOf(
         QuestionModel(
             id = 0,
             question = "Какой танк считается самым массовым в истории?",
-            answers = listOf("Т-34", "M4 Sherman", "Т-54/Т-55", "Tiger I")
+            answers = listOf("Т-34", "M4 Sherman", "Т-54/Т-55", "Tiger I", "M1 Abrams")
         ),
         QuestionModel(
             id = 1,
@@ -23,7 +23,7 @@ object QuestionsRepository {
         QuestionModel(
             id = 3,
             question = "Как назывался британский первый в мире танк?",
-            answers = listOf("Mark I", "Churchill", "Matilda", "Cromwell")
+            answers = listOf("Mark I", "Churchill", "Matilda", "Cromwell", "Comet")
         ),
         QuestionModel(
             id = 4,
@@ -38,7 +38,7 @@ object QuestionsRepository {
         QuestionModel(
             id = 6,
             question = "Какой танк чаще всего называют 'танком Победы'?",
-            answers = listOf("Т-34-85", "ИС-2", "КВ-1", "Т-70")
+            answers = listOf("Т-34-85", "ИС-2", "КВ-1", "Т-70", "ИС-3")
         ),
         QuestionModel(
             id = 7,
@@ -58,12 +58,12 @@ object QuestionsRepository {
         QuestionModel(
             id = 10,
             question = "Какой танк известен своим уникальным круглым 'черепашьим' силуэтом башни?",
-            answers = listOf("Т-62", "ИС-3", "Чи-Ну", "M26 Pershing")
+            answers = listOf("Т-62", "ИС-3", "M26 Pershing")
         ),
         QuestionModel(
             id = 11,
             question = "В каком году был впервые применён танк в бою?",
-            answers = listOf("1914", "1916", "1918", "1920")
+            answers = listOf("1914", "1916", "1918", "1920", "1922", "1924")
         ),
         QuestionModel(
             id = 12,
@@ -73,7 +73,7 @@ object QuestionsRepository {
         QuestionModel(
             id = 13,
             question = "Какая из этих стран НЕ производит собственные танки?",
-            answers = listOf("Китай", "Индия", "Италия", "Япония")
+            answers = listOf("Китай", "Индия", "Италия", "Япония", "КНДР")
         ),
         QuestionModel(
             id = 14,
@@ -83,6 +83,6 @@ object QuestionsRepository {
     )
 
     fun getQuestionById(id: Int): QuestionModel? {
-        return items.find { it.id == id }
+        return questions.find { it.id == id }
     }
 }
