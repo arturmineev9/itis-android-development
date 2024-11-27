@@ -1,6 +1,7 @@
 package com.example.hw3_viewpager.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -35,30 +36,38 @@ class QuestionnaireFragment : Fragment() {
             getRadioButtons(questionId)
         }
 
-        viewBinding?.radioGroup?.setOnCheckedChangeListener { _, _ ->
-            selectedAnswers[questionId] = true
+        viewBinding?.radioGroup?.setOnCheckedChangeListener { group, checkedId ->
+            val radioButton = group.findViewById<RadioButton>(checkedId)
+            val position = group.indexOfChild(radioButton)
+            selectedAnswers[questionId] = position
         }
 
         super.onViewCreated(view, savedInstanceState)
     }
 
 
-    private fun getRadioButtons(questionId : Int) {
+    private fun getRadioButtons(questionId: Int) {
         val radioGroup = viewBinding?.radioGroup
         val answers = QuestionsRepository.getQuestionById(questionId)?.answers
-        answers?.forEach { answer ->
+        answers?.forEachIndexed { index, answer ->
             val radioButton = RadioButton(requireContext()).apply {
+                id = View.generateViewId()
                 text = answer
                 layoutParams = RadioGroup.LayoutParams(
                     RadioGroup.LayoutParams.MATCH_PARENT,
                     RadioGroup.LayoutParams.WRAP_CONTENT
                 )
                 setBackgroundResource(R.drawable.radio_button_selector)
-
+                
+                // Восстановление состояния: если этот ответ выбран, отмечаем кнопку
+                selectedAnswers[questionId]?.let { selectedAnswerPosition ->
+                    if (selectedAnswerPosition == index) {
+                        isChecked = true
+                    }
+                }
             }
             radioGroup?.addView(radioButton)
         }
-
     }
 
     companion object {

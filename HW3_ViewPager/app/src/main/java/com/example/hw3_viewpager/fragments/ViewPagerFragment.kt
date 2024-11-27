@@ -56,7 +56,7 @@ class ViewPagerFragment : Fragment() {
             initSelectedAnswers()
 
             buttonComplete.setOnClickListener {
-                if (selectedAnswers.values.all { it == true })
+                if (selectedAnswers.values.all { it != null })
                 {
                     Snackbar.make(viewPager, R.string.results_are_saved, Snackbar.LENGTH_SHORT).show()
                 } else {
@@ -69,16 +69,14 @@ class ViewPagerFragment : Fragment() {
     }
 
     companion object {
-        val selectedAnswers = mutableMapOf<Int, Boolean>()
+        val selectedAnswers = mutableMapOf<Int, Int?>()
     }
 
     private fun initSelectedAnswers() {
         for(i in 0..<QuestionsRepository.questions.size) {
-            selectedAnswers[i] = false
+            selectedAnswers[i] = null
         }
     }
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()
