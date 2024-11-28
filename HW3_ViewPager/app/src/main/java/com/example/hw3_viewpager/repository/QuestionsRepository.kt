@@ -2,6 +2,7 @@ package com.example.hw3_viewpager.repository
 
 import com.example.hw3_viewpager.QuestionModel
 
+// Датасет со всеми вопросами
 object QuestionsRepository {
 
     val questions = listOf(

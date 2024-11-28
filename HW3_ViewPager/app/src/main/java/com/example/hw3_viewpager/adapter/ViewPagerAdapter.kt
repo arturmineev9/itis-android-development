@@ -7,6 +7,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.hw3_viewpager.fragments.QuestionnaireFragment
 import com.example.hw3_viewpager.repository.QuestionsRepository
 
+
+// Адаптер для ViewPager
 class ViewPagerAdapter(
     fragmentManager: FragmentManager,
     lifecycle: Lifecycle
