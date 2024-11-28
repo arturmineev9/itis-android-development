@@ -13,7 +13,8 @@
         android:text="@string/hello_world"
         android:layout_marginTop="128dp"
         android:gravity="center"
-        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
