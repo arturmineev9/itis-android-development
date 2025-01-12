@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
 
         // Удаление изображения
         binding.deleteButton.setOnClickListener {
-            binding.imageView.setImageResource(R.drawable.ic_launcher_background)
+            binding.imageView.setImageResource(R.drawable.rounded_background)
             binding.deleteButton.visibility = View.GONE
         }
 
@@ -131,12 +131,16 @@ class MainActivity : AppCompatActivity() {
 
     // Переключение видимости контейнера с цветами
     private fun toggleColorSelection() {
+
         if (binding.colorSelectionContainer.visibility == View.GONE) {
             binding.colorSelectionContainer.visibility = View.VISIBLE
+            binding.guideline.setGuidelinePercent(0.35f) // перемещаем нижние элементы ниже
         } else {
             binding.colorSelectionContainer.visibility = View.GONE
+            binding.guideline.setGuidelinePercent(0.25f) // возвращаем элементы в исходное положение
         }
     }
+
 
     private fun changeTheme(themeId: Int) {
         currentThemeId = themeId

@@ -53,6 +53,13 @@
         <item name="android:backgroundTint">@color/button_default</item>
         <item name="android:textColor">@color/button_text_default</item>
     </style>
+
+    <style name="roundedImageView">
+        <item name="background">?attr/colorPrimary</item>
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
     <style name="ButtonStyle.Red" parent="ButtonStyle.Default">
         <item name="android:backgroundTint">@color/red_button</item>
     </style>

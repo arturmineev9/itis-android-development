@@ -32,4 +32,6 @@
     <color name="green_secondary">#C8E6C9</color>
     <color name="green_background">#E8F5E9</color>
     <color name="green_button">#388E3C</color>
+
+    <color name="white">#FFFFFF</color>
 </resources>
