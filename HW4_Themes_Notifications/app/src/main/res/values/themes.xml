@@ -1,0 +1,66 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Базовая тема с ActionBar -->
+    <style name="Base.Theme.HW4_Themes_Notifications" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <!-- Настройка ActionBar -->
+        <item name="colorPrimary">@color/primary_default</item>
+        <item name="colorPrimaryVariant">@color/primary_variant_default</item>
+        <item name="colorOnPrimary">@color/on_primary_default</item>
+        <item name="colorSecondary">@color/secondary_default</item>
+        <item name="android:colorBackground">@color/background_default</item>
+        <item name="android:buttonStyle">@style/ButtonStyle.Default</item>
+        <item name="android:statusBarColor">@color/primary_default</item>
+    </style>
+
+    <!-- Основная тема -->
+    <style name="Theme.HW4_Themes_Notifications" parent="Base.Theme.HW4_Themes_Notifications" />
+
+    <!-- Красная тема -->
+    <style name="Theme.Red" parent="Base.Theme.HW4_Themes_Notifications">
+        <item name="colorPrimary">@color/red_primary</item>
+        <item name="colorPrimaryVariant">@color/red_primary_variant</item>
+        <item name="colorOnPrimary">@color/red_on_primary</item>
+        <item name="colorSecondary">@color/red_secondary</item>
+        <item name="android:colorBackground">@color/red_background</item>
+        <item name="android:buttonStyle">@style/ButtonStyle.Red</item>
+        <item name="android:statusBarColor">@color/red_primary</item>
+    </style>
+
+    <!-- Желтая тема -->
+    <style name="Theme.Yellow" parent="Base.Theme.HW4_Themes_Notifications">
+        <item name="colorPrimary">@color/yellow_primary</item>
+        <item name="colorPrimaryVariant">@color/yellow_primary_variant</item>
+        <item name="colorOnPrimary">@color/yellow_on_primary</item>
+        <item name="colorSecondary">@color/yellow_secondary</item>
+        <item name="android:colorBackground">@color/yellow_background</item>
+        <item name="android:buttonStyle">@style/ButtonStyle.Yellow</item>
+        <item name="android:statusBarColor">@color/yellow_primary</item>
+    </style>
+
+    <!-- Зеленая тема -->
+    <style name="Theme.Green" parent="Base.Theme.HW4_Themes_Notifications">
+        <item name="colorPrimary">@color/green_primary</item>
+        <item name="colorPrimaryVariant">@color/green_primary_variant</item>
+        <item name="colorOnPrimary">@color/green_on_primary</item>
+        <item name="colorSecondary">@color/green_secondary</item>
+        <item name="android:colorBackground">@color/green_background</item>
+        <item name="android:buttonStyle">@style/ButtonStyle.Green</item>
+        <item name="android:statusBarColor">@color/green_primary</item>
+    </style>
+
+    <!-- Стиль для кнопок -->
+    <style name="ButtonStyle.Default" parent="Widget.AppCompat.Button">
+        <item name="android:backgroundTint">@color/button_default</item>
+        <item name="android:textColor">@color/button_text_default</item>
+    </style>
+    <style name="ButtonStyle.Red" parent="ButtonStyle.Default">
+        <item name="android:backgroundTint">@color/red_button</item>
+    </style>
+    <style name="ButtonStyle.Yellow" parent="ButtonStyle.Default">
+        <item name="android:backgroundTint">@color/yellow_button</item>
+    </style>
+    <style name="ButtonStyle.Green" parent="ButtonStyle.Default">
+        <item name="android:backgroundTint">@color/green_button</item>
+    </style>
+
+</resources>

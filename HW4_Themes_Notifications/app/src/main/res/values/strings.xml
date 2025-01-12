@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">HW4_Themes_Notifications</string>
+
+    <string-array name="priority_array">
+        <item>Max</item>
+        <item>High</item>
+        <item>Default</item>
+        <item>Low</item>
+    </string-array>
+
+</resources>
