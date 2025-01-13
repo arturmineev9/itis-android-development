@@ -1,0 +1,175 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageView"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="16dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/rounded_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/roundedImageView" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/delete_button"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/baseline_delete_24"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/imageView"
+        app:layout_constraintTop_toTopOf="@id/imageView"
+        app:shapeAppearanceOverlay="@style/roundedImageView" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_background"
+        android:elevation="4dp"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView">
+
+        <!-- Кнопка dropdown -->
+        <ImageButton
+            android:id="@+id/showColorsButton"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="?attr/colorPrimary"
+            android:foreground="?attr/selectableItemBackground"
+            android:src="@drawable/keyboard_double_arrow_down"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Контейнер для цветов (по умолчанию скрыт) -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/colorSelectionContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/showColorsButton">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/redColorView"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_margin="8dp"
+                android:background="#FF0000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/roundedImageView" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/greenColorView"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_margin="8dp"
+                android:background="#00FF00"
+                app:layout_constraintStart_toEndOf="@id/redColorView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/roundedImageView" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/yellowColorView"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_margin="8dp"
+                android:background="#FFFF00"
+                app:layout_constraintStart_toEndOf="@id/greenColorView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/roundedImageView" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!-- Guideline для смещения элементов вниз -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <!-- Поля для текста и кнопки, прикрепленные к Guideline -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/notificationTitleInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        style="@style/TextInputLayoutStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/notificationTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/notification_header" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/notificationInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/TextInputLayoutStyle"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/notificationTitleInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/notificationText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/notification_text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Spinner
+        android:id="@+id/prioritySpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/notificationInputLayout" />
+
+    <Button
+        android:id="@+id/showNotificationButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/show_notification"
+        android:textAllCaps="false"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/prioritySpinner" />
+
+    <Button
+        android:id="@+id/resetColorButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/reset_color"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/showNotificationButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.util.Log
 import androidx.core.app.NotificationCompat
 
 class NotificationHandler(private val context: Context) {
@@ -48,7 +47,7 @@ class NotificationHandler(private val context: Context) {
         val notification = NotificationCompat.Builder(context, channelId)
             .setContentTitle(title)
             .setContentText(text)
-            .setSmallIcon(R.drawable.ic_launcher_background)
+            .setSmallIcon(R.drawable.ic_notification)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
             .build()
