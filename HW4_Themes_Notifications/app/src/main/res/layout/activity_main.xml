@@ -111,10 +111,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        app:boxStrokeColor="#ffffff"
-        app:counterTextColor="?attr/colorPrimary"
-        app:cursorColor="?attr/colorPrimary"
-        app:hintTextColor="?attr/colorPrimary"
+        style="@style/TextInputLayoutStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline">
@@ -132,10 +129,8 @@
         android:id="@+id/notificationInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:boxStrokeColor="?attr/colorPrimary"
-        app:counterTextColor="?attr/colorPrimary"
-        app:cursorColor="?attr/colorPrimary"
-        app:hintTextColor="?attr/colorPrimary"
+        style="@style/TextInputLayoutStyle"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/notificationTitleInputLayout">
@@ -162,6 +157,7 @@
         android:layout_height="wrap_content"
         android:text="@string/show_notification"
         android:textAllCaps="false"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/prioritySpinner" />

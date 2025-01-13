@@ -96,8 +96,7 @@ class MainActivity : AppCompatActivity() {
 
         // Кнопка "Сбросить цвет"
         binding.resetColorButton.setOnClickListener {
-            setTheme(R.style.Theme_HW4_Themes_Notifications)
-            recreate()
+            changeTheme(R.style.Theme_HW4_Themes_Notifications)
         }
     }
 
