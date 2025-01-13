@@ -4,11 +4,15 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
@@ -19,12 +23,14 @@ class MainActivity : AppCompatActivity() {
 
     // ViewBinding
     private lateinit var binding: ActivityMainBinding
-    private lateinit var notificationManager: NotificationManager
+    private lateinit var notificationHandler: NotificationHandler
     private var currentThemeId: Int = R.style.Theme_HW4_Themes_Notifications // Стартовая тема
+    private var currentImportance = 0;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        notificationHandler = NotificationHandler(this)
         // Восстанавливаем тему, если состояние было сохранено
         if (savedInstanceState != null) {
             currentThemeId = savedInstanceState.getInt("theme_id", R.style.Theme_HW4_Themes_Notifications)
@@ -33,6 +39,12 @@ class MainActivity : AppCompatActivity() {
         // Инициализация ViewBinding
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        // Проверяем разрешения при запуске
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            checkNotificationPermission()
+        }
 
 
         binding.showColorsButton.setOnClickListener {
@@ -55,8 +67,6 @@ class MainActivity : AppCompatActivity() {
             changeTheme(R.style.Theme_Green)
         }
 
-        // Инициализация NotificationManager
-        notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
 
         // Нажатие на ImageView
         binding.imageView.setOnClickListener {
@@ -82,7 +92,20 @@ class MainActivity : AppCompatActivity() {
             binding.prioritySpinner.adapter = adapter
         }
 
-        // Кнопка "Показать уведомление"
+        // Слушатель выбора в Spinner
+        binding.prioritySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                currentImportance = position
+                Log.d("currentImportance", currentImportance.toString())
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                return
+            }
+        }
+
+
+
+        // Кнопка для показа уведомления
         binding.showNotificationButton.setOnClickListener {
             val title = binding.notificationTitle.text.toString()
             val text = binding.notificationText.text.toString()
@@ -90,7 +113,7 @@ class MainActivity : AppCompatActivity() {
             if (title.isEmpty() || text.isEmpty()) {
                 Toast.makeText(this, "Заполните все поля", Toast.LENGTH_SHORT).show()
             } else {
-                showNotification(title, text)
+                notificationHandler.showNotification(title, text, currentImportance)
             }
         }
 
@@ -98,35 +121,6 @@ class MainActivity : AppCompatActivity() {
         binding.resetColorButton.setOnClickListener {
             changeTheme(R.style.Theme_HW4_Themes_Notifications)
         }
-    }
-
-    private fun showNotification(title: String, text: String) {
-        val channelId = "my_channel"
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                channelId,
-                "Default Channel",
-                NotificationManager.IMPORTANCE_DEFAULT
-            )
-            notificationManager.createNotificationChannel(channel)
-        }
-
-        val intent = Intent(this, MainActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(
-            this,
-            0,
-            intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
-
-        val notification = NotificationCompat.Builder(this, channelId)
-            .setContentTitle(title)
-            .setContentText(text)
-            .setSmallIcon(R.drawable.ic_launcher_background)
-            .setContentIntent(pendingIntent)
-            .build()
-
-        notificationManager.notify(0, notification)
     }
 
     // Переключение видимости контейнера с цветами
@@ -152,6 +146,28 @@ class MainActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt("theme_id", currentThemeId) // Сохраняем текущую тему
+    }
+
+    private fun checkNotificationPermission() {
+        if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // Запрос разрешения
+            requestNotificationPermission()
+        }
+    }
+
+    private fun requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val requestPermissionLauncher =
+                registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+                    if (isGranted) {
+                        Toast.makeText(this, "Уведомления разрешены", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this, "Уведомления запрещены", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+            requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+        }
     }
 }
 
