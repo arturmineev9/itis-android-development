@@ -6,6 +6,10 @@
     <string name="choose_thread_pool_type">Выберите тип пула потоков</string>
     <string name="start_coroutines">Запуск корутин</string>
     <string name="stop_coroutines">Остановка корутин</string>
+    <string name="notifications_allowed">Уведомления разрешены</string>
+    <string name="notifications_denied">Уведомления отклонены</string>
+    <string name="notifications_permanently_denied">Уведомления запрещены. Включите их в настройках.</string>
+    <string name="notifications_not_required">Разрешение на уведомления не требуется</string>
 
     <string-array name="coroutines_thread_types">
         <item>Последовательно</item>
@@ -21,7 +25,6 @@
         <item>Кто-то</item>
         <item>Куда-то</item>
     </string-array>
-
 
 
 </resources>

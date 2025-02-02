@@ -1,7 +1,15 @@
 package com.example.hw5_coroutines_compose
 
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -17,10 +25,69 @@ class MainActivity : AppCompatActivity() {
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding?.root)
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            checkAndRequestPermission(android.Manifest.permission.POST_NOTIFICATIONS, ::requestNotificationPermission)
+        }
+
         supportFragmentManager.beginTransaction()
             .add(mainContainer, MainFragment())
             .commit()
+
+
     }
+
+    private fun checkAndRequestPermission(permission: String, requestPermissionFunc: () -> Unit) {
+        if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissionFunc()
+        }
+    }
+
+    private fun requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val requestPermissionLauncher = registerForActivityResult(
+                ActivityResultContracts.RequestPermission()
+            ) { isGranted ->
+                if (isGranted) {
+                    showToast(getString(R.string.notifications_allowed))
+                } else {
+                    if (shouldShowRequestPermissionRationale(android.Manifest.permission.POST_NOTIFICATIONS)) {
+                        // Пользователь отклонил запрос, но не запретил его явно
+                        showToast(getString(R.string.notifications_denied))
+                        showRationaleDialog() // Показать объяснение и запросить снова
+                    } else {
+                        // Пользователь явно запретил запрос
+                        showToast(getString(R.string.notifications_permanently_denied))
+                        openAppSettings() // Направить пользователя в настройки
+                    }
+                }
+            }
+            requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+        } else {
+            showToast(getString(R.string.notifications_not_required))
+        }
+    }
+
+    private fun showRationaleDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Разрешение на уведомления")
+            .setMessage("Для отправки уведомлений необходимо предоставить разрешение. Хотите попробовать снова?")
+            .setPositiveButton("Да") { _, _ ->
+                requestNotificationPermission() // Запросить разрешение снова
+            }
+            .show()
+    }
+
+    private fun openAppSettings() {
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+            data = Uri.fromParts("package", packageName, null)
+        }
+        startActivity(intent)
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
