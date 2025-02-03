@@ -22,8 +22,9 @@
     </string-array>
 
     <string-array name="pool_thread_types">
-        <item>Кто-то</item>
-        <item>Куда-то</item>
+        <item>IO</item>
+        <item>Default</item>
+        <item>Main</item>
     </string-array>
 
 

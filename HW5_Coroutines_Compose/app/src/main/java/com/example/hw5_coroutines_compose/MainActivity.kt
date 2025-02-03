@@ -29,11 +29,11 @@ class MainActivity : AppCompatActivity() {
             checkAndRequestPermission(android.Manifest.permission.POST_NOTIFICATIONS, ::requestNotificationPermission)
         }
 
-        supportFragmentManager.beginTransaction()
-            .add(mainContainer, MainFragment())
-            .commit()
-
-
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .add(mainContainer, MainFragment())
+                .commit()
+        }
     }
 
     private fun checkAndRequestPermission(permission: String, requestPermissionFunc: () -> Unit) {
@@ -53,11 +53,12 @@ class MainActivity : AppCompatActivity() {
                     if (shouldShowRequestPermissionRationale(android.Manifest.permission.POST_NOTIFICATIONS)) {
                         // Пользователь отклонил запрос, но не запретил его явно
                         showToast(getString(R.string.notifications_denied))
-                        showRationaleDialog() // Показать объяснение и запросить снова
+                         // Показать объяснение и запросить снова
                     } else {
                         // Пользователь явно запретил запрос
+                        showRationaleDialog()
                         showToast(getString(R.string.notifications_permanently_denied))
-                        openAppSettings() // Направить пользователя в настройки
+                         // Направить пользователя в настройки
                     }
                 }
             }
@@ -70,9 +71,9 @@ class MainActivity : AppCompatActivity() {
     private fun showRationaleDialog() {
         AlertDialog.Builder(this)
             .setTitle("Разрешение на уведомления")
-            .setMessage("Для отправки уведомлений необходимо предоставить разрешение. Хотите попробовать снова?")
-            .setPositiveButton("Да") { _, _ ->
-                requestNotificationPermission() // Запросить разрешение снова
+            .setMessage("Для отправки уведомлений необходимо предоставить разрешение.")
+            .setPositiveButton("Открыть настройки") { _, _ ->
+                openAppSettings() // Запросить разрешение снова
             }
             .show()
     }
