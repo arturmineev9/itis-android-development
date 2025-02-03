@@ -51,14 +51,10 @@ class MainActivity : AppCompatActivity() {
                     showToast(getString(R.string.notifications_allowed))
                 } else {
                     if (shouldShowRequestPermissionRationale(android.Manifest.permission.POST_NOTIFICATIONS)) {
-                        // Пользователь отклонил запрос, но не запретил его явно
                         showToast(getString(R.string.notifications_denied))
-                         // Показать объяснение и запросить снова
                     } else {
-                        // Пользователь явно запретил запрос
                         showRationaleDialog()
                         showToast(getString(R.string.notifications_permanently_denied))
-                         // Направить пользователя в настройки
                     }
                 }
             }
@@ -70,17 +66,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun showRationaleDialog() {
         AlertDialog.Builder(this)
-            .setTitle("Разрешение на уведомления")
-            .setMessage("Для отправки уведомлений необходимо предоставить разрешение.")
-            .setPositiveButton("Открыть настройки") { _, _ ->
-                openAppSettings() // Запросить разрешение снова
+            .setTitle(R.string.notification_permission_title)
+            .setMessage(R.string.notification_permission_message)
+            .setPositiveButton(R.string.open_settings_button) { _, _ ->
+                openAppSettings()
             }
             .show()
     }
 
     private fun openAppSettings() {
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-            data = Uri.fromParts("package", packageName, null)
+            data = Uri.fromParts(Constants.PACKAGE, packageName, null)
         }
         startActivity(intent)
     }
