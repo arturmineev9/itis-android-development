@@ -10,6 +10,17 @@
     <string name="notifications_denied">Уведомления отклонены</string>
     <string name="notifications_permanently_denied">Уведомления запрещены. Включите их в настройках.</string>
     <string name="notifications_not_required">Разрешение на уведомления не требуется</string>
+    <string name="coroutines_cancel_on_pause">Отменять при сворачивании</string>
+    <string name="coroutines_continue_on_pause">Продолжать при сворачивании</string>
+    <string name="thread_pool_io">IO</string>
+    <string name="thread_pool_default">Default</string>
+    <string name="thread_pool_main">Main</string>
+    <string name="invalid_coroutine_count">Введите корректное число корутин</string>
+    <string name="no_active_coroutines">Нет активных корутин для отмены</string>
+    <string name="coroutines_cancelled">Отменено %d корутин</string>
+    <string name="coroutine_started">Корутина %1$d запущена</string>
+    <string name="coroutine_finished">Корутина %1$d завершена</string>
+
 
     <string-array name="coroutines_thread_types">
         <item>Последовательно</item>
