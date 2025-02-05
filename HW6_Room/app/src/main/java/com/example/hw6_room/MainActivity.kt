@@ -29,19 +29,8 @@ class MainActivity : AppCompatActivity() {
 
         sessionManager = SessionManager(this)
 
-        /*if (sessionManager.isLoggedIn()) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MainScreenFragment())
-                .commit()
-        } else {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, WelcomeFragment())
-                .commit()
-        }*/
 
         initNavController()
-
-
 
     }
 
@@ -51,11 +40,17 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.container) as? NavHostFragment
         val navController = navHostFragment?.navController
 
+        if (sessionManager.isLoggedIn()) {
+            navController?.navigate(R.id.memesListFragment)
+        } else {
+            navController?.navigate(R.id.welcomeFragment)
+        }
+
         if (navController != null) {
             viewBinding?.bottomNavigation?.setupWithNavController(navController)
         }
     }
-
+    
     fun setBottomNavigationVisibility(isVisible: Boolean) {
         if (isVisible) {
             viewBinding?.bottomNavigation?.visibility = View.VISIBLE
