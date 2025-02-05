@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.example.hw6_room.screens.WelcomeFragment"
+        android:name="com.example.hw6_room.screens.entry.WelcomeFragment"
         android:label="fragment_welcome"
         tools:layout="@layout/fragment_welcome" >
         <action
@@ -24,30 +24,30 @@
         tools:layout="@layout/fragment_add_content" />
     <fragment
         android:id="@+id/registrationFragment"
-        android:name="com.example.hw6_room.screens.RegistrationFragment"
+        android:name="com.example.hw6_room.screens.entry.RegistrationFragment"
         android:label="fragment_registration"
         tools:layout="@layout/fragment_registration" >
         <action
             android:id="@+id/action_registrationFragment_to_mainScreenFragment"
-            app:destination="@id/mainScreenFragment" />
+            app:destination="@id/memesListFragment" />
         <action
             android:id="@+id/action_registrationFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.hw6_room.screens.LoginFragment"
+        android:name="com.example.hw6_room.screens.entry.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_mainScreenFragment"
-            app:destination="@id/mainScreenFragment" />
+            app:destination="@id/memesListFragment" />
         <action
             android:id="@+id/action_loginFragment_to_registrationFragment"
             app:destination="@id/registrationFragment" />
     </fragment>
     <fragment
-        android:id="@+id/mainScreenFragment"
+        android:id="@+id/memesListFragment"
         android:name="com.example.hw6_room.screens.MainScreenFragment"
         android:label="fragment_main_screen"
         tools:layout="@layout/fragment_main_screen" >
@@ -55,4 +55,14 @@
             android:id="@+id/action_mainScreenFragment_to_addContentFragment"
             app:destination="@id/addContentFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/favoriteMemesFragment"
+        android:name="com.example.hw6_room.screens.FavoriteMemesFragment"
+        android:label="fragment_favorite_memes"
+        tools:layout="@layout/fragment_favorite_memes" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.hw6_room.screens.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

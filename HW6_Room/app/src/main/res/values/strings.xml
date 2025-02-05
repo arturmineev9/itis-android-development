@@ -10,4 +10,7 @@
     <string name="entry_into_account">Авторизация</string>
     <string name="entry_button">Войти</string>
     <string name="register">Зарегистрироваться</string>
+    <string name="favorite">Избранное</string>
+    <string name="your_memes">Твои мемы</string>
+    <string name="settings">Настройки</string>
 </resources>

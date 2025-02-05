@@ -1,4 +1,4 @@
-package com.example.hw6_room.screens
+package com.example.hw6_room.screens.entry
 
 import android.net.Uri
 import android.os.Bundle
@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
+import com.example.hw6_room.MainActivity
 import com.example.hw6_room.R
 import com.example.hw6_room.databinding.FragmentWelcomeBinding
 
@@ -26,7 +26,7 @@ class WelcomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        (activity as MainActivity).setBottomNavigationVisibility(false)
         initVideoView()
         initButtons()
     }
