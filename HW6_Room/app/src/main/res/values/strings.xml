@@ -13,4 +13,13 @@
     <string name="favorite">Избранное</string>
     <string name="your_memes">Твои мемы</string>
     <string name="settings">Настройки</string>
+    <string name="appearance">Внешний вид</string>
+    <string name="theme">Тема</string>
+    <string name="choose_color">Выбор цвета</string>
+    <string name="wrong_login">Неверный адрес электронной почты или пароль</string>
+    <string name="user_exists">Пользователь с таким адресом электронной почты уже существует</string>
+    <string name="registration_successful">Регистрация прошла успешно!</string>
+    <string name="welcome_message">С возвращением, %1$s!</string>
+    <string name="invalid_email">Неверный адрес электронной почты</string>
+    <string name="invalid_password">Пароль должен состоять не менее чем из 8 символов и содержать по крайней мере одну заглавную букву, одну строчную букву, одну цифру и один специальный символ</string>
 </resources>

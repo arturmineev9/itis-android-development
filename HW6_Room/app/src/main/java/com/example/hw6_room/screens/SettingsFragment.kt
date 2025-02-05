@@ -1,60 +1,77 @@
 package com.example.hw6_room.screens
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.hw6_room.R
+import com.example.hw6_room.databinding.FragmentMainScreenBinding
+import com.example.hw6_room.databinding.FragmentSettingsBinding
+import com.example.hw6_room.utils.Constants
+import com.github.dhaval2404.colorpicker.MaterialColorPickerDialog
+import com.github.dhaval2404.colorpicker.model.ColorShape
+import com.github.dhaval2404.colorpicker.model.ColorSwatch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SettingsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SettingsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var viewBinding: FragmentSettingsBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+        viewBinding = FragmentSettingsBinding.inflate(inflater, container, false)
+        return viewBinding?.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SettingsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SettingsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewBinding?.buttonColor?.setOnClickListener {
+            MaterialColorPickerDialog
+                .Builder(requireContext())
+                .setTitle(R.string.choose_color)
+                .setColors(
+                    arrayListOf(
+                        "#E57373",
+                        "#f06292",
+                        "#ba68c8",
+                        "#9575cd",
+                        "#7986cb",
+                        "#64b5f6",
+                        "#4fc3f7",
+                        "#4dd0e1",
+                        "#4db6ac",
+                        "#81c784",
+                        "#aed581",
+                        "#dce775",
+                        "#ffd54f",
+                        "#ffb74d",
+                        "#ff8a65",
+                        "#a1887f",
+                        "#90a4ae"
+                    )
+                )
+                .setColorShape(ColorShape.CIRCLE)
+                .setColorSwatch(ColorSwatch._300)
+                .setDefaultColor(R.color.dark_blue_main)
+                .setColorListener { color, colorHex ->
+                    viewBinding?.buttonColor?.setBackgroundColor(color)
+                    setAppTheme(color)
                 }
-            }
+                .show()
+        }
+    }
+
+    private fun setAppTheme(theme: Int) {
+        val sharedPreferences =
+            requireContext().getSharedPreferences(Constants.AppPreferences, Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putInt(Constants.AppTheme, theme)
+        editor.apply()
+
+        requireActivity().recreate()
     }
 }

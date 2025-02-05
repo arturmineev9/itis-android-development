@@ -1,11 +1,12 @@
 package com.example.hw6_room.screens.entry
 
+import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.hw6_room.MainActivity
 import com.example.hw6_room.R
@@ -47,10 +48,15 @@ class WelcomeFragment : Fragment() {
             val videoPath = "android.resource://${requireContext().packageName}/${R.raw.rock}"
             val videoUri = Uri.parse(videoPath)
             videoView.setVideoURI(videoUri)
+
             videoView.setOnCompletionListener {
                 videoView.start()
             }
-            videoView.start()
+
+            videoView.setOnPreparedListener { mp ->
+                mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING)
+                videoView.start()
+            }
         }
     }
 

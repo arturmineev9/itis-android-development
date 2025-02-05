@@ -5,8 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="40c9f70d-c121-4d56-a46d-a6270ddf36ed" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HW6_Room/app/src/main/java/com/example/hw6_room/db/AppDatabase.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HW6_Room/app/src/main/java/com/example/hw6_room/db/dao/UserDao.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HW6_Room/app/src/main/java/com/example/hw6_room/db/entity/User.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HW6_Room/app/src/main/java/com/example/hw6_room/db/repository/UserRepository.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HW6_Room/app/src/main/java/com/example/hw6_room/di/ServiceLocator.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HW6_Room/app/src/main/java/com/example/hw6_room/utils/Constants.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HW6_Room/app/src/main/res/drawable/click_background.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HW6_Room/.idea/kotlinc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/HW6_Room/.idea/kotlinc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HW6_Room/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/HW6_Room/app/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HW6_Room/app/src/main/java/com/example/hw6_room/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/HW6_Room/app/src/main/java/com/example/hw6_room/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HW6_Room/app/src/main/java/com/example/hw6_room/screens/SettingsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/HW6_Room/app/src/main/java/com/example/hw6_room/screens/SettingsFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HW6_Room/app/src/main/java/com/example/hw6_room/screens/entry/LoginFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/HW6_Room/app/src/main/java/com/example/hw6_room/screens/entry/LoginFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HW6_Room/app/src/main/java/com/example/hw6_room/screens/entry/RegistrationFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/HW6_Room/app/src/main/java/com/example/hw6_room/screens/entry/RegistrationFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HW6_Room/app/src/main/java/com/example/hw6_room/screens/entry/WelcomeFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/HW6_Room/app/src/main/java/com/example/hw6_room/screens/entry/WelcomeFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HW6_Room/app/src/main/res/layout/fragment_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/HW6_Room/app/src/main/res/layout/fragment_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HW6_Room/app/src/main/res/layout/fragment_welcome.xml" beforeDir="false" afterPath="$PROJECT_DIR$/HW6_Room/app/src/main/res/layout/fragment_welcome.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HW6_Room/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/HW6_Room/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HW6_Room/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/HW6_Room/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HW6_Room/app/src/main/res/values/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/HW6_Room/app/src/main/res/values/themes.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HW6_Room/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/HW6_Room/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HW6_Room/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/HW6_Room/gradle/libs.versions.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HW6_Room/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/HW6_Room/settings.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,19 +48,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "android.gradle.sync.needed": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "feature/hw6__room",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/Documents/Git/itis-android-development/HW6_Room"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;android.gradle.sync.needed&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/hw6__room&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Documents/Git/itis-android-development/HW6_Room&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

@@ -2,8 +2,80 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="purple_500">#6200EE</color>
-    <color name="teal_700">#018786</color>
-    <color name="background_light">#F5F5F5</color>
-    <color name="button_text">#FFFFFF</color>
+    <color name="pink">#FF69B4</color>
+    <color name="purple">#8A2BE2</color>
+    <color name="icon_color">?attr/colorControlNormal</color>
+    <color name="colorInfo">#40000000</color>
+    <color name="colorClick">#0080FF</color>
+    <color name="background">#F9F6ED</color>
+
+    <color name="red_main">#E57373</color>
+    <color name="red_secondary">#EABDBA</color>
+    <color name="red_background">#F9F0F0</color>
+
+    <color name="pink_main">#f06292</color>
+    <color name="pink_secondary">#EFC2D7</color>
+    <color name="pink_background">#FAEAF0</color>
+
+    <color name="purple_main">#ba68c8</color>
+    <color name="purple_secondary">#BCA2D3</color>
+    <color name="purple_background">#FAF4FB</color>
+
+    <color name="dark_purple_main">#9575cd</color>
+    <color name="dark_purple_secondary">#ABADDA</color>
+    <color name="dark_purple_background">#F6F3FC</color>
+
+    <color name="dark_blue_main">#7986cb</color>
+    <color name="dark_blue_secondary">#ACBCD7</color>
+    <color name="dark_blue_background">#F0F1FA</color>
+
+    <color name="blue_main">#64b5f6</color>
+    <color name="blue_secondary">#C2E8F6</color>
+    <color name="blue_background">#EDF6FD</color>
+
+    <color name="cyan_main">#4fc3f7</color>
+    <color name="cyan_secondary">#B5F0FB</color>
+    <color name="cyan_background">#EDF8FD</color>
+
+    <color name="cloud_main">#4dd0e1</color>
+    <color name="cloud_secondary">#A3E3DF</color>
+    <color name="cloud_background">#EEFAFC</color>
+
+    <color name="emerald_main">#4db6ac</color>
+    <color name="emerald_secondary">#93C8B6</color>
+    <color name="emerald_background">#EEFBFA</color>
+
+    <color name="dark_green_main">#81c784</color>
+    <color name="dark_green_secondary">#AAD3A2</color>
+    <color name="dark_green_background">#EFFBF0</color>
+
+    <color name="green_main">#aed581</color>
+    <color name="green_secondary">#D2E3B3</color>
+    <color name="green_background">#F5FBEE</color>
+
+    <color name="grass_main">#dce775</color>
+    <color name="grass_secondary">#EBECB9</color>
+    <color name="grass_background">#FAFBF4</color>
+
+    <color name="dark_yellow_main">#ffd54f</color>
+    <color name="dark_yellow_secondary">#F3DDB4</color>
+    <color name="dark_yellow_background">#FBF8EF</color>
+
+    <color name="orange_main">#ffb74d</color>
+    <color name="orange_secondary">#F3DEBE</color>
+    <color name="orange_background">#FCF6EE</color>
+
+    <color name="dark_orange_main">#ff8a65</color>
+    <color name="dark_orange_secondary">#F4DACA</color>
+    <color name="dark_orange_background">#FBF1EE</color>
+
+    <color name="brown_main">#a1887f</color>
+    <color name="brown_secondary">#B5A79B</color>
+    <color name="brown_background">#FBF2EE</color>
+
+
+    <color name="dark_gray_main">#90a4ae</color>
+    <color name="dark_gray_secondary">#ACBEC3</color>
+    <color name="dark_gray_background">#EEF7FC</color>
+
 </resources>
