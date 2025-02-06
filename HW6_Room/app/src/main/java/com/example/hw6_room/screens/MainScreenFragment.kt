@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
+import com.example.hw6_room.MainActivity
 import com.example.hw6_room.R
 import com.example.hw6_room.databinding.FragmentMainScreenBinding
 import com.example.hw6_room.recyclerView.MemesAdapter
@@ -29,6 +30,7 @@ class MainScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity).setBottomNavigationVisibility(true)
         val glide = Glide.with(requireContext())
         initRecyclerView(glide)
     }

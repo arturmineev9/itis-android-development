@@ -22,4 +22,5 @@
     <string name="welcome_message">С возвращением, %1$s!</string>
     <string name="invalid_email">Неверный адрес электронной почты</string>
     <string name="invalid_password">Пароль должен состоять не менее чем из 8 символов и содержать по крайней мере одну заглавную букву, одну строчную букву, одну цифру и один специальный символ</string>
+    <string name="exit_from_account">Выйти из аккаунта</string>
 </resources>

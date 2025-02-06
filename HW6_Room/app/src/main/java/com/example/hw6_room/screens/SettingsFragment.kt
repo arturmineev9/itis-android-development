@@ -6,10 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.hw6_room.R
-import com.example.hw6_room.databinding.FragmentMainScreenBinding
 import com.example.hw6_room.databinding.FragmentSettingsBinding
 import com.example.hw6_room.utils.Constants
+import com.example.hw6_room.utils.SessionManager
 import com.github.dhaval2404.colorpicker.MaterialColorPickerDialog
 import com.github.dhaval2404.colorpicker.model.ColorShape
 import com.github.dhaval2404.colorpicker.model.ColorSwatch
@@ -18,6 +19,7 @@ import com.github.dhaval2404.colorpicker.model.ColorSwatch
 class SettingsFragment : Fragment() {
 
     private var viewBinding: FragmentSettingsBinding? = null
+    private lateinit var sessionManager: SessionManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +31,12 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sessionManager = SessionManager(requireContext())
+        initThemeChanger()
+        initExitButton()
+    }
+
+    private fun initThemeChanger() {
         viewBinding?.buttonColor?.setOnClickListener {
             MaterialColorPickerDialog
                 .Builder(requireContext())
@@ -65,13 +73,32 @@ class SettingsFragment : Fragment() {
         }
     }
 
+    private fun initExitButton() {
+        viewBinding?.run {
+            exitButton.setOnClickListener {
+                logoutUser()
+            }
+        }
+    }
+
     private fun setAppTheme(theme: Int) {
         val sharedPreferences =
-            requireContext().getSharedPreferences(Constants.AppPreferences, Context.MODE_PRIVATE)
+            requireContext().getSharedPreferences(Constants.APP_REFERENCES, Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        editor.putInt(Constants.AppTheme, theme)
+        editor.putInt(Constants.APP_THEME, theme)
         editor.apply()
+        restartActivity()
+    }
 
-        requireActivity().recreate()
+    private fun restartActivity() {
+        val intent = requireActivity().intent
+        requireActivity().finish()
+        requireActivity().startActivity(intent)
+    }
+
+
+    private fun logoutUser() {
+        sessionManager.logoutUser()
+        findNavController().navigate(R.id.action_settingsFragment_to_welcomeFragment)
     }
 }
