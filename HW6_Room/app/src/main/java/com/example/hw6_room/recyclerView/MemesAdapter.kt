@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
-import com.example.hw6_room.MemeEntity
 import com.example.hw6_room.databinding.MemeViewHolderBinding
+import com.example.hw6_room.db.entity.MemeEntity
 
 class MemesAdapter(
     private var list: List<MemeEntity>,

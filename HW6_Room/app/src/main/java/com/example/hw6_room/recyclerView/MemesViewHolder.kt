@@ -1,9 +1,10 @@
 package com.example.hw6_room.recyclerView
 
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
-import com.example.hw6_room.MemeEntity
 import com.example.hw6_room.databinding.MemeViewHolderBinding
+import com.example.hw6_room.db.entity.MemeEntity
 
 open class MemesViewHolder(
     private val viewBinding: MemeViewHolderBinding,
@@ -13,8 +14,8 @@ open class MemesViewHolder(
     fun bindItem(itemData: MemeEntity){
         viewBinding.run{
             gridHeaderTv.text = itemData.description
-
-            glide.load(itemData.imageUrl)
+            Log.d("url", itemData.url)
+            glide.load(itemData.url)
                 .into(gridIv)
         }
     }
