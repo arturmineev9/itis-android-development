@@ -1,6 +1,7 @@
 package com.example.hw6_room.screens
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -50,12 +51,16 @@ class MainScreenFragment : Fragment() {
     private fun initRecyclerView(requestManager: RequestManager) {
         lifecycleScope.launch {
             val userId = sessionManager.getUserId()
-            val memesList = memeRepository.getUserMemes(userId).toMutableList()  // mutableList
+            val memesList = memeRepository.getUserMemes(userId).toMutableList()
             memesAdapter = MemesAdapter(
                 list = memesList,
                 requestManager = requestManager,
                 onItemLongClick = { meme, position ->
                     showDeleteConfirmationDialog(meme, position)
+                },
+                onFavoriteClick = { position, isFavorite ->
+                    Log.d("position", position.toString())
+                    toggleFavorite(memesList[position - 1], position)
                 }
             )
             viewBinding?.run {
@@ -86,6 +91,13 @@ class MainScreenFragment : Fragment() {
     }
 
 
+    private fun toggleFavorite(meme: MemeEntity, position: Int) {
+        lifecycleScope.launch {
+            val updatedMeme = meme.copy(isFavorite = !meme.isFavorite) // Создаём новую копию
+            memeRepository.toggleFavorite(updatedMeme.id, updatedMeme.isFavorite)
+            memesAdapter?.updateItem(position, updatedMeme)
+        }
+    }
 
 
     private fun initFab() {

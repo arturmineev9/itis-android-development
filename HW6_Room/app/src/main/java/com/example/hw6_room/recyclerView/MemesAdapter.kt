@@ -10,7 +10,8 @@ import com.example.hw6_room.db.entity.MemeEntity
 class MemesAdapter(
     private var list: MutableList<MemeEntity>,
     private val requestManager: RequestManager,
-    private val onItemLongClick: (MemeEntity, Int) -> Unit
+    private val onItemLongClick: (MemeEntity, Int) -> Unit,
+    private val onFavoriteClick: (Int, Boolean) -> Unit
 ) : RecyclerView.Adapter<MemesViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemesViewHolder {
@@ -21,6 +22,7 @@ class MemesAdapter(
                 false
             ),
             glide = requestManager,
+            onFavoriteClick
         )
     }
 
@@ -29,17 +31,32 @@ class MemesAdapter(
         return list.size
     }
 
-    // Метод для удаления элемента из списка
     fun removeItem(position: Int) {
-        list.removeAt(position)  // Удаляем элемент из списка
-        notifyItemRemoved(position)  // Уведомляем адаптер об удалении элемента
+        list.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
+    fun addItem(meme: MemeEntity) {
+        list.add(0, meme)
+        notifyItemInserted(0)
+    }
+
+    fun updateList(newList: MutableList<MemeEntity>) {
+        list.clear()
+        list.addAll(newList)
+        notifyDataSetChanged()
+    }
+
+    fun updateItem(position: Int, meme: MemeEntity) {
+        list[position - 1] = meme
+        notifyItemChanged(position - 1)
     }
 
     override fun onBindViewHolder(holder: MemesViewHolder, position: Int) {
-        holder.bindItem(itemData = list[position])
+        holder.bindItem(meme = list[position])
 
         holder.itemView.setOnLongClickListener {
-            onItemLongClick(list[position], position)  // Передаем и мем, и позицию
+            onItemLongClick(list[position], position)
             true
         }
     }

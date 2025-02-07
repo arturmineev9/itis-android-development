@@ -17,4 +17,8 @@ interface MemeDao {
 
     @Query("DELETE FROM memes WHERE id = :memeId AND userId = :userId")
     suspend fun deleteMeme(memeId: Int, userId: Int)
+
+    @Query("UPDATE memes SET isFavorite = :isFavorite WHERE id = :memeId")
+    suspend fun updateMemeFavoriteStatus(memeId: Int, isFavorite: Boolean)
+
 }

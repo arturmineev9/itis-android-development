@@ -38,4 +38,11 @@ class MemeRepository(private val memeDao: MemeDao, private val ioDispatcher: Cor
             memeDao.deleteMeme(memeId, userId)
         }
     }
+
+    suspend fun toggleFavorite(memeId: Int, isFavorite: Boolean) {
+        withContext(ioDispatcher) {
+            memeDao.updateMemeFavoriteStatus(memeId, isFavorite)
+        }
+    }
+
 }
