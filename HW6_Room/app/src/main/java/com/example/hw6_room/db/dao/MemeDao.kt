@@ -21,4 +21,7 @@ interface MemeDao {
     @Query("UPDATE memes SET isFavorite = :isFavorite WHERE id = :memeId")
     suspend fun updateMemeFavoriteStatus(memeId: Int, isFavorite: Boolean)
 
+    @Query("SELECT * FROM memes WHERE id = :memeId LIMIT 1")
+    suspend fun getMemeById(memeId: Int): MemeEntity?
+
 }

@@ -54,12 +54,19 @@
         <action
             android:id="@+id/action_mainScreenFragment_to_addContentFragment"
             app:destination="@id/addContentFragment" />
+        <action
+            android:id="@+id/action_memesListFragment_to_memeDetailsFragment"
+            app:destination="@id/memeDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoriteMemesFragment"
         android:name="com.example.hw6_room.screens.FavoriteMemesFragment"
         android:label="fragment_favorite_memes"
-        tools:layout="@layout/fragment_favorite_memes" />
+        tools:layout="@layout/fragment_favorite_memes" >
+        <action
+            android:id="@+id/action_favoriteMemesFragment_to_memeDetailsFragment"
+            app:destination="@id/memeDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.hw6_room.screens.SettingsFragment"
@@ -69,4 +76,9 @@
             android:id="@+id/action_settingsFragment_to_welcomeFragment"
             app:destination="@id/welcomeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/memeDetailsFragment"
+        android:name="com.example.hw6_room.screens.MemeDetailsFragment"
+        android:label="fragment_meme_details"
+        tools:layout="@layout/fragment_meme_details" />
 </navigation>

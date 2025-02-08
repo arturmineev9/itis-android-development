@@ -10,6 +10,7 @@ import com.example.hw6_room.db.entity.MemeEntity
 class MemesAdapter(
     private var list: MutableList<MemeEntity>,
     private val requestManager: RequestManager,
+    private val onItemClick: (Int) -> Unit,
     private val onItemLongClick: (MemeEntity, Int) -> Unit,
     private val onFavoriteClick: (Int, Boolean) -> Unit
 ) : RecyclerView.Adapter<MemesViewHolder>() {
@@ -36,16 +37,6 @@ class MemesAdapter(
         notifyItemRemoved(position)
     }
 
-    fun addItem(meme: MemeEntity) {
-        list.add(0, meme)
-        notifyItemInserted(0)
-    }
-
-    fun updateList(newList: MutableList<MemeEntity>) {
-        list.clear()
-        list.addAll(newList)
-        notifyDataSetChanged()
-    }
 
     fun updateItem(position: Int, meme: MemeEntity) {
         list[position - 1] = meme
@@ -58,6 +49,10 @@ class MemesAdapter(
         holder.itemView.setOnLongClickListener {
             onItemLongClick(list[position], position)
             true
+        }
+
+        holder.itemView.setOnClickListener {
+            onItemClick(list[position].id)
         }
     }
 }

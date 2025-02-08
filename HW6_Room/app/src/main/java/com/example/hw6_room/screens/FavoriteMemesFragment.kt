@@ -7,10 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.example.hw6_room.MainActivity
+import com.example.hw6_room.R
 import com.example.hw6_room.databinding.FragmentFavoriteMemesBinding
 import com.example.hw6_room.db.entity.MemeEntity
 import com.example.hw6_room.di.ServiceLocator
@@ -48,10 +50,12 @@ class FavoriteMemesFragment : Fragment() {
             memesAdapter = MemesAdapter(
                 list = favoriteMemesList,
                 requestManager = requestManager,
+                onItemClick = { memeId ->  // 👈 Обработка нажатия
+                    openMemeDetails(memeId)
+                },
                 onItemLongClick = { meme, position ->
                     toggleFavorite(meme, position)
                 },
-
                 onFavoriteClick = { position, isFavorite ->
                     if (position in favoriteMemesList.indices) {
                         toggleFavorite(favoriteMemesList[position], position)
@@ -72,13 +76,15 @@ class FavoriteMemesFragment : Fragment() {
         lifecycleScope.launch {
             val updatedMeme = meme.copy(isFavorite = !meme.isFavorite)
             memeRepository.toggleFavorite(updatedMeme.id, updatedMeme.isFavorite)
-
-            // Загружаем заново список избранных мемов
-            val userId = sessionManager.getUserId()
-            val updatedMemesList = memeRepository.getFavoriteMemes(userId).toMutableList()
-
-            memesAdapter?.updateList(updatedMemesList)
+            memesAdapter?.updateItem(position, updatedMeme)
         }
+    }
+
+    private fun openMemeDetails(memeId: Int) {
+        val bundle = Bundle().apply {
+            putInt("memeId", memeId)
+        }
+        findNavController().navigate(R.id.action_favoriteMemesFragment_to_memeDetailsFragment, bundle)
     }
 
 

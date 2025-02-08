@@ -55,6 +55,9 @@ class MainScreenFragment : Fragment() {
             memesAdapter = MemesAdapter(
                 list = memesList,
                 requestManager = requestManager,
+                onItemClick = { memeId ->  // 👈 Обработка нажатия
+                    openMemeDetails(memeId)
+                },
                 onItemLongClick = { meme, position ->
                     showDeleteConfirmationDialog(meme, position)
                 },
@@ -97,6 +100,13 @@ class MainScreenFragment : Fragment() {
             memeRepository.toggleFavorite(updatedMeme.id, updatedMeme.isFavorite)
             memesAdapter?.updateItem(position, updatedMeme)
         }
+    }
+
+    private fun openMemeDetails(memeId: Int) {
+        val bundle = Bundle().apply {
+            putInt("memeId", memeId)
+        }
+        findNavController().navigate(R.id.action_memesListFragment_to_memeDetailsFragment, bundle)
     }
 
 

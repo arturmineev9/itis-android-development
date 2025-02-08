@@ -27,6 +27,8 @@ class MemeRepository(private val memeDao: MemeDao, private val ioDispatcher: Cor
         }
     }
 
+
+
     suspend fun getFavoriteMemes(userId: Int): List<MemeEntity> {
         return withContext(ioDispatcher) {
             memeDao.getFavoriteMemesByUser(userId)
@@ -42,6 +44,12 @@ class MemeRepository(private val memeDao: MemeDao, private val ioDispatcher: Cor
     suspend fun toggleFavorite(memeId: Int, isFavorite: Boolean) {
         withContext(ioDispatcher) {
             memeDao.updateMemeFavoriteStatus(memeId, isFavorite)
+        }
+    }
+
+    suspend fun getMemeById(memeId: Int): MemeEntity? {
+        return withContext(ioDispatcher) {
+            memeDao.getMemeById(memeId)
         }
     }
 
