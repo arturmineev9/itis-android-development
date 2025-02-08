@@ -9,7 +9,7 @@
         android:id="@+id/detailsTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Название мема"
+        android:text="@string/details_title"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +30,7 @@
         android:id="@+id/detailsDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Описание мема"
+        android:text="@string/details_description"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,6 +46,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="16dp"
         app:backgroundTint="?attr/colorPrimary"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

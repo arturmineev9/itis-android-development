@@ -20,10 +20,11 @@ import com.example.hw6_room.databinding.FragmentAddContentBinding
 import com.example.hw6_room.di.ServiceLocator
 import com.example.hw6_room.utils.Constants
 import com.example.hw6_room.utils.SessionManager
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
 
-class AddContentFragment : Fragment() {
+class AddMemeFragment : Fragment() {
 
     private var viewBinding: FragmentAddContentBinding? = null
     private val memeRepository = ServiceLocator.getMemeRepository()
@@ -101,9 +102,8 @@ class AddContentFragment : Fragment() {
         }
     }
 
-    // Запуск выбора изображения
     private fun openGallery() {
-        pickImageLauncher.launch(Constants.IMAGE_TYPE) // Открываем только изображения
+        pickImageLauncher.launch(Constants.IMAGE_TYPE)
     }
 
     private fun saveMeme() {
@@ -114,14 +114,14 @@ class AddContentFragment : Fragment() {
             val url = if (source == Constants.SOURCE_INTERNET) etUrl.text.toString().trim() else selectedImageUri.toString()
 
             if (title.isEmpty() || url.isEmpty()) {
-                Toast.makeText(requireContext(), getString(R.string.fill_all_fields_message), Toast.LENGTH_SHORT).show()
+                Snackbar.make(requireView(), getString(R.string.fill_all_fields_message), Snackbar.LENGTH_SHORT).show()
                 return
             }
 
             val userId = sessionManager.getUserId()
             lifecycleScope.launch {
                 memeRepository.addMeme(title, description, url, source, userId)
-                Toast.makeText(requireContext(), getString(R.string.meme_added_message), Toast.LENGTH_SHORT).show()
+                Snackbar.make(requireView(), getString(R.string.meme_added_message), Snackbar.LENGTH_SHORT).show()
                 activity?.let {
                     val navController = Navigation.findNavController(it, R.id.container)
                     navController.popBackStack()

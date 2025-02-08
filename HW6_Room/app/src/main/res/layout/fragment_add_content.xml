@@ -4,15 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.AddContentFragment">
+    tools:context=".screens.AddMemeFragment">
 
-    <!-- ConstraintLayout внутри ScrollView -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Прямоугольник для отображения изображения -->
         <ImageView
             android:id="@+id/ivPreview"
             android:layout_width="0dp"
@@ -29,7 +27,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="Название мема"
+            android:hint="@string/hint_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivPreview" />
@@ -39,7 +37,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="Описание"
+            android:hint="@string/hint_description"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/etTitle" />
@@ -58,22 +56,21 @@
                 android:id="@+id/rbGallery"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Из галереи" />
+                android:text="@string/rb_gallery" />
 
             <RadioButton
                 android:id="@+id/rbUrl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="По ссылке" />
+                android:text="@string/rb_url" />
         </RadioGroup>
 
-        <!-- Поле для ввода URL, по умолчанию скрыто -->
         <EditText
             android:id="@+id/etUrl"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="Ссылка на изображение"
+            android:hint="@string/hint_url"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/radioGroupSource" />
@@ -83,18 +80,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Загрузить изображение по ссылке"
+            android:text="@string/btn_download_image"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/etUrl" />
 
-        <!-- Кнопка выбора изображения из галереи -->
         <Button
             android:id="@+id/btnSelectImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Выбрать изображение"
+            android:text="@string/btn_select_image"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/radioGroupSource" />
@@ -103,8 +99,8 @@
             android:id="@+id/btnSaveMeme"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Сохранить мем"
-            android:layout_marginTop="96dp"
+            android:text="@string/btn_save_meme"
+            android:layout_marginTop="80dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

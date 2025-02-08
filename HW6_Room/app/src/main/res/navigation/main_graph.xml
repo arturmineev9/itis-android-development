@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/addContentFragment"
-        android:name="com.example.hw6_room.screens.AddContentFragment"
+        android:name="com.example.hw6_room.screens.AddMemeFragment"
         android:label="fragment_add_content"
         tools:layout="@layout/fragment_add_content" />
     <fragment
@@ -48,7 +48,7 @@
     </fragment>
     <fragment
         android:id="@+id/memesListFragment"
-        android:name="com.example.hw6_room.screens.MainScreenFragment"
+        android:name="com.example.hw6_room.screens.bottomNavigation.MemesListFragment"
         android:label="fragment_main_screen"
         tools:layout="@layout/fragment_main_screen" >
         <action
@@ -60,7 +60,7 @@
     </fragment>
     <fragment
         android:id="@+id/favoriteMemesFragment"
-        android:name="com.example.hw6_room.screens.FavoriteMemesFragment"
+        android:name="com.example.hw6_room.screens.bottomNavigation.FavoriteMemesFragment"
         android:label="fragment_favorite_memes"
         tools:layout="@layout/fragment_favorite_memes" >
         <action
@@ -69,7 +69,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.hw6_room.screens.SettingsFragment"
+        android:name="com.example.hw6_room.screens.bottomNavigation.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" >
         <action

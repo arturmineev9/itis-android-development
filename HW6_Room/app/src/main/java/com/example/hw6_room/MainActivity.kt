@@ -21,12 +21,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding?.root)
-
         sessionManager = SessionManager(this)
-
         initNavController()
     }
-
 
     private fun initNavController() {
         val navHostFragment =
@@ -51,8 +48,6 @@ class MainActivity : AppCompatActivity() {
             viewBinding?.bottomNavigation?.visibility = View.GONE
         }
     }
-
-
 
     private fun setCustomTheme() {
         val sharedPreferences = getSharedPreferences(Constants.APP_REFERENCES, Context.MODE_PRIVATE)

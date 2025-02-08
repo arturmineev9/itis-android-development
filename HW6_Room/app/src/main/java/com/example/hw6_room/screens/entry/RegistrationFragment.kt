@@ -48,7 +48,7 @@ class RegistrationFragment : Fragment() {
                 val password = passwordEditText.text.toString()
                 val userValidator = UserValidator()
 
-                /*if (!userValidator.isValidEmail(email)) {
+                if (!userValidator.isValidEmail(email)) {
                     Snackbar.make(requireView(), R.string.invalid_email, Snackbar.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
@@ -56,7 +56,7 @@ class RegistrationFragment : Fragment() {
                 if (!userValidator.isValidPassword(password)) {
                     Snackbar.make(requireView(), R.string.invalid_password, Snackbar.LENGTH_SHORT).show()
                     return@setOnClickListener
-                }*/
+                }
 
                 lifecycleScope.launch {
                     hideKeyboard()
@@ -102,7 +102,6 @@ class RegistrationFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        (activity as MainActivity).setBottomNavigationVisibility(true)
         viewBinding = null
     }
 }

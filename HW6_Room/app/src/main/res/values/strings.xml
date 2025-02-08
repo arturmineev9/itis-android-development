@@ -33,6 +33,16 @@
     <string name="cancel_button">Отмена</string>
     <string name="fab_add_content_description">Добавить контент</string>
     <string name="share_meme_title">Поделиться мемом через</string>
+    <string name="hint_title">Название мема</string>
+    <string name="hint_description">Описание</string>
+    <string name="hint_url">Ссылка на изображение</string>
+    <string name="rb_gallery">Из галереи</string>
+    <string name="rb_url">По ссылке</string>
+    <string name="btn_download_image">Загрузить изображение по ссылке</string>
+    <string name="btn_select_image">Выбрать изображение</string>
+    <string name="btn_save_meme">Сохранить мем</string>
+    <string name="details_title">Название мема</string>
+    <string name="details_description">Описание мема</string>
 
     <string-array name="color_array">
         <item>#E57373</item>

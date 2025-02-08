@@ -76,7 +76,6 @@ class LoginFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        (activity as MainActivity).setBottomNavigationVisibility(true)
         viewBinding = null
     }
 }

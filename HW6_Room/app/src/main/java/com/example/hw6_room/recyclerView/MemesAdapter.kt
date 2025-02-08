@@ -44,15 +44,16 @@ class MemesAdapter(
     }
 
     override fun onBindViewHolder(holder: MemesViewHolder, position: Int) {
-        holder.bindItem(meme = list[position])
+        val meme = list[position]
+        holder.bindItem(meme = meme)
 
         holder.itemView.setOnLongClickListener {
-            onItemLongClick(list[position], position)
+            onItemLongClick(meme, position)
             true
         }
 
         holder.itemView.setOnClickListener {
-            onItemClick(list[position].id)
+            onItemClick(meme.id)
         }
     }
 }

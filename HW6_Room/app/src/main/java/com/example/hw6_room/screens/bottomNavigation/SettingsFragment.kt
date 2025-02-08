@@ -1,4 +1,4 @@
-package com.example.hw6_room.screens
+package com.example.hw6_room.screens.bottomNavigation
 
 
 import android.content.Context
