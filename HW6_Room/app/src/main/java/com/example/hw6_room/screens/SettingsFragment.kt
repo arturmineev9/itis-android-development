@@ -1,5 +1,6 @@
 package com.example.hw6_room.screens
 
+
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,7 +15,6 @@ import com.example.hw6_room.utils.SessionManager
 import com.github.dhaval2404.colorpicker.MaterialColorPickerDialog
 import com.github.dhaval2404.colorpicker.model.ColorShape
 import com.github.dhaval2404.colorpicker.model.ColorSwatch
-
 
 class SettingsFragment : Fragment() {
 
@@ -32,73 +32,72 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sessionManager = SessionManager(requireContext())
+        initUI()
+    }
+
+    private fun initUI() {
         initThemeChanger()
         initExitButton()
     }
 
     private fun initThemeChanger() {
         viewBinding?.buttonColor?.setOnClickListener {
-            MaterialColorPickerDialog
-                .Builder(requireContext())
-                .setTitle(R.string.choose_color)
-                .setColors(
-                    arrayListOf(
-                        "#E57373",
-                        "#f06292",
-                        "#ba68c8",
-                        "#9575cd",
-                        "#7986cb",
-                        "#64b5f6",
-                        "#4fc3f7",
-                        "#4dd0e1",
-                        "#4db6ac",
-                        "#81c784",
-                        "#aed581",
-                        "#dce775",
-                        "#ffd54f",
-                        "#ffb74d",
-                        "#ff8a65",
-                        "#a1887f",
-                        "#90a4ae"
-                    )
-                )
-                .setColorShape(ColorShape.CIRCLE)
-                .setColorSwatch(ColorSwatch._300)
-                .setDefaultColor(R.color.dark_blue_main)
-                .setColorListener { color, colorHex ->
-                    viewBinding?.buttonColor?.setBackgroundColor(color)
-                    setAppTheme(color)
-                }
-                .show()
+            showColorPicker()
         }
     }
 
-    private fun initExitButton() {
-        viewBinding?.run {
-            exitButton.setOnClickListener {
-                logoutUser()
+    private fun showColorPicker() {
+        MaterialColorPickerDialog
+            .Builder(requireContext())
+            .setTitle(R.string.choose_color)
+            .setColors(getColorList())
+            .setColorShape(ColorShape.CIRCLE)
+            .setColorSwatch(ColorSwatch._300)
+            .setDefaultColor(R.color.dark_blue_main)
+            .setColorListener { color, _ ->
+                updateButtonColor(color)
+                setAppTheme(color)
             }
+            .show()
+    }
+
+    private fun getColorList(): List<String> {
+        return resources.getStringArray(R.array.color_array).toList()
+    }
+
+
+    private fun updateButtonColor(color: Int) {
+        viewBinding?.buttonColor?.setBackgroundColor(color)
+    }
+
+    private fun initExitButton() {
+        viewBinding?.exitButton?.setOnClickListener {
+            logoutUser()
         }
     }
 
     private fun setAppTheme(theme: Int) {
-        val sharedPreferences =
-            requireContext().getSharedPreferences(Constants.APP_REFERENCES, Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putInt(Constants.APP_THEME, theme)
-        editor.apply()
+        requireContext().getSharedPreferences(Constants.APP_REFERENCES, Context.MODE_PRIVATE)
+            .edit()
+            .putInt(Constants.APP_THEME, theme)
+            .apply()
         restartActivity()
     }
 
     private fun restartActivity() {
-        val intent = requireActivity().intent
-        requireActivity().finish()
-        requireActivity().startActivity(intent)
+        requireActivity().apply {
+            finish()
+            startActivity(intent)
+        }
     }
-
 
     private fun logoutUser() {
         sessionManager.logoutUser()
         findNavController().navigate(R.id.action_settingsFragment_to_welcomeFragment)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewBinding = null
     }
 }

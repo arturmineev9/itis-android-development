@@ -1,20 +1,24 @@
 package com.example.hw6_room.screens
 
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.example.hw6_room.MainActivity
 import com.example.hw6_room.R
 import com.example.hw6_room.databinding.FragmentAddContentBinding
 import com.example.hw6_room.di.ServiceLocator
+import com.example.hw6_room.utils.Constants
 import com.example.hw6_room.utils.SessionManager
 import kotlinx.coroutines.launch
 
@@ -37,7 +41,7 @@ class AddContentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as MainActivity).setBottomNavigationVisibility(false)
+        (activity as MainActivity).setBottomNavigationVisibility(Constants.BOTTOM_NAVIGATION_VISIBILITY_FALSE)
         sessionManager = SessionManager(requireContext())
         initializeGalleryLauncher()
         downloadingImageByUrl()
@@ -45,11 +49,14 @@ class AddContentFragment : Fragment() {
             radioGroupSource.setOnCheckedChangeListener { _, checkedId ->
                 when (checkedId) {
                     R.id.rbUrl -> {
+                        hideKeyboard()
                         etUrl.visibility = View.VISIBLE
                         btnSelectImage.visibility = View.GONE
                         btnDownloadImage.visibility = View.VISIBLE
                     }
+
                     R.id.rbGallery -> {
+                        hideKeyboard()
                         btnDownloadImage.visibility = View.GONE
                         etUrl.visibility = View.GONE
                         btnSelectImage.visibility = View.VISIBLE
@@ -71,10 +78,10 @@ class AddContentFragment : Fragment() {
     private fun initializeGalleryLauncher() {
         pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             if (uri != null) {
-                viewBinding?.ivPreview?.setImageURI(uri) // Отображаем изображение в ImageView
-                selectedImageUri = uri // Сохраняем URI для отправки в БД
+                viewBinding?.ivPreview?.setImageURI(uri)
+                selectedImageUri = uri
             } else {
-                Toast.makeText(requireContext(), "Изображение не выбрано", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.image_not_selected_message), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -85,10 +92,10 @@ class AddContentFragment : Fragment() {
                 val url = etUrl.text.toString().trim()
                 if (url.isNotEmpty()) {
                     Glide.with(requireContext())
-                        .load("https://images.squarespace-cdn.com/content/v1/54822a56e4b0b30bd821480c/45ed8ecf-0bb2-4e34-8fcf-624db47c43c8/Golden+Retrievers+dans+pet+care.jpeg")  // Загружаем изображение по URL
-                        .into(ivPreview)  // Загружаем в ImageView
+                        .load(url)
+                        .into(ivPreview)
                 } else {
-                    ivPreview.setImageResource(0)  // Очистить изображение, если URL пустой
+                    ivPreview.setImageResource(0)
                 }
             }
         }
@@ -96,36 +103,44 @@ class AddContentFragment : Fragment() {
 
     // Запуск выбора изображения
     private fun openGallery() {
-        pickImageLauncher.launch("image/*") // Открываем только изображения
+        pickImageLauncher.launch(Constants.IMAGE_TYPE) // Открываем только изображения
     }
-
 
     private fun saveMeme() {
         viewBinding?.run {
             val title = etTitle.text.toString().trim()
             val description = etDescription.text.toString().trim()
-            val tags = etTags.text.toString().trim()
-            val source =
-                if (radioGroupSource.checkedRadioButtonId == rbUrl.id) "internet" else "gallery"
-            val url = if (source == "internet") etUrl.text.toString()
-                .trim() else selectedImageUri.toString()
+            val source = if (radioGroupSource.checkedRadioButtonId == rbUrl.id) Constants.SOURCE_INTERNET else Constants.SOURCE_GALLERY
+            val url = if (source == Constants.SOURCE_INTERNET) etUrl.text.toString().trim() else selectedImageUri.toString()
 
             if (title.isEmpty() || url.isEmpty()) {
-                Toast.makeText(requireContext(), "Заполните все поля!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.fill_all_fields_message), Toast.LENGTH_SHORT).show()
                 return
             }
 
             val userId = sessionManager.getUserId()
             lifecycleScope.launch {
-                memeRepository.addMeme(title, description, url, source, tags, userId)
-                Toast.makeText(requireContext(), "Мем добавлен!", Toast.LENGTH_SHORT).show()
+                memeRepository.addMeme(title, description, url, source, userId)
+                Toast.makeText(requireContext(), getString(R.string.meme_added_message), Toast.LENGTH_SHORT).show()
+                activity?.let {
+                    val navController = Navigation.findNavController(it, R.id.container)
+                    navController.popBackStack()
+                }
             }
+        }
+    }
+
+    private fun hideKeyboard() {
+        val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val currentFocusView = view?.rootView?.findFocus()
+        currentFocusView?.let {
+            inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        (activity as MainActivity).setBottomNavigationVisibility(true)
+        (activity as MainActivity).setBottomNavigationVisibility(Constants.BOTTOM_NAVIGATION_VISIBILITY_TRUE)
         viewBinding = null
     }
 }

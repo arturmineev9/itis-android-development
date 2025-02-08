@@ -1,10 +1,12 @@
 package com.example.hw6_room.screens.entry
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -42,6 +44,7 @@ class LoginFragment : Fragment() {
     private fun initButtons() {
         viewBinding?.run {
             loginButton.setOnClickListener {
+                hideKeyboard()
                 val email = emailEditText.text.toString()
                 val password = passwordEditText.text.toString()
                 lifecycleScope.launch {
@@ -62,7 +65,13 @@ class LoginFragment : Fragment() {
         }
     }
 
-
+    private fun hideKeyboard() {
+        val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val currentFocusView = view?.rootView?.findFocus()
+        currentFocusView?.let {
+            inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
+        }
+    }
 
 
     override fun onDestroyView() {

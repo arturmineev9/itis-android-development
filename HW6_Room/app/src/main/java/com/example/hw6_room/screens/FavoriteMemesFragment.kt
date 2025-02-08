@@ -17,6 +17,7 @@ import com.example.hw6_room.databinding.FragmentFavoriteMemesBinding
 import com.example.hw6_room.db.entity.MemeEntity
 import com.example.hw6_room.di.ServiceLocator
 import com.example.hw6_room.recyclerView.MemesAdapter
+import com.example.hw6_room.utils.Constants
 import com.example.hw6_room.utils.SessionManager
 import kotlinx.coroutines.launch
 
@@ -50,17 +51,18 @@ class FavoriteMemesFragment : Fragment() {
             memesAdapter = MemesAdapter(
                 list = favoriteMemesList,
                 requestManager = requestManager,
-                onItemClick = { memeId ->  // 👈 Обработка нажатия
+                onItemClick = { memeId ->
                     openMemeDetails(memeId)
                 },
                 onItemLongClick = { meme, position ->
                     toggleFavorite(meme, position)
                 },
-                onFavoriteClick = { position, isFavorite ->
+                onFavoriteClick = { position, _ ->
                     if (position in favoriteMemesList.indices) {
                         toggleFavorite(favoriteMemesList[position], position)
                     } else {
-                        Log.e("FavoriteMemesFragment", "Неверный индекс: $position, размер списка: ${favoriteMemesList.size}")
+                        val errorMessage = getString(R.string.invalid_meme_index, position, favoriteMemesList.size)
+                        Log.e(Constants.FAVORITE_MEMES_FRAGMENT_TAG, errorMessage)
                     }
                 }
 
@@ -82,7 +84,7 @@ class FavoriteMemesFragment : Fragment() {
 
     private fun openMemeDetails(memeId: Int) {
         val bundle = Bundle().apply {
-            putInt("memeId", memeId)
+            putInt(Constants.MEME_DETAILS_BUNDLE_KEY, memeId)
         }
         findNavController().navigate(R.id.action_favoriteMemesFragment_to_memeDetailsFragment, bundle)
     }

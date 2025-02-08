@@ -5,11 +5,28 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 
 class Migration_2_3 : Migration(2, 3) {
 
-    override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL("ALTER TABLE memes ADD COLUMN createdAt INTEGER NOT NULL DEFAULT 0")
-        database.execSQL("ALTER TABLE memes ADD COLUMN source TEXT NOT NULL DEFAULT ''")
-        database.execSQL("ALTER TABLE memes ADD COLUMN title TEXT NOT NULL DEFAULT ''")
-        database.execSQL("ALTER TABLE memes ADD COLUMN tags TEXT NOT NULL DEFAULT ''")
-        database.execSQL("ALTER TABLE memes ADD COLUMN isFavorite INTEGER NOT NULL DEFAULT 0")
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("""
+            CREATE TABLE memes_new (
+                id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                title TEXT NOT NULL,
+                description TEXT NOT NULL,
+                url TEXT NOT NULL,
+                source TEXT NOT NULL,
+                createdAt INTEGER NOT NULL,
+                isFavorite INTEGER NOT NULL,
+                userId INTEGER NOT NULL
+            )
+        """)
+
+        db.execSQL("""
+            INSERT INTO memes_new (id, title, description, url, source, createdAt, isFavorite, userId)
+            SELECT id, title, description, url, source, createdAt, isFavorite, userId FROM memes
+        """)
+
+        db.execSQL("DROP TABLE memes")
+
+
+        db.execSQL("ALTER TABLE memes_new RENAME TO memes")
     }
 }

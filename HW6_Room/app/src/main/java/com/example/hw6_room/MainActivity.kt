@@ -15,7 +15,6 @@ class MainActivity : AppCompatActivity() {
 
     private var viewBinding: ActivityMainBinding? = null
     private lateinit var sessionManager: SessionManager
-    var isRecreatingForThemeChange = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setCustomTheme()
@@ -25,9 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         sessionManager = SessionManager(this)
 
-
         initNavController()
-        //restoreCurrentFragment()
     }
 
 
@@ -58,8 +55,8 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun setCustomTheme() {
-        val sharedPreferences = getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
-        var theme = sharedPreferences.getInt("APP_THEME", R.style.AppTheme_red)
+        val sharedPreferences = getSharedPreferences(Constants.APP_REFERENCES, Context.MODE_PRIVATE)
+        var theme = sharedPreferences.getInt(Constants.APP_THEME, R.style.AppTheme_red)
         when (theme) {
             -1739917 -> theme = R.style.AppTheme_red
             -1023342 -> theme = R.style.AppTheme_pink
@@ -85,19 +82,6 @@ class MainActivity : AppCompatActivity() {
 
         setTheme(theme)
     }
-
-    /*private fun restoreCurrentFragment() {
-        val sharedPreferences = getSharedPreferences(Constants.APP_REFERENCES, Context.MODE_PRIVATE)
-        val currentFragmentId = sharedPreferences.getInt(Constants.CURRENT_FRAGMENT, -1)
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.container) as? NavHostFragment
-        val navController = navHostFragment?.navController
-
-        if (currentFragmentId != -1) {
-            navController?.navigate(currentFragmentId)
-        }
-    }*/
-
 
     override fun onDestroy() {
         super.onDestroy()

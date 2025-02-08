@@ -2,7 +2,7 @@ package com.example.hw6_room.db.repository
 
 import at.favre.lib.crypto.bcrypt.BCrypt
 import com.example.hw6_room.db.dao.UserDao
-import com.example.hw6_room.db.entity.User
+import com.example.hw6_room.db.entity.UserEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
@@ -11,12 +11,12 @@ class UserRepository(private val userDao: UserDao, private val ioDispatcher: Cor
     suspend fun registerUser(username: String, email: String, password: String) {
         return withContext(ioDispatcher) {
             val hashedPassword = BCrypt.withDefaults().hashToString(12, password.toCharArray())
-            val user = User(username = username, email = email, password = hashedPassword)
-            userDao.insertUser(user)
+            val userEntity = UserEntity(username = username, email = email, password = hashedPassword)
+            userDao.insertUser(userEntity)
         }
     }
 
-    suspend fun loginUser(email: String, password: String): User? {
+    suspend fun loginUser(email: String, password: String): UserEntity? {
         return withContext(ioDispatcher) {
             val user = userDao.getUserByEmail(email)
             if (user != null && BCrypt.verifyer()
@@ -29,7 +29,7 @@ class UserRepository(private val userDao: UserDao, private val ioDispatcher: Cor
         }
     }
 
-    suspend fun getUserByEmail(email: String): User? {
+    suspend fun getUserByEmail(email: String): UserEntity? {
         return withContext(ioDispatcher) {
             userDao.getUserByEmail(email)
         }

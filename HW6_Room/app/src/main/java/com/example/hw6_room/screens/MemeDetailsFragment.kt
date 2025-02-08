@@ -15,6 +15,7 @@ import com.example.hw6_room.R
 import com.example.hw6_room.databinding.FragmentMemeDetailsBinding
 import com.example.hw6_room.db.repository.MemeRepository
 import com.example.hw6_room.di.ServiceLocator
+import com.example.hw6_room.utils.Constants
 import kotlinx.coroutines.launch
 
 class MemeDetailsFragment : Fragment() {
@@ -26,7 +27,7 @@ class MemeDetailsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            memeId = it.getInt("memeId")
+            memeId = it.getInt(Constants.MEME_DETAILS_BUNDLE_KEY)
         }
         memeRepository = ServiceLocator.getMemeRepository()
     }
@@ -34,9 +35,9 @@ class MemeDetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         viewBinding = FragmentMemeDetailsBinding.inflate(inflater, container, false)
-        return viewBinding!!.root
+        return viewBinding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -66,21 +67,21 @@ class MemeDetailsFragment : Fragment() {
     private fun shareMeme(imageUri: String) {
         val intent = Intent(Intent.ACTION_SEND)
 
-        if (imageUri.startsWith("https")) {
+        if (imageUri.startsWith(Constants.HTTPS)) {
             intent.apply {
-                type = "text/plain"
+                type = Constants.TEXT_TYPE
                 putExtra(Intent.EXTRA_TEXT, imageUri)
             }
         } else {
             val uri = Uri.parse(imageUri)
             intent.apply {
-                type = "image/*"
+                type = Constants.IMAGE_TYPE
                 putExtra(Intent.EXTRA_STREAM, uri)
                 addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             }
         }
 
-        startActivity(Intent.createChooser(intent, "Поделиться мемом через"))
+        startActivity(Intent.createChooser(intent, getString(R.string.share_meme_title)))
     }
 
 

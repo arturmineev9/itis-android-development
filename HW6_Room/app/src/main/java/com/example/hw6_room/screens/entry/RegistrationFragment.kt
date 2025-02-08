@@ -1,16 +1,17 @@
 package com.example.hw6_room.screens.entry
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.hw6_room.MainActivity
 import com.example.hw6_room.R
 import com.example.hw6_room.databinding.FragmentRegistrationBinding
-import com.example.hw6_room.db.entity.User
 import com.example.hw6_room.di.ServiceLocator
 import com.example.hw6_room.utils.SessionManager
 import com.example.hw6_room.utils.UserValidator
@@ -58,6 +59,7 @@ class RegistrationFragment : Fragment() {
                 }*/
 
                 lifecycleScope.launch {
+                    hideKeyboard()
                     val existingUser = userRepository.getUserByEmail(email)
                     if (existingUser != null) {
                         Snackbar.make(requireView(), R.string.user_exists, Snackbar.LENGTH_SHORT)
@@ -86,6 +88,14 @@ class RegistrationFragment : Fragment() {
             loginScreenButton.setOnClickListener {
                 findNavController().navigate(R.id.action_registrationFragment_to_loginFragment)
             }
+        }
+    }
+
+    private fun hideKeyboard() {
+        val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val currentFocusView = view?.rootView?.findFocus()
+        currentFocusView?.let {
+            inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
         }
     }
 

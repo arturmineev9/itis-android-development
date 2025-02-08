@@ -44,15 +44,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/etTitle" />
 
-        <EditText
-            android:id="@+id/etTags"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="Теги (через запятую)"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etDescription" />
 
         <RadioGroup
             android:id="@+id/radioGroupSource"
@@ -61,7 +52,7 @@
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etTags">
+            app:layout_constraintTop_toBottomOf="@id/etDescription">
 
             <RadioButton
                 android:id="@+id/rbGallery"

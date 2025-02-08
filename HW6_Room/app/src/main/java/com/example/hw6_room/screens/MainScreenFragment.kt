@@ -19,7 +19,7 @@ import com.example.hw6_room.db.entity.MemeEntity
 import com.example.hw6_room.db.repository.MemeRepository
 import com.example.hw6_room.di.ServiceLocator
 import com.example.hw6_room.recyclerView.MemesAdapter
-import com.example.hw6_room.recyclerView.MemesRepository
+import com.example.hw6_room.utils.Constants
 import com.example.hw6_room.utils.SessionManager
 import kotlinx.coroutines.launch
 
@@ -55,14 +55,13 @@ class MainScreenFragment : Fragment() {
             memesAdapter = MemesAdapter(
                 list = memesList,
                 requestManager = requestManager,
-                onItemClick = { memeId ->  // 👈 Обработка нажатия
+                onItemClick = { memeId ->
                     openMemeDetails(memeId)
                 },
                 onItemLongClick = { meme, position ->
                     showDeleteConfirmationDialog(meme, position)
                 },
-                onFavoriteClick = { position, isFavorite ->
-                    Log.d("position", position.toString())
+                onFavoriteClick = { position, _ ->
                     toggleFavorite(memesList[position - 1], position)
                 }
             )
@@ -76,18 +75,18 @@ class MainScreenFragment : Fragment() {
     private fun deleteMeme(meme: MemeEntity, position: Int) {
         lifecycleScope.launch {
             memeRepository.deleteMeme(meme.id, sessionManager.getUserId())
-            memesAdapter?.removeItem(position)  // Удаляем элемент из списка адаптера
+            memesAdapter?.removeItem(position)
         }
     }
 
     private fun showDeleteConfirmationDialog(meme: MemeEntity, position: Int) {
         val dialog = AlertDialog.Builder(requireContext())
-            .setTitle("Подтверждение удаления")
-            .setMessage("Вы уверены, что хотите удалить этот мем?")
-            .setPositiveButton("Удалить") { _, _ ->
-                deleteMeme(meme, position)  // Если пользователь нажимает "Удалить", то вызываем метод удаления
+            .setTitle(getString(R.string.delete_confirmation_title))
+            .setMessage(getString(R.string.delete_confirmation_message))
+            .setPositiveButton(getString(R.string.delete_button)) { _, _ ->
+                deleteMeme(meme, position)
             }
-            .setNegativeButton("Отмена", null)  // Если пользователь нажимает "Отмена", просто закрываем диалог
+            .setNegativeButton(getString(R.string.cancel_button), null)
             .create()
 
         dialog.show()
@@ -96,7 +95,7 @@ class MainScreenFragment : Fragment() {
 
     private fun toggleFavorite(meme: MemeEntity, position: Int) {
         lifecycleScope.launch {
-            val updatedMeme = meme.copy(isFavorite = !meme.isFavorite) // Создаём новую копию
+            val updatedMeme = meme.copy(isFavorite = !meme.isFavorite)
             memeRepository.toggleFavorite(updatedMeme.id, updatedMeme.isFavorite)
             memesAdapter?.updateItem(position, updatedMeme)
         }
@@ -104,7 +103,7 @@ class MainScreenFragment : Fragment() {
 
     private fun openMemeDetails(memeId: Int) {
         val bundle = Bundle().apply {
-            putInt("memeId", memeId)
+            putInt(Constants.MEME_DETAILS_BUNDLE_KEY, memeId)
         }
         findNavController().navigate(R.id.action_memesListFragment_to_memeDetailsFragment, bundle)
     }

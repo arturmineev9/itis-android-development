@@ -43,9 +43,9 @@ object ServiceLocator {
     }
 
     fun getUserRepository(): UserRepository =
-        userRepository ?: throw IllegalStateException("User repository not initialized")
+        userRepository ?: throw IllegalStateException(Constants.USER_REPOSITORY_NOT_INITIALIZED)
 
 
     fun getMemeRepository(): MemeRepository =
-        memeRepository ?: throw IllegalStateException("Meme repository not initialized")
+        memeRepository ?: throw IllegalStateException(Constants.MEME_REPOSITORY_NOT_INITIALIZED)
 }

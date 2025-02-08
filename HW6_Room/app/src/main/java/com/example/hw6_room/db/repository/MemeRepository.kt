@@ -7,14 +7,13 @@ import kotlinx.coroutines.withContext
 
 class MemeRepository(private val memeDao: MemeDao, private val ioDispatcher: CoroutineDispatcher) {
 
-    suspend fun addMeme(title: String, description: String, url: String, source: String, tags: String, userId: Int) {
+    suspend fun addMeme(title: String, description: String, url: String, source: String, userId: Int) {
         withContext(ioDispatcher) {
             val meme = MemeEntity(
                 title = title,
                 description = description,
                 url = url,
                 source = source,
-                tags = tags,
                 userId = userId
             )
             memeDao.insertMeme(meme)

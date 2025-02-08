@@ -23,4 +23,36 @@
     <string name="invalid_email">Неверный адрес электронной почты</string>
     <string name="invalid_password">Пароль должен состоять не менее чем из 8 символов и содержать по крайней мере одну заглавную букву, одну строчную букву, одну цифру и один специальный символ</string>
     <string name="exit_from_account">Выйти из аккаунта</string>
+    <string name="meme_added_message">Мем добавлен!</string>
+    <string name="fill_all_fields_message">Заполните все поля!</string>
+    <string name="image_not_selected_message">Изображение не выбрано</string>
+    <string name="invalid_meme_index">Неверный индекс: %1$d, размер списка: %2$d</string>
+    <string name="delete_confirmation_title">Подтверждение удаления</string>
+    <string name="delete_confirmation_message">Вы уверены, что хотите удалить этот мем?</string>
+    <string name="delete_button">Удалить</string>
+    <string name="cancel_button">Отмена</string>
+    <string name="fab_add_content_description">Добавить контент</string>
+    <string name="share_meme_title">Поделиться мемом через</string>
+
+    <string-array name="color_array">
+        <item>#E57373</item>
+        <item>#f06292</item>
+        <item>#ba68c8</item>
+        <item>#9575cd</item>
+        <item>#7986cb</item>
+        <item>#64b5f6</item>
+        <item>#4fc3f7</item>
+        <item>#4dd0e1</item>
+        <item>#4db6ac</item>
+        <item>#81c784</item>
+        <item>#aed581</item>
+        <item>#dce775</item>
+        <item>#ffd54f</item>
+        <item>#ffb74d</item>
+        <item>#ff8a65</item>
+        <item>#a1887f</item>
+        <item>#90a4ae</item>
+    </string-array>
+
+
 </resources>
