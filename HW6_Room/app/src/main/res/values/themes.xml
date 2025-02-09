@@ -1,0 +1,226 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.HW6_Room" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.HW6_Room" parent="Base.Theme.HW6_Room" />
+
+    <style name="AppTheme_red" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/red_main</item>
+        <item name="colorPrimaryDark">@color/red_main</item>
+        <item name="colorSecondaryContainer">@color/red_main</item>
+        <item name="colorSurfaceContainer">@color/red_secondary</item>
+        <item name="colorSurface">@color/red_background</item>
+        <item name="android:navigationBarColor">@color/red_background</item>
+        <item name="android:windowBackground">@color/red_background</item>
+
+
+    </style>
+
+    <style name="AppTheme_pink" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/pink_main</item>
+        <item name="colorPrimaryDark">@color/pink_main</item>
+        <item name="colorSecondaryContainer">@color/pink_main</item>
+        <item name="colorSurfaceContainer">@color/pink_secondary</item>
+        <item name="colorSurface">@color/pink_background</item>
+        <item name="android:navigationBarColor">@color/pink_secondary</item>
+
+        <item name="android:windowBackground">@color/pink_background</item>
+
+    </style>
+
+    <style name="AppTheme_purple" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/purple_main</item>
+        <item name="colorPrimaryDark">@color/purple_main</item>
+        <item name="colorSecondaryContainer">@color/purple_main</item>
+        <item name="colorSurfaceContainer">@color/purple_secondary</item>
+        <item name="android:navigationBarColor">@color/purple_secondary</item>
+        <item name="android:windowBackground">@color/purple_background</item>
+        <item name="colorSurface">@color/purple_background</item>
+
+
+    </style>
+
+
+    <style name="AppTheme_dark_purple" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/dark_purple_main</item>
+        <item name="colorPrimaryDark">@color/dark_purple_main</item>
+        <item name="colorSecondaryContainer">@color/dark_purple_main</item>
+        <item name="colorSurfaceContainer">@color/dark_purple_secondary</item>
+        <item name="android:navigationBarColor">@color/dark_purple_secondary</item>
+        <item name="android:windowBackground">@color/dark_purple_background</item>
+        <item name="colorSurface">@color/dark_purple_background</item>
+
+    </style>
+
+    <style name="AppTheme_dark_blue" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/dark_blue_main</item>
+        <item name="colorPrimaryDark">@color/dark_blue_main</item>
+        <item name="colorSecondaryContainer">@color/dark_blue_main</item>
+        <item name="colorSurfaceContainer">@color/dark_blue_secondary</item>
+        <item name="android:navigationBarColor">@color/dark_blue_secondary</item>
+        <item name="android:windowBackground">@color/dark_blue_background</item>
+        <item name="colorSurface">@color/dark_blue_background</item>
+
+
+    </style>
+
+    <style name="AppTheme_blue" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/blue_main</item>
+        <item name="colorPrimaryDark">@color/blue_main</item>
+        <item name="colorSecondaryContainer">@color/blue_main</item>
+        <item name="colorSurfaceContainer">@color/blue_secondary</item>
+        <item name="android:navigationBarColor">@color/blue_secondary</item>
+        <item name="android:windowBackground">@color/blue_background</item>
+        <item name="colorSurface">@color/blue_background</item>
+
+    </style>
+
+    <style name="AppTheme_cyan" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/cyan_main</item>
+        <item name="colorPrimaryDark">@color/cyan_main</item>
+        <item name="colorSecondaryContainer">@color/cyan_main</item>
+        <item name="colorSurfaceContainer">@color/cyan_secondary</item>
+        <item name="android:navigationBarColor">@color/cyan_secondary</item>
+        <item name="android:windowBackground">@color/cyan_background</item>
+        <item name="colorSurface">@color/cyan_background</item>
+
+    </style>
+
+    <style name="AppTheme_cloud" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/cloud_main</item>
+        <item name="colorPrimaryDark">@color/cloud_main</item>
+        <item name="colorSecondaryContainer">@color/cloud_main</item>
+        <item name="colorSurfaceContainer">@color/cloud_secondary</item>
+        <item name="android:navigationBarColor">@color/cloud_secondary</item>
+        <item name="android:windowBackground">@color/cloud_background</item>
+        <item name="colorSurface">@color/cloud_background</item>
+
+
+    </style>
+
+    <style name="AppTheme_emerald" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/emerald_main</item>
+        <item name="colorPrimaryDark">@color/emerald_main</item>
+        <item name="colorSecondaryContainer">@color/emerald_main</item>
+        <item name="colorSurfaceContainer">@color/emerald_secondary</item>
+        <item name="android:navigationBarColor">@color/emerald_secondary</item>
+        <item name="android:windowBackground">@color/emerald_background</item>
+        <item name="colorSurface">@color/emerald_background</item>
+
+
+    </style>
+
+    <style name="AppTheme_dark_green" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/dark_green_main</item>
+        <item name="colorPrimaryDark">@color/dark_green_main</item>
+        <item name="colorSecondaryContainer">@color/dark_green_main</item>
+        <item name="colorSurfaceContainer">@color/dark_green_secondary</item>
+        <item name="android:navigationBarColor">@color/dark_green_secondary</item>
+        <item name="android:windowBackground">@color/dark_green_background</item>
+        <item name="colorSurface">@color/dark_green_background</item>
+
+
+    </style>
+
+    <style name="AppTheme_green" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/green_main</item>
+        <item name="colorPrimaryDark">@color/green_main</item>
+        <item name="colorSecondaryContainer">@color/green_main</item>
+        <item name="colorSurfaceContainer">@color/green_secondary</item>
+        <item name="android:navigationBarColor">@color/green_secondary</item>
+        <item name="android:windowBackground">@color/green_background</item>
+        <item name="colorSurface">@color/green_background</item>
+
+    </style>
+
+    <style name="AppTheme_grass" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/grass_main</item>
+        <item name="colorPrimaryDark">@color/grass_main</item>
+        <item name="colorSecondaryContainer">@color/grass_main</item>
+        <item name="colorSurfaceContainer">@color/grass_secondary</item>
+        <item name="android:navigationBarColor">@color/grass_secondary</item>
+        <item name="android:windowBackground">@color/grass_background</item>
+        <item name="colorSurface">@color/grass_background</item>
+
+
+    </style>
+
+    <style name="AppTheme_dark_yellow" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/dark_yellow_main</item>
+        <item name="colorPrimaryDark">@color/dark_yellow_main</item>
+        <item name="colorSecondaryContainer">@color/dark_yellow_main</item>
+        <item name="colorSurfaceContainer">@color/dark_yellow_secondary</item>
+        <item name="android:navigationBarColor">@color/dark_yellow_secondary</item>
+        <item name="android:windowBackground">@color/dark_yellow_background</item>
+        <item name="colorSurface">@color/dark_yellow_background</item>
+
+
+    </style>
+
+    <style name="AppTheme_orange" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/orange_main</item>
+        <item name="colorPrimaryDark">@color/orange_main</item>
+        <item name="colorSecondaryContainer">@color/orange_main</item>
+        <item name="colorSurfaceContainer">@color/orange_secondary</item>
+        <item name="android:navigationBarColor">@color/orange_secondary</item>
+        <item name="android:windowBackground">@color/orange_background</item>
+        <item name="colorSurface">@color/orange_background</item>
+
+
+    </style>
+
+    <style name="AppTheme_dark_orange" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/dark_orange_main</item>
+        <item name="colorPrimaryDark">@color/dark_orange_main</item>
+        <item name="colorSecondaryContainer">@color/dark_orange_main</item>
+        <item name="colorSurfaceContainer">@color/dark_orange_secondary</item>
+        <item name="android:navigationBarColor">@color/dark_orange_secondary</item>
+        <item name="android:windowBackground">@color/dark_orange_background</item>
+        <item name="colorSurface">@color/dark_orange_background</item>
+
+
+    </style>
+
+    <style name="AppTheme_brown" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/brown_main</item>
+        <item name="colorPrimaryDark">@color/brown_main</item>
+        <item name="colorSecondaryContainer">@color/brown_main</item>
+        <item name="colorSurfaceContainer">@color/brown_secondary</item>
+        <item name="android:navigationBarColor">@color/brown_secondary</item>
+        <item name="android:windowBackground">@color/brown_background</item>
+        <item name="colorSurface">@color/brown_background</item>
+
+
+    </style>
+
+
+    <style name="AppTheme_dark_gray" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/dark_gray_main</item>
+        <item name="colorPrimaryDark">@color/dark_gray_main</item>
+        <item name="colorSecondaryContainer">@color/dark_gray_main</item>
+        <item name="colorSurfaceContainer">@color/dark_gray_secondary</item>
+        <item name="android:navigationBarColor">@color/dark_gray_secondary</item>
+        <item name="android:windowBackground">@color/dark_gray_background</item>
+        <item name="colorSurface">@color/dark_gray_background</item>
+
+    </style>
+</resources>

@@ -1,0 +1,71 @@
+<resources>
+    <string name="app_name">HW6_Room</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="entry">Вход</string>
+    <string name="registration">Регистрация</string>
+    <string name="name">Имя пользователя</string>
+    <string name="email">E-Mail</string>
+    <string name="password">Пароль</string>
+    <string name="entry_into_account">Авторизация</string>
+    <string name="entry_button">Войти</string>
+    <string name="register">Зарегистрироваться</string>
+    <string name="favorite">Избранное</string>
+    <string name="your_memes">Твои мемы</string>
+    <string name="settings">Настройки</string>
+    <string name="appearance">Внешний вид</string>
+    <string name="theme">Тема</string>
+    <string name="choose_color">Выбор цвета</string>
+    <string name="wrong_login">Неверный адрес электронной почты или пароль</string>
+    <string name="user_exists">Пользователь с таким адресом электронной почты уже существует</string>
+    <string name="registration_successful">Регистрация прошла успешно!</string>
+    <string name="welcome_message">С возвращением, %1$s!</string>
+    <string name="invalid_email">Неверный адрес электронной почты</string>
+    <string name="invalid_password">Пароль должен быть не менее 8 символов и содержать буквы, цифры и спецсимволы</string>
+    <string name="exit_from_account">Выйти из аккаунта</string>
+    <string name="meme_added_message">Мем добавлен!</string>
+    <string name="fill_all_fields_message">Заполните все поля!</string>
+    <string name="image_not_selected_message">Изображение не выбрано</string>
+    <string name="invalid_meme_index">Неверный индекс: %1$d, размер списка: %2$d</string>
+    <string name="delete_confirmation_title">Подтверждение удаления</string>
+    <string name="delete_confirmation_message">Вы уверены, что хотите удалить этот мем?</string>
+    <string name="delete_button">Удалить</string>
+    <string name="cancel_button">Отмена</string>
+    <string name="fab_add_content_description">Добавить контент</string>
+    <string name="share_meme_title">Поделиться мемом через</string>
+    <string name="hint_title">Название мема</string>
+    <string name="hint_description">Описание</string>
+    <string name="hint_url">Ссылка на изображение</string>
+    <string name="rb_gallery">Из галереи</string>
+    <string name="rb_url">По ссылке</string>
+    <string name="btn_download_image">Загрузить изображение по ссылке</string>
+    <string name="btn_select_image">Выбрать изображение</string>
+    <string name="btn_save_meme">Сохранить мем</string>
+    <string name="details_title">Название мема</string>
+    <string name="details_description">Описание мема</string>
+    <string name="app_title">Meme Hub</string>
+    <string name="add_your_first_meme">Добавьте свой первый мем!</string>
+    <string name="no_favorite_memes">Ещё нет избранных мемов</string>
+
+    <string-array name="color_array">
+        <item>#E57373</item>
+        <item>#f06292</item>
+        <item>#ba68c8</item>
+        <item>#9575cd</item>
+        <item>#7986cb</item>
+        <item>#64b5f6</item>
+        <item>#4fc3f7</item>
+        <item>#4dd0e1</item>
+        <item>#4db6ac</item>
+        <item>#81c784</item>
+        <item>#aed581</item>
+        <item>#dce775</item>
+        <item>#ffd54f</item>
+        <item>#ffb74d</item>
+        <item>#ff8a65</item>
+        <item>#a1887f</item>
+        <item>#90a4ae</item>
+    </string-array>
+
+
+</resources>
