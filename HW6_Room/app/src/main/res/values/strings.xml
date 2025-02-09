@@ -44,6 +44,8 @@
     <string name="details_title">Название мема</string>
     <string name="details_description">Описание мема</string>
     <string name="app_title">Meme Hub</string>
+    <string name="add_your_first_meme">Добавьте свой первый мем!</string>
+    <string name="no_favorite_memes">Ещё нет избранных мемов</string>
 
     <string-array name="color_array">
         <item>#E57373</item>

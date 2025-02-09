@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.hw6_room.MainActivity
 import com.example.hw6_room.R
 import com.example.hw6_room.databinding.FragmentMemeDetailsBinding
@@ -52,7 +53,12 @@ class MemeDetailsFragment : Fragment() {
             meme?.let {
                 viewBinding?.run {
                     detailsTitle.text = it.title
-                    Glide.with(requireContext()).load(it.url).into(detailsImage)
+                    Glide.with(requireContext())
+                        .load(it.url)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
+                        .into(detailsImage)
+
                     detailsDescription.text = it.description
 
                     fabShare.setOnClickListener {

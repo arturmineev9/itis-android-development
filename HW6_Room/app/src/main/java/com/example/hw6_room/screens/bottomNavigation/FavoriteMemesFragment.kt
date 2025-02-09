@@ -48,6 +48,15 @@ class FavoriteMemesFragment : Fragment() {
         lifecycleScope.launch {
             val userId = sessionManager.getUserId()
             val favoriteMemesList = memeRepository.getFavoriteMemes(userId).toMutableList()
+
+            if (favoriteMemesList.isEmpty()) {
+                viewBinding?.noFavoriteMemesMessage?.visibility = View.VISIBLE
+                viewBinding?.favoriteRecycler?.visibility = View.GONE
+            } else {
+                viewBinding?.noFavoriteMemesMessage?.visibility = View.GONE
+                viewBinding?.favoriteRecycler?.visibility = View.VISIBLE
+            }
+
             memesAdapter = MemesAdapter(
                 list = favoriteMemesList,
                 requestManager = requestManager,

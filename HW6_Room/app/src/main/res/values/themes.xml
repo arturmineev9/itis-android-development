@@ -13,8 +13,9 @@
         <item name="colorSecondaryContainer">@color/red_main</item>
         <item name="colorSurfaceContainer">@color/red_secondary</item>
         <item name="colorSurface">@color/red_background</item>
-        <item name="android:navigationBarColor">@color/red_secondary</item>
+        <item name="android:navigationBarColor">@color/red_background</item>
         <item name="android:windowBackground">@color/red_background</item>
+
 
     </style>
 

@@ -1,9 +1,15 @@
 package com.example.hw6_room
 
 import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -23,6 +29,31 @@ class MainActivity : AppCompatActivity() {
         setContentView(viewBinding?.root)
         sessionManager = SessionManager(this)
         initNavController()
+        checkAndRequestPermission(getMediaPermission(), ::requestMediaPermission)
+    }
+
+
+    private fun checkAndRequestPermission(permission: String, requestPermissionFunc: () -> Unit) {
+        if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissionFunc()
+        }
+    }
+
+    private fun getMediaPermission(): String {
+        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            android.Manifest.permission.READ_EXTERNAL_STORAGE
+        } else {
+            android.Manifest.permission.READ_MEDIA_IMAGES
+        }
+    }
+
+    private fun requestMediaPermission() {
+        val permission = getMediaPermission()
+
+        val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            Toast.makeText(this, if (isGranted) Constants.MEDIA_ALLOWED else Constants.MEDIA_PROHIBITED, Toast.LENGTH_SHORT).show()
+        }
+        requestPermissionLauncher.launch(permission)
     }
 
     private fun initNavController() {

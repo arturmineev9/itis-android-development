@@ -50,6 +50,13 @@ class MemesListFragment : Fragment() {
         lifecycleScope.launch {
             val userId = sessionManager.getUserId()
             val memesList = memeRepository.getUserMemes(userId).toMutableList()
+
+            if (memesList.isEmpty()) {
+                viewBinding?.noMemesMessage?.visibility = View.VISIBLE
+            } else {
+                viewBinding?.noMemesMessage?.visibility = View.GONE
+            }
+
             memesAdapter = MemesAdapter(
                 list = memesList,
                 requestManager = requestManager,

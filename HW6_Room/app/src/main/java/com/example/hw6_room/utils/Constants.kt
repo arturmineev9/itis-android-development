@@ -19,4 +19,6 @@ object Constants {
     const val MEME_REPOSITORY_NOT_INITIALIZED = "Meme repository not initialized"
     const val MEME_DETAILS_BUNDLE_KEY = "memeId"
     const val FAVORITE_MEMES_FRAGMENT_TAG = "FavoriteMemesFragment"
+    const val MEDIA_ALLOWED = "Доступ к медиа разрешен"
+    const val MEDIA_PROHIBITED = "Доступ к медиа запрещен"
 }
