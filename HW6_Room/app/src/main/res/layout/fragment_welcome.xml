@@ -23,10 +23,22 @@
             android:id="@+id/videoView"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:translationX="-35dp"/>
+            android:translationX="-40dp"/>
     </androidx.cardview.widget.CardView>
 
-    <!-- Кнопка входа -->
+    <TextView
+        android:id="@+id/appTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_title"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintTop_toBottomOf="@id/cardVideoView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/entry_screen_button"
         android:layout_width="match_parent"
@@ -39,8 +51,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-
-    <!-- Кнопка регистрации -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/registration_screen_button"
         android:layout_width="0dp"

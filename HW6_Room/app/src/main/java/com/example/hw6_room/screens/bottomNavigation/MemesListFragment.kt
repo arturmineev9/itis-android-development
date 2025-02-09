@@ -110,7 +110,7 @@ class MemesListFragment : Fragment() {
     private fun initFab() {
         viewBinding?.run {
             fab.setOnClickListener {
-                findNavController().navigate(R.id.action_mainScreenFragment_to_addContentFragment)
+                findNavController().navigate(R.id.action_memesListFragment_to_addContentFragment)
             }
         }
     }

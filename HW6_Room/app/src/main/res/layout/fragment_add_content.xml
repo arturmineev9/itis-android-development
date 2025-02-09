@@ -16,7 +16,7 @@
             android:layout_width="0dp"
             android:layout_height="200dp"
             android:layout_marginBottom="8dp"
-            android:background="@android:color/darker_gray"
+            android:background="?attr/colorSurfaceContainer"
             app:layout_constraintBottom_toTopOf="@id/etTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

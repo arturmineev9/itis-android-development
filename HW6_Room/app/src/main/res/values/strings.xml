@@ -21,7 +21,7 @@
     <string name="registration_successful">Регистрация прошла успешно!</string>
     <string name="welcome_message">С возвращением, %1$s!</string>
     <string name="invalid_email">Неверный адрес электронной почты</string>
-    <string name="invalid_password">Пароль должен состоять не менее чем из 8 символов и содержать по крайней мере одну заглавную букву, одну строчную букву, одну цифру и один специальный символ</string>
+    <string name="invalid_password">Пароль должен быть не менее 8 символов и содержать буквы, цифры и спецсимволы</string>
     <string name="exit_from_account">Выйти из аккаунта</string>
     <string name="meme_added_message">Мем добавлен!</string>
     <string name="fill_all_fields_message">Заполните все поля!</string>
@@ -43,6 +43,7 @@
     <string name="btn_save_meme">Сохранить мем</string>
     <string name="details_title">Название мема</string>
     <string name="details_description">Описание мема</string>
+    <string name="app_title">Meme Hub</string>
 
     <string-array name="color_array">
         <item>#E57373</item>
