@@ -1,59 +1,72 @@
 package ru.itis.clientserverapp.dog_details
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.collection.intFloatMapOf
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.bumptech.glide.Glide
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import ru.itis.clientserverapp.base.BaseFragment
+import ru.itis.clientserverapp.dog_details.databinding.FragmentDogDetailsBinding
+import ru.itis.clientserverapp.domain.models.DogModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [DogDetailsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class DogDetailsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+@AndroidEntryPoint
+class DogDetailsFragment : BaseFragment(R.layout.fragment_dog_details) {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private var viewBinding: FragmentDogDetailsBinding? = null
+    private val viewModel: DogDetailsViewModel by viewModels()
+    private val dogId by lazy { arguments?.getString("DOG_ID") ?: "" }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        viewBinding = FragmentDogDetailsBinding.inflate(inflater, container, false)
+        return viewBinding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupObservers()
+        viewModel.loadDogDetails(dogId)
+    }
+
+    private fun setupObservers() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.dogDetails.collect { dog ->
+                    dog?.let { bindDogData(it) }
+                }
+            }
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dog_details, container, false)
+    private fun bindDogData(dog: DogModel) {
+        viewBinding?.apply {
+
+            Glide.with(requireContext())
+                .load(dog.url)
+                .into(ivDog)
+            
+            tvBreed.text = dog.breed.name
+            tvTemperament.text = getString(R.string.temperament_format, dog.breed.temperament)
+            tvWeightImperial.text = getString(R.string.weight_imperial_format, dog.breed.weight)
+            tvWeightMetric.text = getString(R.string.weight_metric_format, dog.breed.weight)
+            tvLifeSpan.text = getString(R.string.life_span_format, dog.breed.lifeSpan)
+            tvBredFor.text = getString(R.string.bred_for_format, dog.breed.bredFor)
+        }
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DogDetailsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DogDetailsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewBinding = null
     }
 }

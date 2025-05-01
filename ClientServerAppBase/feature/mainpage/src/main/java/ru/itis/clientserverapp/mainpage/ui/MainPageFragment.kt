@@ -43,7 +43,9 @@ class MainPageFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = DogsAdapter()
+        adapter = DogsAdapter { dog ->
+            viewModel.onDogClicked(dog.id)
+        }
         viewBinding?.rvDogs?.layoutManager = GridLayoutManager(requireContext(), 2)
         viewBinding?.rvDogs?.adapter = adapter
     }

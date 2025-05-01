@@ -11,9 +11,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.itis.clientserverapp.domain.models.DogModel
 import ru.itis.clientserverapp.domain.usecases.GetDogsImagesUseCase
+import ru.itis.clientserverapp.navigation.NavMain
 
 @HiltViewModel
 class MainPageViewModel @Inject constructor(
+    private val navMain: NavMain,
     private val getDogsUseCase: GetDogsImagesUseCase
 ) : ViewModel() {
     private val _dogs = MutableStateFlow<List<DogModel>>(emptyList())
@@ -36,4 +38,9 @@ class MainPageViewModel @Inject constructor(
             _isLoading.value = false
         }
     }
+
+    fun onDogClicked(dogId: String) {
+        navMain.goToDogDetailsPage(dogId)
+    }
+
 }

@@ -4,6 +4,6 @@ interface NavMain {
 
     fun initNavMain(parent: Nav)
 
-    fun goToDogDetailsPage()
+    fun goToDogDetailsPage(id: String)
 
 }
