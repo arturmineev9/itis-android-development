@@ -14,7 +14,7 @@ interface DogsApi {
     ): List<DogResponse>
 
 
-    @GET("/images/{id}")
+    @GET("images/{id}")
     suspend fun getDogDetails(
         @Path("id") id: String
     ): DogResponse

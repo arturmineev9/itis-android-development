@@ -40,7 +40,7 @@
             app:layout_constraintTop_toBottomOf="@id/tvBreed"/>
 
         <TextView
-            android:id="@+id/tvWeightImperial"
+            android:id="@+id/tvWeight"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -49,13 +49,13 @@
             app:layout_constraintTop_toBottomOf="@id/tvTemperament"/>
 
         <TextView
-            android:id="@+id/tvWeightMetric"
+            android:id="@+id/tvHeight"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvWeightImperial"/>
+            app:layout_constraintTop_toBottomOf="@id/tvWeight"/>
 
         <TextView
             android:id="@+id/tvLifeSpan"
@@ -64,7 +64,7 @@
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvWeightMetric"/>
+            app:layout_constraintTop_toBottomOf="@id/tvHeight"/>
 
         <TextView
             android:id="@+id/tvBredFor"

@@ -1,20 +1,22 @@
 package ru.itis.clientserverapp.network.response
 
+import com.google.gson.annotations.SerializedName
+
 data class DogResponse(
-    val id: String,
-    val url: String,
-    val breeds: List<BreedResponse>,
-    val width: Int,
-    val height: Int
+    @SerializedName("id") val id: String,
+    @SerializedName("url") val url: String,
+    @SerializedName("breeds") val breeds: List<BreedResponse>?,
+    @SerializedName("width") val width: Int,
+    @SerializedName("height") val height: Int
 )
 
 data class BreedResponse(
-    val weight: Weight,
-    val height: Height,
-    val name: String,
-    val bredFor: String?,
-    val lifeSpan: String?,
-    val temperament: String?
+    @SerializedName("name") val name: String?,
+    @SerializedName("weight") val weight: Weight?,
+    @SerializedName("height") val height: Height?,
+    @SerializedName("bred_for") val bredFor: String?,
+    @SerializedName("life_span") val lifeSpan: String?,
+    @SerializedName("temperament") val temperament: String?
 )
 
 data class Weight(

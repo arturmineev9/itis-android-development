@@ -14,7 +14,11 @@ class GetDogDetailsUseCase @Inject constructor(
 
     suspend operator fun invoke(id: String): DogModel {
         return withContext(coroutineDispatcher) {
-            dogsRepository.getDogDescription(id)
+            try {
+                dogsRepository.getDogDescription(id)
+            } catch (e: Exception) {
+                throw e
+            }
         }
     }
 }

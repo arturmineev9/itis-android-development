@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -13,6 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import ru.itis.clientserverapp.mainpage.constants.MainPageConstants
 import ru.itis.clientserverapp.mainpage.databinding.FragmentMainPageBinding
 import ru.itis.clientserverapp.mainpage.recyclerview.DogsAdapter
 
@@ -70,15 +72,26 @@ class MainPageFragment : Fragment() {
     }
 
     private fun showError(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        AlertDialog.Builder(requireContext())
+            .setTitle(MainPageConstants.ERROR_TITLE)
+            .setMessage(message)
+            .setPositiveButton(MainPageConstants.POSITIVE_BUTTON_OK, null)
+            .show()
     }
 
     private fun setupListeners() {
         viewBinding?.btnLoad?.setOnClickListener {
-            val limit = viewBinding?.etLimit?.text.toString().toIntOrNull() ?: 10
-            viewModel.loadDogs(limit)
+            val input = viewBinding?.etLimit?.text.toString()
+            val limit = input.toIntOrNull()
+
+            if (limit == null || limit <= 0) {
+                showError(MainPageConstants.INVALID_INPUT)
+            } else {
+                viewModel.loadDogs(limit)
+            }
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

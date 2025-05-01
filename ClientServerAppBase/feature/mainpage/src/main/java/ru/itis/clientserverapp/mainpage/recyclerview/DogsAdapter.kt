@@ -43,7 +43,7 @@ class DogsAdapter(
                 .load(dog.url)
                 .into(ivDog)
 
-            tvBreed.text = dog.breed.name.takeIf { it.isNotBlank() } ?: "Unknown breed"
+            tvBreed.text = dog.breed.name.takeIf { it.isNotBlank() }
 
             itemView.setOnClickListener {
                 onClick(dog)

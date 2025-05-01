@@ -1,9 +1,8 @@
-package ru.itis.clientserverapp.base
+package ru.itis.clientserverapp.base_feature
 
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
+@dagger.hilt.android.AndroidEntryPoint
 open class BaseFragment(@LayoutRes layoutId: Int): Fragment(layoutId) {
 }

@@ -1,5 +1,7 @@
 package ru.itis.clientserverapp.data.mapper
 
+import android.util.Log
+import ru.itis.clientserverapp.data.constants.DogMapperConstants
 import ru.itis.clientserverapp.domain.models.Breed
 import ru.itis.clientserverapp.network.response.DogResponse
 import ru.itis.clientserverapp.domain.models.DogModel
@@ -13,14 +15,14 @@ class DogsApiResponseMapper @Inject constructor() {
         return if (input == null) {
             createDefaultDogModel()
         } else {
-            val breed = input.breeds.firstOrNull()?.let { breedResponse ->
+            val breed = input.breeds?.firstOrNull()?.let { breedResponse ->
                 Breed(
-                    name = breedResponse.name,
+                    name = breedResponse.name ?: DogMapperConstants.UNKNOWN,
                     weight = formatWeight(breedResponse.weight),
                     height = formatHeight(breedResponse.height),
-                    bredFor = breedResponse.bredFor ?: "Unknown",
-                    lifeSpan = breedResponse.lifeSpan ?: "Unknown",
-                    temperament = breedResponse.temperament ?: "Unknown"
+                    bredFor = breedResponse.bredFor ?: DogMapperConstants.UNKNOWN,
+                    lifeSpan = breedResponse.lifeSpan ?: DogMapperConstants.UNKNOWN,
+                    temperament = breedResponse.temperament ?: DogMapperConstants.UNKNOWN
                 )
             } ?: createDefaultBreed()
 
@@ -36,29 +38,37 @@ class DogsApiResponseMapper @Inject constructor() {
         return responses.map { map(it) }
     }
 
-    private fun formatWeight(weight: Weight): String {
-        return "${weight.imperial} lbs (${weight.metric} kg)"
+    private fun formatWeight(weight: Weight?): String {
+        return if (weight != null) {
+            DogMapperConstants.WEIGHT_FORMAT.format(weight.imperial, weight.metric)
+        } else {
+            DogMapperConstants.UNKNOWN
+        }
     }
 
-    private fun formatHeight(height: Height): String {
-        return "${height.imperial} in (${height.metric} cm)"
+    private fun formatHeight(height: Height?): String {
+        return if (height != null) {
+            DogMapperConstants.HEIGHT_FORMAT.format(height.imperial, height.metric)
+        } else {
+            DogMapperConstants.UNKNOWN
+        }
     }
 
     private fun createDefaultBreed(): Breed {
         return Breed(
-            name = "Unknown",
-            weight = "Unknown",
-            height = "Unknown",
-            bredFor = "Unknown",
-            lifeSpan = "Unknown",
-            temperament = "Unknown"
+            name = DogMapperConstants.UNKNOWN,
+            weight = DogMapperConstants.UNKNOWN,
+            height = DogMapperConstants.UNKNOWN,
+            bredFor = DogMapperConstants.UNKNOWN,
+            lifeSpan = DogMapperConstants.UNKNOWN,
+            temperament = DogMapperConstants.UNKNOWN
         )
     }
 
     private fun createDefaultDogModel(): DogModel {
         return DogModel(
-            id = "0",
-            url = "",
+            id = DogMapperConstants.DEFAULT_ID,
+            url = DogMapperConstants.EMPTY_URL,
             breed = createDefaultBreed()
         )
     }

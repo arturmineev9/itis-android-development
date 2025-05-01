@@ -40,20 +40,19 @@ android {
 
 dependencies {
 
-    implementation(project(path = ":core:base"))
+    implementation(project(path = ":core:base-feature"))
     implementation(project(path = ":core:domain"))
-
+    implementation(project(":core:navigation"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(project(":core:navigation"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.lifecycle.viewmodel)
     implementation(libs.androidx.fragment)
-
+    implementation(libs.bundles.network.deps)
     implementation(libs.coroutines)
 
     implementation(libs.glide)

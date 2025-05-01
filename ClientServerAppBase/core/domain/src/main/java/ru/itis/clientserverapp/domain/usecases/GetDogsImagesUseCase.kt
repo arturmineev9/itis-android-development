@@ -15,7 +15,11 @@ class GetDogsImagesUseCase @Inject constructor(
 
     suspend operator fun invoke(limit: Int): List<DogModel> {
         return withContext(coroutineDispatcher) {
-            dogsRepository.getDogsImages(limit)
+            try {
+                dogsRepository.getDogsImages(limit)
+            } catch (e: Exception) {
+                throw e
+            }
         }
     }
 }

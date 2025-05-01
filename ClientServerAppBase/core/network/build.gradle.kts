@@ -43,7 +43,7 @@ android {
 dependencies {
 
     implementation(libs.bundles.network.deps)
-
+    implementation(libs.logging.interceptor)
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
 }

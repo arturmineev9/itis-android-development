@@ -41,7 +41,7 @@ android {
 
 dependencies {
 
-    implementation(project(path = ":core:base"))
+    implementation(project(path = ":core:base-feature"))
     implementation(project(path = ":core:domain"))
 
 

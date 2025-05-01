@@ -1,6 +1,7 @@
 package ru.itis.clientserverapp.network.di
 
 import android.annotation.SuppressLint
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.Strictness
@@ -9,6 +10,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.itis.clientserverapp.network.BuildConfig
@@ -32,80 +34,62 @@ class NetworkModule {
         okHttpClient: OkHttpClient,
         gson: Gson,
     ): DogsApi {
-        val gsonFactory = GsonConverterFactory.create(gson)
-
-        val builder = Retrofit.Builder()
+        return Retrofit.Builder()
             .baseUrl(BuildConfig.THEDOGAPI_BASE_URL)
             .client(okHttpClient)
-            .addConverterFactory(gsonFactory)
-
-        return builder.build().create(DogsApi::class.java)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+            .create(DogsApi::class.java)
     }
 
     @Provides
+    @Singleton
     fun provideOkHttpClient(
         authInterceptor: AuthorizationInterceptor
     ): OkHttpClient {
-        val builder = if (networkConfig.DEBUG) {
-            getUnsafeOkHttpClientBuilder()
-        } else {
-            OkHttpClient.Builder()
-        }
-
-        builder.addInterceptor(authInterceptor)
-
-        return builder.build()
+        return OkHttpClient.Builder()
+            .addInterceptor(authInterceptor)
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                level = if (BuildConfig.DEBUG) {
+                    HttpLoggingInterceptor.Level.BODY
+                } else {
+                    HttpLoggingInterceptor.Level.NONE
+                }
+            })
+            .apply {
+                if (BuildConfig.DEBUG) {
+                    unsafeSslSettings(this)
+                }
+            }
+            .build()
     }
 
     @Provides
     fun provideGson(): Gson {
         return GsonBuilder()
-            .setStrictness(Strictness.LENIENT)
+            .setLenient()
             .create()
     }
 
     @SuppressLint("CustomX509TrustManager")
-    private fun getUnsafeOkHttpClientBuilder(): OkHttpClient.Builder {
-        val okHttpClient = OkHttpClient.Builder()
+    private fun unsafeSslSettings(builder: OkHttpClient.Builder) {
         try {
-            // Create a trust manager that does not validate certificate chains
-            val trustAllCerts: Array<TrustManager> = arrayOf(object : X509TrustManager {
+            val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
+                @SuppressLint("TrustAllX509TrustManager")
+                override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) {}
 
                 @SuppressLint("TrustAllX509TrustManager")
-                override fun checkClientTrusted(
-                    chain: Array<out X509Certificate>?,
-                    authType: String?
-                ) {
-                }
-
-                @SuppressLint("TrustAllX509TrustManager")
-                override fun checkServerTrusted(
-                    chain: Array<out X509Certificate>?,
-                    authType: String?
-                ) {
-                }
+                override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) {}
 
                 override fun getAcceptedIssuers(): Array<X509Certificate> = arrayOf()
             })
 
-            // Install the all-trusting trust manager
             val sslContext = SSLContext.getInstance("SSL")
             sslContext.init(null, trustAllCerts, SecureRandom())
-
-            // Create an ssl socket factory with our all-trusting manager
-            val sslSocketFactory = sslContext.socketFactory
-            if (trustAllCerts.isNotEmpty() && trustAllCerts.first() is X509TrustManager) {
-                okHttpClient.sslSocketFactory(
-                    sslSocketFactory,
-                    trustAllCerts.first() as X509TrustManager
-                )
-                okHttpClient.hostnameVerifier { _, _ -> true }
-            }
-
-            return okHttpClient
+            builder.sslSocketFactory(sslContext.socketFactory, trustAllCerts[0] as X509TrustManager)
+            builder.hostnameVerifier { _, _ -> true }
         } catch (e: Exception) {
-            return okHttpClient
+            Log.e("NetworkModule", "SSL error", e)
         }
     }
-
 }
