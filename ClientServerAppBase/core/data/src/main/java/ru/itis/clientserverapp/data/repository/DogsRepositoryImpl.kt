@@ -12,11 +12,11 @@ class DogsRepositoryImpl @Inject constructor(
 ) : DogsRepository {
 
 
-    override suspend fun getDogsImages(): List<DogModel> {
-        return dogsApi.getDogsImages().let(mapper::mapList)
+    override suspend fun getDogsImages(limit: Int): List<DogModel> {
+        return dogsApi.searchDogs(limit = limit).let(mapper::mapList)
     }
 
-    override suspend fun getDogDescription(): Any {
-        return dogsApi.getDogDetails()
+    override suspend fun getDogDescription(id: String): DogModel {
+        return dogsApi.getDogDetails(id = id).let(mapper::map)
     }
 }

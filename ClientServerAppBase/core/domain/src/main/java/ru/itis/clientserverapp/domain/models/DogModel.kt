@@ -7,6 +7,7 @@ data class DogModel(
 )
 
 data class Breed(
+    val name: String,
     val weight: String,
     val height: String,
     val bredFor: String,

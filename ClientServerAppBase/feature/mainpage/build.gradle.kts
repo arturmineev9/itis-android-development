@@ -55,6 +55,8 @@ dependencies {
 
     implementation(libs.coroutines)
 
+    implementation(libs.glide)
+
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
 }

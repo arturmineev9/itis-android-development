@@ -15,6 +15,7 @@ class DogsApiResponseMapper @Inject constructor() {
         } else {
             val breed = input.breeds.firstOrNull()?.let { breedResponse ->
                 Breed(
+                    name = breedResponse.name,
                     weight = formatWeight(breedResponse.weight),
                     height = formatHeight(breedResponse.height),
                     bredFor = breedResponse.bredFor ?: "Unknown",
@@ -45,6 +46,7 @@ class DogsApiResponseMapper @Inject constructor() {
 
     private fun createDefaultBreed(): Breed {
         return Breed(
+            name = "Unknown",
             weight = "Unknown",
             height = "Unknown",
             bredFor = "Unknown",

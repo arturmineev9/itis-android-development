@@ -1,6 +1,7 @@
 package ru.itis.clientserverapp.network
 
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import ru.itis.clientserverapp.network.response.DogResponse
 
@@ -13,6 +14,9 @@ interface DogsApi {
     ): List<DogResponse>
 
 
-    @GET("/")
-    suspend fun getDogDetails(): DogResponse
+    @GET("/images/{id}")
+    suspend fun getDogDetails(
+        @Path("id") id: String
+    ): DogResponse
+
 }
