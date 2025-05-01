@@ -32,17 +32,26 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+    buildFeatures {
+        buildConfig = true
+        viewBinding = true
+    }
     kotlinOptions {
         jvmTarget = "11"
     }
 }
 
 dependencies {
+
     implementation(project(path = ":core:base"))
+    implementation(project(path = ":core:base-feature"))
     implementation(project(path = ":core:data"))
     implementation(project(path = ":core:domain"))
+    implementation(project(path = ":core:navigation"))
+    implementation(project(path = ":core:network"))
 
     implementation(project(path = ":feature:mainpage"))
+    implementation(project(path = ":feature:dog-details"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -50,6 +59,9 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     testImplementation(libs.junit)
+
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ui)
 
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)

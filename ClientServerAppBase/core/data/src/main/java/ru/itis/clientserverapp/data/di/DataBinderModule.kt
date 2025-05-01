@@ -15,5 +15,5 @@ interface DataBinderModule {
 
     @Binds
     @Singleton
-    fun bindDogRepository_toImpl(impl: DogsRepositoryImpl): DogsRepository
+    fun bindDogRepositoryToImplementation(impl: DogsRepositoryImpl): DogsRepository
 }

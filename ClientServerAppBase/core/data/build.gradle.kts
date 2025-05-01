@@ -35,8 +35,11 @@ android {
 }
 
 dependencies {
-
+    implementation(project(path = ":core:network"))
     implementation(project(path = ":core:domain"))
+    implementation(project(path = ":core:base"))
+
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
