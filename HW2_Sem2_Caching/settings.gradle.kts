@@ -19,6 +19,13 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "HW2_Sem2_Caching"
+rootProject.name = "ClientServerAppBase"
 include(":app")
- 
+include(":core:data")
+include(":core:domain")
+include(":feature:mainpage")
+include(":core:base")
+include(":feature:dog-details")
+include(":core:navigation")
+include(":core:network")
+include(":core:base-feature")
