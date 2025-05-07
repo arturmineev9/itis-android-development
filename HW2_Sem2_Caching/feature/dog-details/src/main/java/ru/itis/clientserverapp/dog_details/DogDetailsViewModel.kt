@@ -1,6 +1,7 @@
 package ru.itis.clientserverapp.dog_details
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -10,6 +11,7 @@ import kotlinx.coroutines.launch
 import ru.itis.clientserverapp.dog_details.constants.DogDetailsConstants
 import ru.itis.clientserverapp.domain.models.DogModel
 import ru.itis.clientserverapp.domain.usecases.GetDogDetailsUseCase
+import ru.itis.clientserverapp.utils.enums.DataSource
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,14 +25,20 @@ class DogDetailsViewModel @Inject constructor(
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error
 
+    private val _dataSource = MutableStateFlow<DataSource?>(null)
+    val dataSource: StateFlow<DataSource?> = _dataSource
+
     fun loadDogDetails(dogId: String) {
         viewModelScope.launch {
             try {
-                val dog = getDogDetailsUseCase.invoke(dogId)
+                val (dog, source) = getDogDetailsUseCase.invoke(dogId)
                 _dogDetails.value = dog
+                _dataSource.value = source
                 _error.value = null
+
             } catch (e: Exception) {
                 _error.value = e.message ?: DogDetailsConstants.UNKNOWN_ERROR
+                _dataSource.value = null
             }
         }
     }

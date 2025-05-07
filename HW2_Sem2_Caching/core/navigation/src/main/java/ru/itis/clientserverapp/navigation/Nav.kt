@@ -14,5 +14,4 @@ interface Nav {
 
     fun clearNavProvider(navProvider: Provider)
 
-
 }

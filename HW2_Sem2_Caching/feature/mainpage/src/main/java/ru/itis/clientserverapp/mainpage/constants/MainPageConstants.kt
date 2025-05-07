@@ -10,5 +10,4 @@ object MainPageConstants {
     const val INVALID_INPUT = "Введите положительное число"
     const val POSITIVE_BUTTON_OK = "Ок"
     const val POSITIVE_BUTTON_LOGIN = "Войти"
-
 }

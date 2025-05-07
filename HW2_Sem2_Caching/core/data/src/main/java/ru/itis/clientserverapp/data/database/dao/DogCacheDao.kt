@@ -7,7 +7,7 @@ import androidx.room.Query
 import ru.itis.clientserverapp.data.database.entities.DogEntity
 
 @Dao
-interface DogDao {
+interface DogCacheDao {
     @Query("SELECT * FROM dogs_api_cache WHERE id = :id")
     suspend fun getDogById(id: String): DogEntity?
 

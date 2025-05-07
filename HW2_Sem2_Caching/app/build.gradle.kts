@@ -43,26 +43,34 @@ android {
 
 dependencies {
 
-    implementation(project(path = ":core:base"))
-    implementation(project(path = ":core:base-feature"))
-    implementation(project(path = ":core:data"))
-    implementation(project(path = ":core:domain"))
-    implementation(project(path = ":core:navigation"))
-    implementation(project(path = ":core:network"))
+    dependencies {
+        // Core Modules
+        implementation(project(path = ":core:base"))
+        implementation(project(path = ":core:base-feature"))
+        implementation(project(path = ":core:data"))
+        implementation(project(path = ":core:domain"))
+        implementation(project(path = ":core:navigation"))
+        implementation(project(path = ":core:network"))
 
-    implementation(project(path = ":feature:mainpage"))
-    implementation(project(path = ":feature:dog-details"))
+        // Feature Modules
+        implementation(project(path = ":feature:dog-details"))
+        implementation(project(path = ":feature:mainpage"))
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
-    testImplementation(libs.junit)
+        // AndroidX
+        implementation(libs.androidx.activity)
+        implementation(libs.androidx.appcompat)
+        implementation(libs.androidx.constraintlayout)
+        implementation(libs.androidx.core.ktx)
 
-    implementation(libs.navigation.fragment)
-    implementation(libs.navigation.ui)
+        // UI
+        implementation(libs.material)
 
-    implementation(libs.hilt)
-    ksp(libs.hilt.compiler)
+        // Navigation
+        implementation(libs.navigation.fragment)
+        implementation(libs.navigation.ui)
+
+        // Dependency Injection
+        implementation(libs.hilt)
+        ksp(libs.hilt.compiler)
+    }
 }

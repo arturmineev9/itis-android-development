@@ -8,7 +8,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ru.itis.clientserverapp.data.database.DogsDatabase
-import ru.itis.clientserverapp.data.database.dao.DogDao
+import ru.itis.clientserverapp.data.database.dao.DogCacheDao
 import javax.inject.Singleton
 
 @Module
@@ -26,5 +26,5 @@ object DatabaseModule {
     }
 
     @Provides
-    fun provideDogDao(database: DogsDatabase): DogDao = database.dogDao
+    fun provideDogDao(database: DogsDatabase): DogCacheDao = database.dogDao
 }

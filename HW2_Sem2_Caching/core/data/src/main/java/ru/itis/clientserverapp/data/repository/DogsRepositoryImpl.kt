@@ -1,16 +1,17 @@
 package ru.itis.clientserverapp.data.repository
 
-import ru.itis.clientserverapp.data.database.dao.DogDao
+import ru.itis.clientserverapp.data.database.dao.DogCacheDao
 import ru.itis.clientserverapp.data.mapper.DogsApiResponseMapper
 import ru.itis.clientserverapp.network.DogsApi
 import ru.itis.clientserverapp.domain.models.DogModel
 import ru.itis.clientserverapp.domain.repositories.DogsRepository
+import ru.itis.clientserverapp.utils.enums.DataSource
 import javax.inject.Inject
 
 class DogsRepositoryImpl @Inject constructor(
     private val dogsApi: DogsApi,
     private val mapper: DogsApiResponseMapper,
-    private val dogCacheDao: DogDao,
+    private val dogCacheDao: DogCacheDao,
 ) : DogsRepository {
 
     private val cacheTimeoutMinutes = 5
@@ -20,7 +21,7 @@ class DogsRepositoryImpl @Inject constructor(
         return dogsApi.searchDogs(limit = limit).let(mapper::mapList)
     }
 
-    override suspend fun getDogDescription(dogId: String): DogModel {
+    override suspend fun getDogDescription(dogId: String): Pair<DogModel, DataSource> {
 
         val currentTime = System.currentTimeMillis()
 
@@ -29,7 +30,7 @@ class DogsRepositoryImpl @Inject constructor(
         if (cached != null) {
             val minutesPassed = (currentTime - cached.createdAt) / (60 * 1000)
             if (minutesPassed < cacheTimeoutMinutes && cached.requestsSinceLast < maxIntermediateRequests) {
-                return cached.let(mapper::toDomainModelFromDbEntity)
+                return cached.let(mapper::toDomainModelFromDbEntity) to DataSource.CACHE
             }
         } else {
             dogCacheDao.delete(dogId = dogId)
@@ -43,6 +44,6 @@ class DogsRepositoryImpl @Inject constructor(
             dogCacheDao.insertDog(newRequest.let(mapper::toDogEntityFromDogResponse))
         }
 
-        return newRequest.let(mapper::map)
+        return newRequest.let(mapper::map) to DataSource.API
     }
 }

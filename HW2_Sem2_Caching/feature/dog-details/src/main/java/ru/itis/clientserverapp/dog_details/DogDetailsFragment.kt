@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -54,6 +55,20 @@ class DogDetailsFragment : BaseFragment(R.layout.fragment_dog_details) {
                 viewModel.error.collect { error ->
                     error?.let {
                         showError(it)
+                    }
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.dataSource.collect { source ->
+                    source?.let {
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.data_source_message, it.name),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }

@@ -54,5 +54,4 @@ class MainActivity : AppCompatActivity(), Nav.Provider {
         }
         viewBinding = null
     }
-
 }

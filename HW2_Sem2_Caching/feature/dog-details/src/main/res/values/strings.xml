@@ -1,8 +1,13 @@
 <resources>
+
+    <!-- fragment_dog_details.xml -->
     <string name="temperament_format">Temperament: %s</string>
     <string name="weight_imperial_format">Weight (imperial): %s</string>
     <string name="weight_metric_format">Weight (metric): %s</string>
     <string name="life_span_format">Life span: %s</string>
     <string name="bred_for_format">Bred for: %s</string>
     <string name="breed_group_format">Breed group: %s</string>
+
+    <!-- DogDetailsFragment -->
+    <string name="data_source_message">Источник: %s</string>
 </resources>

@@ -59,3 +59,4 @@ class MainPageViewModel @Inject constructor(
         navMain.goToDogDetailsPage(dogId)
     }
 }
+

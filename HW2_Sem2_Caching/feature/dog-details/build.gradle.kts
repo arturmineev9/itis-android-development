@@ -40,20 +40,27 @@ android {
 }
 
 dependencies {
-
+    // Core Modules
     implementation(project(path = ":core:base-feature"))
     implementation(project(path = ":core:domain"))
+    implementation(project(path = ":core:utils"))
 
-
-    implementation(libs.androidx.core.ktx)
+    // AndroidX
     implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.glide)
-    implementation(libs.lifecycle.viewmodel)
+    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.fragment)
 
+    // UI
+    implementation(libs.material)
+    implementation(libs.glide)
+
+    // Lifecycle
+    implementation(libs.lifecycle.viewmodel)
+
+    // Coroutines
     implementation(libs.coroutines)
 
+    // Dependency Injection
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
 }

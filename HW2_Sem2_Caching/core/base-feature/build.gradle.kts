@@ -36,9 +36,14 @@ android {
 
 dependencies {
 
-    implementation(libs.androidx.core.ktx)
+    // AndroidX
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.ktx)
+
+    // UI
     implementation(libs.material)
+
+    // Dependency Injection
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
 }

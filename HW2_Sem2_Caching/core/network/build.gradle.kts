@@ -42,8 +42,11 @@ android {
 
 dependencies {
 
+    // Network
     implementation(libs.bundles.network.deps)
     implementation(libs.logging.interceptor)
+
+    // Dependency Injection
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
 }

@@ -1,12 +1,10 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt.plugin)
 }
 
 android {
-    namespace = "ru.itis.clientserverapp.mainpage"
+    namespace = "ru.itis.clientserverapp.utils"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -32,37 +30,14 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-
-    buildFeatures {
-        viewBinding = true
-    }
 }
 
 dependencies {
-    // Core Modules
-    implementation(project(path = ":core:base-feature"))
-    implementation(project(path = ":core:domain"))
-    implementation(project(path = ":core:navigation"))
 
     // AndroidX
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.fragment)
 
-    // UI Components
+    // UI
     implementation(libs.material)
-    implementation(libs.glide)
-
-    // Lifecycle
-    implementation(libs.lifecycle.viewmodel)
-
-    // Coroutines
-    implementation(libs.coroutines)
-
-    // Network
-    implementation(libs.bundles.network.deps)
-
-    // Dependency Injection
-    implementation(libs.hilt)
-    ksp(libs.hilt.compiler)
 }

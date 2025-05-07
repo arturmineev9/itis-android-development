@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import ru.itis.clientserverapp.data.database.converters.Converters
-import ru.itis.clientserverapp.data.database.dao.DogDao
+import ru.itis.clientserverapp.data.database.dao.DogCacheDao
 import ru.itis.clientserverapp.data.database.entities.DogEntity
 
 
@@ -15,5 +15,5 @@ import ru.itis.clientserverapp.data.database.entities.DogEntity
 
 @TypeConverters(Converters::class)
 abstract class DogsDatabase : RoomDatabase() {
-    abstract val dogDao: DogDao
+    abstract val dogDao: DogCacheDao
 }

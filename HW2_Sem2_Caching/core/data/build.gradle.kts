@@ -35,18 +35,30 @@ android {
 }
 
 dependencies {
-    implementation(project(path = ":core:network"))
-    implementation(project(path = ":core:domain"))
-    implementation(project(path = ":core:base"))
+    dependencies {
+        // Core Modules
+        implementation(project(path = ":core:base"))
+        implementation(project(path = ":core:domain"))
+        implementation(project(path = ":core:network"))
+        implementation(project(path = ":core:utils"))
 
+        // AndroidX
+        implementation(libs.androidx.appcompat)
+        implementation(libs.androidx.core.ktx)
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.bundles.network.deps)
-    implementation(libs.hilt)
-    ksp(libs.hilt.compiler)
-    implementation(libs.room)
-    implementation(libs.room.ktx)
-    ksp(libs.room.ksp)
+        // UI
+        implementation(libs.material)
+
+        // Network
+        implementation(libs.bundles.network.deps)
+
+        // Room
+        implementation(libs.room)
+        implementation(libs.room.ktx)
+        ksp(libs.room.ksp)
+
+        // Dependency Injection
+        implementation(libs.hilt)
+        ksp(libs.hilt.compiler)
+    }
 }

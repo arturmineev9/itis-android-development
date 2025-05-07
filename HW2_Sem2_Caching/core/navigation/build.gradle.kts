@@ -33,7 +33,9 @@ android {
 }
 
 dependencies {
-
+    // AndroidX
     implementation(libs.androidx.appcompat)
+
+    // Navigation
     implementation(libs.navigation.fragment)
 }
