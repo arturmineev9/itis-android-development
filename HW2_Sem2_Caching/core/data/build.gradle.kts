@@ -46,4 +46,7 @@ dependencies {
     implementation(libs.bundles.network.deps)
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
+    implementation(libs.room)
+    implementation(libs.room.ktx)
+    ksp(libs.room.ksp)
 }

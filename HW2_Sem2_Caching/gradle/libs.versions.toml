@@ -25,14 +25,13 @@ coroutines = "1.10.2"
 lifecycle = "2.4.0"
 
 junit = "4.13.2"
-junitVersion = "1.2.1"
-espressoCore = "3.6.1"
 
 activity = "1.10.1"
 constraintlayout = "2.2.1"
 fragment = "1.8.6"
 
 glide = "4.16.0"
+room_version = "2.6.1"
 
 
 
@@ -44,8 +43,6 @@ material = { group = "com.google.android.material", name = "material", version.r
 navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigation" }
 navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigation" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
-androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
-androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
@@ -59,6 +56,9 @@ lifecycle-viewmodel = {group = "androidx.lifecycle", name = "lifecycle-viewmodel
 androidx-fragment = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment" }
 gradle-secrets = { group = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", name = "secrets-gradle-plugin", version.ref = "gradle-secrets" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+room = { group = "androidx.room", name = "room-runtime", version.ref = "room_version" }
+room-ksp = { group = "androidx.room", name = "room-compiler", version.ref = "room_version" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room_version"}
 
 [bundles]
 network-deps = ["retrofit", "retrofit-gson-converter", "okhttp", "gson"]

@@ -2,6 +2,7 @@ package ru.itis.clientserverapp.data.mapper
 
 import android.util.Log
 import ru.itis.clientserverapp.data.constants.DogMapperConstants
+import ru.itis.clientserverapp.data.database.entities.DogEntity
 import ru.itis.clientserverapp.domain.models.Breed
 import ru.itis.clientserverapp.network.response.DogResponse
 import ru.itis.clientserverapp.domain.models.DogModel
@@ -36,6 +37,37 @@ class DogsApiResponseMapper @Inject constructor() {
 
     fun mapList(responses: List<DogResponse>): List<DogModel> {
         return responses.map { map(it) }
+    }
+
+    fun toDomainModelFromDbEntity(entity: DogEntity): DogModel {
+        return DogModel(
+            id = entity.id,
+            url = entity.url,
+            breed = Breed(
+                name = entity.breedName,
+                weight = entity.breedWeight,
+                height = entity.breedHeight,
+                bredFor = entity.bredFor,
+                lifeSpan = entity.lifeSpan,
+                temperament = entity.temperament
+            )
+        )
+    }
+
+    fun toDogEntityFromDogResponse(response: DogResponse): DogEntity {
+        val breed = response.breeds?.firstOrNull()
+
+        return DogEntity(
+            id = response.id,
+            url = response.url,
+            breedName = breed?.name ?: DogMapperConstants.UNKNOWN,
+            breedWeight = breed?.weight?.metric ?: DogMapperConstants.UNKNOWN,
+            breedHeight = breed?.height?.metric ?: DogMapperConstants.UNKNOWN,
+            bredFor = breed?.bredFor ?: DogMapperConstants.UNKNOWN,
+            lifeSpan = breed?.lifeSpan ?: DogMapperConstants.UNKNOWN,
+            temperament = breed?.temperament ?: DogMapperConstants.UNKNOWN,
+            requestsSinceLast = 0
+        )
     }
 
     private fun formatWeight(weight: Weight?): String {
