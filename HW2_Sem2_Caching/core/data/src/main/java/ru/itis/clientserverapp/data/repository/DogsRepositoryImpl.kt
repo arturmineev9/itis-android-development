@@ -33,7 +33,7 @@ class DogsRepositoryImpl @Inject constructor(
                 return cached.let(mapper::toDomainModelFromDbEntity) to DataSource.CACHE
             }
         } else {
-            dogCacheDao.delete(dogId = dogId)
+            dogCacheDao.deleteDogFromCache(dogId = dogId)
         }
 
         val newRequest = dogsApi.getDogDetails(id = dogId)

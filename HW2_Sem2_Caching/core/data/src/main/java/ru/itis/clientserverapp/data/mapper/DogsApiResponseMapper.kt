@@ -1,6 +1,5 @@
 package ru.itis.clientserverapp.data.mapper
 
-import android.util.Log
 import ru.itis.clientserverapp.data.constants.DogMapperConstants
 import ru.itis.clientserverapp.data.database.entities.DogEntity
 import ru.itis.clientserverapp.domain.models.Breed
