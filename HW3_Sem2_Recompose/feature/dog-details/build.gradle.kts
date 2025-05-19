@@ -33,6 +33,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        compose = true
     }
 
     kotlinOptions {
@@ -57,7 +58,6 @@ dependencies {
 
     // UI
     implementation(libs.material)
-
     implementation(libs.glide)
 
     // Lifecycle

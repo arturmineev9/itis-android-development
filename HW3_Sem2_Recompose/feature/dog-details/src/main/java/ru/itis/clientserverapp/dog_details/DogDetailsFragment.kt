@@ -17,7 +17,6 @@ import ru.itis.clientserverapp.dog_details.viewmodel.DogDetailsViewModel
 @AndroidEntryPoint
 class DogDetailsFragment : BaseFragment(R.layout.fragment_dog_details) {
 
-    private var viewBinding: FragmentDogDetailsBinding? = null
     private val viewModel: DogDetailsViewModel by viewModels()
     private val dogId by lazy { arguments?.getString(DogDetailsConstants.DOG_ID) ?: "" }
 
@@ -34,14 +33,8 @@ class DogDetailsFragment : BaseFragment(R.layout.fragment_dog_details) {
             }
         }
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.loadDogDetails(dogId)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        viewBinding = null
     }
 }
