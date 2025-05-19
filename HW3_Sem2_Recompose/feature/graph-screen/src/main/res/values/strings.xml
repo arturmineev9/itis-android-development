@@ -1,6 +1,9 @@
 <resources>
     <string name="points_number">Количество точек</string>
     <string name="values_hint">Значения через запятую</string>
+    <string name="fields_cannot_be_empty">Поля не могут быть пустыми</string>
+    <string name="invalid_number_format">Введите корректное число</string>
+    <string name="invalid_values_format">Некорректный формат значений</string>
     <string name="wrong_points_number">Некорректное количество точек</string>
     <string name="number_of_values_must_match">Количество значений должно совпадать</string>
     <string name="values_must_be_non_negative">Все значения должны быть неотрицательными</string>
