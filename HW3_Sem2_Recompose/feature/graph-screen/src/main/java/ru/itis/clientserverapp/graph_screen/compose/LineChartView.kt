@@ -1,68 +1,83 @@
 package ru.itis.clientserverapp.graph_screen.compose
 
-import android.graphics.Color
-import android.graphics.drawable.GradientDrawable
-import android.view.LayoutInflater
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
-import com.github.mikephil.charting.components.Description
-import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.utils.EntryXComparator
-import com.github.mikephil.charting.data.Entry
-import ru.itis.clientserverapp.graph_screen.databinding.ChartViewBinding
-import java.util.Collections
-
 
 @Composable
 fun LineChartView(values: List<Float>) {
-    AndroidView(
-        factory = { ctx ->
-            val binding = ChartViewBinding.inflate(LayoutInflater.from(ctx))
-            val chart = binding.lineChart
+    if (values.isEmpty()) return
 
-            val entries = values.mapIndexed { index, y -> Entry(index.toFloat(), y) }
-            Collections.sort(entries, EntryXComparator())
+    val maxValue = values.maxOrNull() ?: 0f
+    val minValue = values.minOrNull() ?: 0f
+    val yRange = (maxValue - minValue).takeIf { it != 0f } ?: 1f
 
-            val dataSet = LineDataSet(entries, "График").apply {
-                color = Color.BLUE
-                setDrawFilled(true)
-                setDrawCircles(true)
-                circleRadius = 5f
-                setCircleColor(Color.BLUE)
-                lineWidth = 2f
-                valueTextSize = 12f
-
-                val gradientDrawable = GradientDrawable(
-                    GradientDrawable.Orientation.TOP_BOTTOM,
-                    intArrayOf(
-                        Color.BLUE,
-                        Color.TRANSPARENT
-                    )
-                )
-                fillDrawable = gradientDrawable
-                fillAlpha = 255
-            }
-
-            chart.data = LineData(dataSet)
-            chart.description = Description().apply { text = "" }
-            chart.axisRight.isEnabled = false
-            chart.axisLeft.isEnabled = true
-            chart.xAxis.isEnabled = true
-            chart.xAxis.position = XAxis.XAxisPosition.BOTTOM
-            chart.legend.isEnabled = false
-
-            chart.invalidate()
-
-            binding.root
-        },
+    Canvas(
         modifier = Modifier
             .fillMaxWidth()
-            .height(250.dp)
-    )
+            .height(300.dp)
+            .padding(16.dp)
+    ) {
+        val canvasWidth = size.width
+        val canvasHeight = size.height
+
+        drawLine(
+            color = Color.Gray,
+            start = Offset(0f, canvasHeight),
+            end = Offset(canvasWidth, canvasHeight),
+            strokeWidth = 2f
+        )
+        drawLine(
+            color = Color.Gray,
+            start = Offset(0f, 0f),
+            end = Offset(0f, canvasHeight),
+            strokeWidth = 2f
+        )
+
+        val pointCount = values.size
+        val spacing = canvasWidth / (pointCount - 1).coerceAtLeast(1)
+
+        val points = values.mapIndexed { index, yValue ->
+            val x = index * spacing
+            val y = canvasHeight - ((yValue - minValue) / yRange * canvasHeight)
+            Offset(x, y)
+        }
+
+        val path = Path().apply {
+            moveTo(points.first().x, canvasHeight)
+            points.forEach { lineTo(it.x, it.y) }
+            lineTo(points.last().x, canvasHeight)
+            close()
+        }
+
+        drawPath(
+            path = path,
+            brush = Brush.verticalGradient(
+                colors = listOf(Color.Blue.copy(alpha = 0.4f), Color.Transparent)
+            )
+        )
+
+        for (i in 0 until points.size - 1) {
+            drawLine(
+                color = Color.Blue,
+                start = points[i],
+                end = points[i + 1],
+                strokeWidth = 4f
+            )
+        }
+
+        points.forEach { point ->
+            drawCircle(
+                color = Color.Blue,
+                radius = 6f,
+                center = point
+            )
+        }
+    }
 }
