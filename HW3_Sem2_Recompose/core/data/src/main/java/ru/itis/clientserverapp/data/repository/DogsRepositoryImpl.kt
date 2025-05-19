@@ -1,0 +1,51 @@
+package ru.itis.clientserverapp.data.repository
+
+import ru.itis.clientserverapp.data.database.dao.DogCacheDao
+import ru.itis.clientserverapp.data.mapper.DogsApiResponseMapper
+import ru.itis.clientserverapp.network.DogsApi
+import ru.itis.clientserverapp.domain.models.DogModel
+import ru.itis.clientserverapp.domain.repositories.DogsRepository
+import ru.itis.clientserverapp.utils.enums.DataSource
+import javax.inject.Inject
+
+class DogsRepositoryImpl @Inject constructor(
+    private val dogsApi: DogsApi,
+    private val mapper: DogsApiResponseMapper,
+    private val dogCacheDao: DogCacheDao,
+) : DogsRepository {
+
+    override suspend fun getDogsImages(limit: Int): List<DogModel> {
+        return dogsApi.searchDogs(limit = limit).let(mapper::mapList)
+    }
+
+    override suspend fun getDogDescription(dogId: String): Pair<DogModel, DataSource> {
+
+        val currentTime = System.currentTimeMillis()
+
+        val cached = dogCacheDao.getDogById(id = dogId)
+
+        if (cached != null) {
+            val minutesPassed = (currentTime - cached.createdAt) / (60 * 1000)
+            if (minutesPassed < CACHE_TIMEOUT_IN_MINUTES && cached.requestsSinceLast < MAX_INTERMEDIATE_REQUESTS) {
+                return cached.let(mapper::toDomainModelFromDbEntity) to DataSource.CACHE
+            }
+        } else {
+            dogCacheDao.deleteDogFromCache(dogId = dogId)
+        }
+
+        val newRequest = dogsApi.getDogDetails(id = dogId)
+
+        dogCacheDao.incrementOtherCounters(dogId)
+
+        if (newRequest.breeds?.isNotEmpty() == true) {
+            dogCacheDao.insertDog(newRequest.let(mapper::toDogEntityFromDogResponse))
+        }
+
+        return newRequest.let(mapper::map) to DataSource.API
+    }
+
+    private companion object {
+        const val CACHE_TIMEOUT_IN_MINUTES = 5
+        const val MAX_INTERMEDIATE_REQUESTS = 3
+    }
+}

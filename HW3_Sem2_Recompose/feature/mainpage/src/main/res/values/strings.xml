@@ -1,0 +1,11 @@
+<resources>
+    <string name="error_title">Ошибка</string>
+    <string name="error_network">Проблема с подключением к сети.</string>
+    <string name="error_unknown">Неизвестная ошибка: %s</string>
+    <string name="error_unauthorized">Вы не авторизованы. Пожалуйста, войдите в систему.</string>
+    <string name="error_server">Ошибка сервера. Попробуйте позже.</string>
+    <string name="error_generic">Произошла ошибка: %d</string>
+    <string name="invalid_input">Введите положительное число</string>
+    <string name="positive_button_ok">Ок</string>
+    <string name="positive_button_login">Войти</string>
+</resources>

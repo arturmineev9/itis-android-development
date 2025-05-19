@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ClientServerAppBase</string>
+
+    <string name="temperament_format">Temperament: %s</string>
+    <string name="weight_imperial_format">Weight (imperial): %s</string>
+    <string name="weight_metric_format">Weight (metric): %s</string>
+    <string name="life_span_format">Life span: %s</string>
+    <string name="bred_for_format">Bred for: %s</string>
+    <string name="breed_group_format">Breed group: %s</string>
+    <string name="dog_page">Собаки</string>
+    <string name="graph_page">График</string>
+
+</resources>
