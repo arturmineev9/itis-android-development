@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/graph_global.xml"
+    app:startDestination="@id/destination_main_page">
+
+    <action
+        android:id="@+id/action_global_main_page"
+        app:destination="@+id/destination_main_page"
+        app:enterAnim="@android:anim/fade_in"
+        app:exitAnim="@android:anim/fade_out"
+        app:popEnterAnim="@android:anim/fade_in"
+        app:popExitAnim="@android:anim/fade_out" />
+
+    <fragment
+        android:id="@+id/destination_main_page"
+        android:name="ru.itis.clientserverapp.mainpage.ui.MainPageFragment"
+        android:label="destination_search_page" />
+
+    <action
+        android:id="@+id/action_global_dog_details"
+        app:destination="@+id/destination_dog_details_page"
+        app:enterAnim="@android:anim/fade_in"
+        app:exitAnim="@android:anim/fade_out"
+        app:popEnterAnim="@android:anim/fade_in"
+        app:popExitAnim="@android:anim/fade_out" />
+
+    <fragment
+        android:id="@+id/destination_dog_details_page"
+        android:name="ru.itis.clientserverapp.dog_details.DogDetailsFragment"
+        android:label="destination_search_page" />
+</navigation>
