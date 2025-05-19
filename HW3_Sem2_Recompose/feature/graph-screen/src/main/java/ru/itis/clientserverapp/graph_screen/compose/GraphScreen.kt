@@ -5,15 +5,15 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import ru.itis.clientserverapp.graph_screen.constants.GraphScreenConstants
+import ru.itis.clientserverapp.graph_screen.R
 import ru.itis.clientserverapp.graph_screen.viewmodel.GraphViewModel
 
 @Composable
 fun GraphScreen(
     viewModel: GraphViewModel
 ) {
-
     val pointCountInput by viewModel.pointCountInput.collectAsState()
     val valuesInput by viewModel.valuesInput.collectAsState()
     val error by viewModel.error.collectAsState()
@@ -27,7 +27,7 @@ fun GraphScreen(
         OutlinedTextField(
             value = pointCountInput,
             onValueChange = viewModel::updatePointCountInput,
-            label = { Text(GraphScreenConstants.POINTS_NUMBER) },
+            label = { Text(stringResource(R.string.points_number)) },
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
@@ -37,7 +37,7 @@ fun GraphScreen(
         OutlinedTextField(
             value = valuesInput,
             onValueChange = viewModel::updateValuesInput,
-            label = { Text(GraphScreenConstants.VALUES) },
+            label = { Text(stringResource(R.string.values_hint)) },
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
@@ -53,7 +53,7 @@ fun GraphScreen(
             onClick = viewModel::buildGraph,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
-            Text(GraphScreenConstants.BUILD_GRAPH)
+            Text(stringResource(R.string.build_graph))
         }
 
         Spacer(modifier = Modifier.height(24.dp))

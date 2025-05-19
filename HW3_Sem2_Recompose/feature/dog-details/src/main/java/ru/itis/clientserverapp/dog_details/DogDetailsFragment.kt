@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.stringResource
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ru.itis.clientserverapp.base_feature.BaseFragment
 import ru.itis.clientserverapp.dog_details.compose.DogDetailsScreen
-import ru.itis.clientserverapp.dog_details.constants.DogDetailsConstants
 import ru.itis.clientserverapp.dog_details.databinding.FragmentDogDetailsBinding
 import ru.itis.clientserverapp.dog_details.viewmodel.DogDetailsViewModel
 
@@ -18,7 +18,7 @@ import ru.itis.clientserverapp.dog_details.viewmodel.DogDetailsViewModel
 class DogDetailsFragment : BaseFragment(R.layout.fragment_dog_details) {
 
     private val viewModel: DogDetailsViewModel by viewModels()
-    private val dogId by lazy { arguments?.getString(DogDetailsConstants.DOG_ID) ?: "" }
+    private val dogId by lazy { arguments?.getString(getString(R.string.dog_id)) ?: "" }
 
     override fun onCreateView(
         inflater: LayoutInflater,

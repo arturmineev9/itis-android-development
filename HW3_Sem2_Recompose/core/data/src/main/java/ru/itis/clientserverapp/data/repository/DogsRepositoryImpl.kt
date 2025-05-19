@@ -14,9 +14,6 @@ class DogsRepositoryImpl @Inject constructor(
     private val dogCacheDao: DogCacheDao,
 ) : DogsRepository {
 
-    private val cacheTimeoutMinutes = 5
-    private val maxIntermediateRequests = 3
-
     override suspend fun getDogsImages(limit: Int): List<DogModel> {
         return dogsApi.searchDogs(limit = limit).let(mapper::mapList)
     }
@@ -29,7 +26,7 @@ class DogsRepositoryImpl @Inject constructor(
 
         if (cached != null) {
             val minutesPassed = (currentTime - cached.createdAt) / (60 * 1000)
-            if (minutesPassed < cacheTimeoutMinutes && cached.requestsSinceLast < maxIntermediateRequests) {
+            if (minutesPassed < CACHE_TIMEOUT_IN_MINUTES && cached.requestsSinceLast < MAX_INTERMEDIATE_REQUESTS) {
                 return cached.let(mapper::toDomainModelFromDbEntity) to DataSource.CACHE
             }
         } else {
@@ -45,5 +42,10 @@ class DogsRepositoryImpl @Inject constructor(
         }
 
         return newRequest.let(mapper::map) to DataSource.API
+    }
+
+    private companion object {
+        const val CACHE_TIMEOUT_IN_MINUTES = 5
+        const val MAX_INTERMEDIATE_REQUESTS = 3
     }
 }

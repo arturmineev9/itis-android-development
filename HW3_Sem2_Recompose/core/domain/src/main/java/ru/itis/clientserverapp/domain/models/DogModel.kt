@@ -3,14 +3,18 @@ package ru.itis.clientserverapp.domain.models
 data class DogModel(
     val id: String,
     val url: String,
-    val breed: Breed,
-)
+    val breed: BreedModel,
+) {
+    companion object {
+        const val DEFAULT_ID = "default_id"
+        const val EMPTY_URL = ""
 
-data class Breed(
-    val name: String,
-    val weight: String,
-    val height: String,
-    val bredFor: String,
-    val lifeSpan: String,
-    val temperament: String
-)
+        fun createDefault(): DogModel {
+            return DogModel(
+                id = DEFAULT_ID,
+                url = EMPTY_URL,
+                breed = BreedModel.createDefault()
+            )
+        }
+    }
+}

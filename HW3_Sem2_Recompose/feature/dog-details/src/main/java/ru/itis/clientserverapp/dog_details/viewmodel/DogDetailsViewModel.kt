@@ -6,7 +6,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import ru.itis.clientserverapp.dog_details.constants.DogDetailsConstants
 import ru.itis.clientserverapp.domain.models.DogModel
 import ru.itis.clientserverapp.domain.usecases.GetDogDetailsUseCase
 import ru.itis.clientserverapp.utils.enums.DataSource
@@ -35,7 +34,7 @@ class DogDetailsViewModel @Inject constructor(
                 _error.value = null
 
             } catch (e: Exception) {
-                _error.value = e.message ?: DogDetailsConstants.UNKNOWN_ERROR
+                _error.value = e.message
                 _dataSource.value = null
             }
         }

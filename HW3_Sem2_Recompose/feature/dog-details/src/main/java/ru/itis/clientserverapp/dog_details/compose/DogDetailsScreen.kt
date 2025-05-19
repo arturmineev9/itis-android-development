@@ -10,10 +10,10 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ru.itis.clientserverapp.dog_details.viewmodel.DogDetailsViewModel
 import ru.itis.clientserverapp.dog_details.R
-import ru.itis.clientserverapp.dog_details.constants.DogDetailsConstants
 
 @Composable
 fun DogDetailsScreen(
@@ -22,7 +22,6 @@ fun DogDetailsScreen(
     val dog by viewModel.dogDetails.collectAsState()
     val error by viewModel.error.collectAsState()
     val dataSource by viewModel.dataSource.collectAsState()
-
     val context = LocalContext.current
 
     LaunchedEffect(dataSource) {
@@ -38,11 +37,11 @@ fun DogDetailsScreen(
     error?.let {
         AlertDialog(
             onDismissRequest = {},
-            title = { Text(text = DogDetailsConstants.ERROR_TITLE) },
+            title = { Text(stringResource(R.string.error_title)) },
             text = { Text(it) },
             confirmButton = {
                 TextButton(onClick = {}) {
-                    Text(DogDetailsConstants.POSITIVE_BUTTON_OK)
+                    Text(stringResource(R.string.positive_button_ok))
                 }
             }
         )

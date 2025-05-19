@@ -7,12 +7,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import ru.itis.clientserverapp.domain.models.DogModel
-import ru.itis.clientserverapp.dog_details.constants.DogDetailsConstants
+import ru.itis.clientserverapp.dog_details.R
 
 @Composable
 fun DogDetailsContent(dog: DogModel) {
@@ -40,18 +41,17 @@ fun DogDetailsContent(dog: DogModel) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Text(DogDetailsConstants.TEMPERAMENT_FORMAT.format(dog.breed.temperament))
+        Text(stringResource(R.string.temperament_format, dog.breed.temperament))
         Spacer(modifier = Modifier.height(8.dp))
 
-        Text(DogDetailsConstants.WEIGHT_IMPERIAL_FORMAT.format(dog.breed.weight))
-        Text(DogDetailsConstants.WEIGHT_METRIC_FORMAT.format(dog.breed.height))
+        Text(stringResource(R.string.weight_imperial_format, dog.breed.weight))
+        Text(stringResource(R.string.weight_metric_format, dog.breed.height))
         Spacer(modifier = Modifier.height(8.dp))
 
-        Text(DogDetailsConstants.LIFE_SPAN_FORMAT.format(dog.breed.lifeSpan))
+        Text(stringResource(R.string.life_span_format, dog.breed.lifeSpan))
         Spacer(modifier = Modifier.height(8.dp))
 
-        Text(DogDetailsConstants.BRED_FOR_FORMAT.format(dog.breed.bredFor))
+        Text(stringResource(R.string.bred_for_format, dog.breed.bredFor))
         Spacer(modifier = Modifier.height(8.dp))
-
     }
 }

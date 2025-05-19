@@ -5,16 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import ru.itis.clientserverapp.mainpage.constants.MainPageConstants
+import ru.itis.clientserverapp.mainpage.R
 import ru.itis.clientserverapp.mainpage.databinding.FragmentMainPageBinding
 import ru.itis.clientserverapp.mainpage.recyclerview.DogsAdapter
 
@@ -45,9 +45,12 @@ class MainPageFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = DogsAdapter { dog ->
-            viewModel.onDogClicked(dog.id)
-        }
+        adapter = DogsAdapter(
+            glide = Glide.with(requireContext()),
+            onItemClick = { dog ->
+                viewModel.onDogClicked(dog.id)
+            }
+        )
         viewBinding?.rvDogs?.layoutManager = GridLayoutManager(requireContext(), 2)
         viewBinding?.rvDogs?.adapter = adapter
     }
@@ -73,9 +76,9 @@ class MainPageFragment : Fragment() {
 
     private fun showError(message: String) {
         AlertDialog.Builder(requireContext())
-            .setTitle(MainPageConstants.ERROR_TITLE)
+            .setTitle(getString(R.string.error_title))
             .setMessage(message)
-            .setPositiveButton(MainPageConstants.POSITIVE_BUTTON_OK, null)
+            .setPositiveButton(getString(R.string.positive_button_ok), null)
             .show()
     }
 
@@ -85,7 +88,7 @@ class MainPageFragment : Fragment() {
             val limit = input.toIntOrNull()
 
             if (limit == null || limit <= 0) {
-                showError(MainPageConstants.INVALID_INPUT)
+                showError(getString(R.string.invalid_input))
             } else {
                 viewModel.loadDogs(limit)
             }
