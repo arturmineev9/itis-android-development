@@ -1,6 +1,7 @@
 [versions]
 # Android SDK
 compileSdk = "35"
+material3 = "1.3.2"
 minSdk = "26"
 targetSdk = "35"
 
@@ -45,6 +46,9 @@ glide = "4.16.0"
 
 # Testing
 junit = "4.13.2"
+junitVersion = "4.13.2"
+androidxJunit = "1.2.1"
+espressoCore = "3.6.1"
 
 [libraries]
 # AndroidX Core
@@ -52,6 +56,7 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-fragment = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment" }
+androidx-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 # UI Components
@@ -89,6 +94,9 @@ glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "gl
 
 # Gradle Plugins
 gradle-secrets = { group = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", name = "secrets-gradle-plugin", version.ref = "gradle-secrets" }
+junit = { group = "junit", name = "junit", version.ref = "junitVersion" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunit" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 
 [bundles]
 network-deps = ["retrofit", "retrofit-gson-converter", "okhttp", "gson"]

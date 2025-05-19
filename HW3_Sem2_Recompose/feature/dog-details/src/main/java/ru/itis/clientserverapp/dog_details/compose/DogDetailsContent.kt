@@ -1,4 +1,4 @@
-package ru.itis.clientserverapp.dog_details
+package ru.itis.clientserverapp.dog_details.compose
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState

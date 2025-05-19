@@ -55,6 +55,7 @@ dependencies {
         // Feature Modules
         implementation(project(path = ":feature:dog-details"))
         implementation(project(path = ":feature:mainpage"))
+        implementation(project(path = ":feature:graph-screen"))
 
         // AndroidX
         implementation(libs.androidx.activity)

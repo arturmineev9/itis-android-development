@@ -1,4 +1,4 @@
-package ru.itis.clientserverapp.dog_details
+package ru.itis.clientserverapp.dog_details.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

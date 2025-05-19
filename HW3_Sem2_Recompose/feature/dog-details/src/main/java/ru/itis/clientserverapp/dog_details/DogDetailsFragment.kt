@@ -4,20 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import ru.itis.clientserverapp.base_feature.BaseFragment
+import ru.itis.clientserverapp.dog_details.compose.DogDetailsScreen
 import ru.itis.clientserverapp.dog_details.constants.DogDetailsConstants
 import ru.itis.clientserverapp.dog_details.databinding.FragmentDogDetailsBinding
-import ru.itis.clientserverapp.domain.models.DogModel
+import ru.itis.clientserverapp.dog_details.viewmodel.DogDetailsViewModel
 
 
 @AndroidEntryPoint
@@ -40,7 +34,6 @@ class DogDetailsFragment : BaseFragment(R.layout.fragment_dog_details) {
             }
         }
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

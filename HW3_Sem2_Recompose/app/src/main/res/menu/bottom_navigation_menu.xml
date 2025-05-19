@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mainPageScreen"
+        android:icon="@drawable/ic_dog_paw"
+        android:title="@string/dog_page" />
+
+    <item
+        android:id="@+id/graphPageScreen"
+        android:icon="@drawable/ic_chart"
+        android:title="@string/graph_page" />
+
+</menu>

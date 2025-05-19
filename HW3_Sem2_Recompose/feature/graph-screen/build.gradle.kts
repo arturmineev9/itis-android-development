@@ -3,11 +3,10 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt.plugin)
-    alias(libs.plugins.compose.compiler)
 }
 
 android {
-    namespace = "ru.itis.clientserverapp.dog_details"
+    namespace = "ru.itis.clientserverapp.graph_screen"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -30,34 +29,24 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-
-    buildFeatures {
-        viewBinding = true
-    }
-
     kotlinOptions {
         jvmTarget = "11"
     }
 }
 
 dependencies {
+
     // Core Modules
     implementation(project(path = ":core:base-feature"))
     implementation(project(path = ":core:domain"))
-    implementation(project(path = ":core:utils"))
 
     // AndroidX
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.fragment)
-    implementation(libs.androidx.material3)
 
-    // Compose
-    implementation(libs.coil.compose)
-
-    // UI
+    // UI Components
     implementation(libs.material)
-
     implementation(libs.glide)
 
     // Lifecycle
@@ -65,6 +54,9 @@ dependencies {
 
     // Coroutines
     implementation(libs.coroutines)
+
+    // Network
+    implementation(libs.bundles.network.deps)
 
     // Dependency Injection
     implementation(libs.hilt)

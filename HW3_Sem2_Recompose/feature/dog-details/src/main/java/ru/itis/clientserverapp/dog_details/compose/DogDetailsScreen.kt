@@ -1,4 +1,4 @@
-package ru.itis.clientserverapp.dog_details
+package ru.itis.clientserverapp.dog_details.compose
 
 import android.widget.Toast
 import androidx.compose.runtime.*
@@ -11,6 +11,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
+import ru.itis.clientserverapp.dog_details.viewmodel.DogDetailsViewModel
+import ru.itis.clientserverapp.dog_details.R
 import ru.itis.clientserverapp.dog_details.constants.DogDetailsConstants
 
 @Composable
