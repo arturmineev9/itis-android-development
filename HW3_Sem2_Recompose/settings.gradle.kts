@@ -19,5 +19,14 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "HW3_Sem2_Recompose"
+rootProject.name = "ClientServerAppBase"
 include(":app")
+include(":core:data")
+include(":core:domain")
+include(":feature:mainpage")
+include(":core:base")
+include(":feature:dog-details")
+include(":core:navigation")
+include(":core:network")
+include(":core:base-feature")
+include(":core:utils")
