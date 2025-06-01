@@ -9,5 +9,6 @@
     <string name="breed_group_format">Breed group: %s</string>
     <string name="dog_page">Собаки</string>
     <string name="graph_page">График</string>
+    <string name="default_notification_channel_id">default channel</string>
 
 </resources>
