@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt.plugin)
     alias(libs.plugins.google.services)
+    alias(libs.plugins.crashlytics.plugin)
 }
 
 android {
@@ -63,6 +64,7 @@ dependencies {
         implementation(libs.androidx.appcompat)
         implementation(libs.androidx.constraintlayout)
         implementation(libs.androidx.core.ktx)
+        implementation(libs.androidx.lifecycle.process)
 
         // UI
         implementation(libs.material)
@@ -77,5 +79,8 @@ dependencies {
 
         // Firebase
         implementation(libs.firebase.messaging)
+        implementation(libs.firebase.crashlytics)
+        implementation(libs.firebase.analytics)
+        implementation(libs.firebase.remote.config)
     }
 }

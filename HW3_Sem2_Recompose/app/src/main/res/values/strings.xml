@@ -11,4 +11,14 @@
     <string name="graph_page">График</string>
     <string name="default_notification_channel_id">default channel</string>
 
+    <!--AppMessagingService -->
+    <string name="default_notification_title">Нет заголовка</string>
+    <string name="default_notification_message">Нет сообщения</string>
+
+    <!-- MainActivity -->
+    <string name="toast_notifications_allowed">Уведомления разрешены!</string>
+    <string name="toast_notifications_denied">Вы запретили уведомления!</string>
+    <string name="toast_feature_unavailable">Функция временно недоступна</string>
+    <string name="toast_graph_access_denied">Доступ к этой фиче закрыт</string>
+    <string name="toast_already_on_graph">Вы уже на экране графика</string>
 </resources>

@@ -8,10 +8,12 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.edit
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
-import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.Firebase
+import com.google.firebase.remoteconfig.remoteConfig
 import dagger.hilt.android.AndroidEntryPoint
 import ru.itis.clientserverapp.app.R
 import ru.itis.clientserverapp.app.databinding.ActivityMainBinding
@@ -37,16 +39,27 @@ class MainActivity : AppCompatActivity(), Nav.Provider {
         setupNavigation()
         setupBottomNavigation()
         checkAndRequestNotificationPermission()
+    }
 
-        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                Toast.makeText(this, "Task error", Toast.LENGTH_SHORT).show()
-                return@addOnCompleteListener
+    override fun onResume() {
+        super.onResume()
+
+        val prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+        val shouldOpenGraph = prefs.getBoolean(SHOULD_OPEN_GRAPH_FRAGMENT, false)
+
+        if (shouldOpenGraph) {
+            prefs.edit { putBoolean(SHOULD_OPEN_GRAPH_FRAGMENT, false) }
+
+            if (checkAuthorization()) {
+                val currentDestination = navController.currentDestination?.id
+                if (currentDestination != R.id.graphPageScreen) {
+                    navController.navigate(R.id.graphPageScreen)
+                } else {
+                    showToast(getString(R.string.toast_already_on_graph))
+                }
+            } else {
+                showToast(getString(R.string.toast_graph_access_denied))
             }
-
-            val token = task.result
-            println("TEST TAG - Token: $token")
-            Toast.makeText(this, "Token recieved", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -54,31 +67,44 @@ class MainActivity : AppCompatActivity(), Nav.Provider {
         val navHost =
             supportFragmentManager.findFragmentById(mainContainerId) as NavHostFragment
         navController = navHost.navController
-        nav.setNavProvider(navProvider = this)
+        nav.setNavProvider(this)
     }
 
     private fun setupBottomNavigation() {
-        viewBinding?.bottomNavigation?.setupWithNavController(navController)
+        viewBinding?.bottomNavigation?.setOnItemSelectedListener { item ->
+            val remoteConfig = Firebase.remoteConfig
+
+            if (item.itemId == R.id.graphPageScreen) {
+                val isFeatureEnabled = remoteConfig.getBoolean(GRAPH_SCREEN_ACCESS_FLAG)
+                if (!isFeatureEnabled) {
+                    showToast(getString(R.string.toast_feature_unavailable))
+                    return@setOnItemSelectedListener false
+                }
+            }
+
+            val handled = item.itemId != navController.currentDestination?.id
+            if (handled) {
+                navController.navigate(item.itemId)
+            }
+            true
+        }
     }
 
-    override fun getNavController(): NavController? {
-        return navController
-    }
+    override fun getNavController(): NavController? = navController
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
-        if (isGranted) {
-            Toast.makeText(this, "Уведомления разрешены!", Toast.LENGTH_SHORT).show()
+        val message = if (isGranted) {
+            getString(R.string.toast_notifications_allowed)
         } else {
-            Toast.makeText(this, "Вы запретили уведомления!", Toast.LENGTH_SHORT).show()
+            getString(R.string.toast_notifications_denied)
         }
+        showToast(message)
     }
 
     private fun checkAndRequestNotificationPermission() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-            return
-        }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
 
         val permission = Manifest.permission.POST_NOTIFICATIONS
         val hasPermission = ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
@@ -88,11 +114,25 @@ class MainActivity : AppCompatActivity(), Nav.Provider {
         }
     }
 
+    private fun checkAuthorization(): Boolean {
+        return true
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         if (this::nav.isInitialized) {
-            nav.clearNavProvider(navProvider = this)
+            nav.clearNavProvider(this)
         }
         viewBinding = null
+    }
+
+    companion object {
+        const val PREFS_NAME = "fcm_prefs"
+        const val SHOULD_OPEN_GRAPH_FRAGMENT = "shouldOpenGraphFragment"
+        const val GRAPH_SCREEN_ACCESS_FLAG = "graph_screen_access_flag"
     }
 }
