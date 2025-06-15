@@ -3,6 +3,7 @@ package ru.itis.hw5_sem2_custom_view
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.graphics.*
+import androidx.core.content.ContextCompat
 import ru.itis.hw5_sem2_custom_view.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -16,17 +17,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        binding.circularView.apply {
-            sectorCount = 5
+        val context = binding.pieChartView.context
+        binding.pieChartView.apply {
+            sectorCount = 6
             sectorColors = listOf(
-                Color.RED,
-                Color.BLUE,
-                Color.YELLOW,
-                Color.GREEN,
-                Color.MAGENTA
+                ContextCompat.getColor(context, R.color.chart_red),
+                ContextCompat.getColor(context, R.color.chart_blue),
+                ContextCompat.getColor(context, R.color.chart_orange),
+                ContextCompat.getColor(context, R.color.chart_cyan),
+                ContextCompat.getColor(context, R.color.chart_grey),
+                ContextCompat.getColor(context, R.color.chart_yellow)
             )
         }
-
     }
 
     override fun onDestroy() {

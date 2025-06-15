@@ -7,10 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <ru.itis.hw5_sem2_custom_view.CircularSegmentView
-        android:id="@+id/circularView"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+    <ru.itis.hw5_sem2_custom_view.PieChartView
+        android:id="@+id/pieChartView"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

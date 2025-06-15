@@ -2,4 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="chart_red">#DE6967</color>
+    <color name="chart_cyan">#32CEED</color>
+    <color name="chart_yellow">#FDD729</color>
+    <color name="chart_orange">#F7AB38</color>
+    <color name="chart_blue">#2BA6FD</color>
+    <color name="chart_grey">#E7E7E7</color>
 </resources>
